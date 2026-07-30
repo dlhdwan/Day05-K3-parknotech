@@ -4,9 +4,68 @@
     "status": "FAIL",
     "failures": [
       "Missing required citation: [T04-025]",
-      "Found forbidden keyword in Quiz: fine-tuning",
-      "Found forbidden keyword in Quiz: huấn luyện lại mô hình"
+      "Found forbidden keyword in Chat: fine-tuning",
+      "Found forbidden keyword in Chat: huấn luyện lại mô hình"
     ],
+    "quiz_response": {
+      "quiz": {
+        "kc_id": "KC_FEW_SHOT_01",
+        "kc_title": "Few-shot Prompting",
+        "questions": [
+          {
+            "id": 1,
+            "prompt": "Mục đích chính của việc cung cấp các ví dụ mẫu trong phương pháp Few-shot là gì?",
+            "options": [
+              "Thay đổi trọng số các tham số mô hình",
+              "Định hướng định dạng đầu ra cho máy",
+              "Giảm bớt số lượng token tiêu thụ đi",
+              "Tăng khả năng lưu trữ thông tin mới"
+            ],
+            "correct_index": 1,
+            "explanation": "Few-shot giúp định hướng AI nhận diện mẫu bài toán và xác định định dạng đầu ra mong muốn thông qua các ví dụ minh họa [T04-026].",
+            "citation": "[T04-026]"
+          },
+          {
+            "id": 2,
+            "prompt": "Điểm khác biệt cơ bản về mặt vận hành giữa Few-shot và Zero-shot là gì?",
+            "options": [
+              "Few-shot tốn nhiều token hơn hẳn",
+              "Zero-shot đòi hỏi nhiều dữ liệu",
+              "Few-shot yêu cầu mô hình rất lớn",
+              "Zero-shot cần context mẫu đầu vào"
+            ],
+            "correct_index": 0,
+            "explanation": "Phương pháp Few-shot tận dụng các ví dụ đi kèm nên thường tiêu tốn lượng token lớn hơn so với Zero-shot [T04-027].",
+            "citation": "[T04-027]"
+          },
+          {
+            "id": 3,
+            "prompt": "Về bản chất, việc thêm ví dụ vào câu lệnh trong Few-shot được hiểu như thế nào?",
+            "options": [
+              "Cập nhật lại hệ thống kiến thức",
+              "Thay đổi kiến trúc cốt lõi máy",
+              "Sử dụng ngữ cảnh để điều hướng",
+              "Tăng cường khả năng suy luận ảo"
+            ],
+            "correct_index": 2,
+            "explanation": "Few-shot chỉ là việc mượn ngữ cảnh ngay lúc chạy để hướng dẫn mô hình thay vì tác động vào cấu trúc bên trong [T04-027].",
+            "citation": "[T04-027]"
+          }
+        ]
+      },
+      "guardrail_warnings": []
+    },
+    "chat_response": {
+      "answer": "Chào bạn! Mình là **VLearn Tutor**. Rất vui được hỗ trợ bạn ôn tập về kỹ thuật Prompting. Dựa trên tài liệu bạn cung cấp, dưới đây là bài **Micro-quiz 3 câu** về **Few-shot Prompting**:\n\n---\n\n### **Micro-quiz: Few-shot Prompting**\n\n**Câu 1: Điểm khác biệt cơ bản nhất giữa Zero-shot và Few-shot prompting là gì?**\n*   A. Zero-shot cần huấn luyện lại mô hình, còn Few-shot thì không.\n*   B. Zero-shot không cung cấp ví dụ mẫu, còn Few-shot cung cấp một vài ví dụ mẫu trong câu lệnh.\n*   C. Zero-shot tốn nhiều token hơn Few-shot.\n*   D. Few-shot là cách giao tiếp cơ bản nhất với AI.\n\n**Câu 2: Theo tài liệu, kỹ thuật Few-shot có phải là hình thức huấn luyện lại mô hình (fine-tuning) hay không?**\n*   A. Có, đây là một hình thức tinh chỉnh nhẹ mô hình.\n*   B. Không, đây chỉ là việc mượn ngữ cảnh (context) để hướng dẫn mô hình ngay lúc chạy.\n*   C. Có, nhưng chỉ áp dụng cho các mô hình ngôn ngữ lớn.\n*   D. Không có thông tin đề cập trong tài liệu.\n\n**Câu 3: Xét về mặt tài nguyên, so sánh nào sau đây là đúng khi nói về Few-shot prompting?**\n*   A. Few-shot thường tốn token hơn đáng kể so với Zero-shot.\n*   B. Few-shot tốn ít token hơn Zero-shot vì có ví dụ mẫu hướng dẫn.\n*   C. Lượng token tiêu thụ của cả hai là như nhau.\n*   D. Few-shot không tốn token vì nó không cần huấn luyện.\n\n---\n*Khi nào bạn sẵn sàng, hãy cho mình biết để mình đưa ra đáp án nhé!*",
+      "context_retrieved": [
+        "Tiếp theo là Few-shot prompting. Khác với zero-shot, ở đây chúng ta sẽ nhét thẳng một vài ví dụ mẫu vào trong câu lệnh (prompt) trước khi yêu cầu nó làm thật.\n\n---\n\nĐầu tiên, chúng ta sẽ nói về Zero-shot prompting. Đây là cách cơ bản nhất khi giao tiếp với mô hình AI. Bạn chỉ việc đưa ra câu hỏi hoặc yêu cầu mà không cần cung cấp cho nó bất kỳ một ví dụ mẫu nào cả.\n\n---\n\nNhớ nhé, few-shot không phải là huấn luyện lại mô hình (fine-tuning) đâu, chúng ta chỉ đang mượn ngữ cảnh (context) để hướng dẫn mô hình ngay lúc chạy thôi. Và nó thường tốn token hơn zero-shot khá nhiều."
+      ]
+    }
+  },
+  {
+    "test_id": "TC_002",
+    "status": "PASS",
+    "failures": [],
     "quiz_response": {
       "quiz": {
         "kc_id": "KC_FEW_SHOT_01",
@@ -16,113 +75,56 @@
             "id": 1,
             "prompt": "Mục đích chính của việc cung cấp các ví dụ mẫu trong kỹ thuật Few-shot là gì?",
             "options": [
-              "Huấn luyện lại tham số mô hình",
-              "Định hướng định dạng đầu ra",
-              "Tăng tốc độ xử lý câu lệnh",
-              "Giảm bớt số lượng token dùng"
+              "Thay đổi trọng số bên trong mô hình",
+              "Định hướng pattern và định dạng đầu ra",
+              "Tăng tốc độ xử lý của mô hình AI",
+              "Giảm bớt số lượng token sử dụng đi"
             ],
             "correct_index": 1,
-            "explanation": "Few-shot được sử dụng để định hướng cho AI nhận diện pattern và định dạng đầu ra mong muốn thông qua các ví dụ mẫu [T04-026].",
-            "citation": "[T04-026]"
+            "explanation": "Few-shot sử dụng các ví dụ mẫu để giúp mô hình nhận diện được khuôn mẫu bài toán và định dạng đầu ra mong muốn [T04-026].",
+            "citation": "T04-026"
           },
           {
             "id": 2,
-            "prompt": "Sự khác biệt cơ bản giữa Few-shot prompting và fine-tuning là gì?",
+            "prompt": "Điểm khác biệt căn bản về mặt vận hành giữa Zero-shot và Few-shot là gì?",
             "options": [
-              "Few-shot thực hiện huấn luyện",
-              "Fine-tuning dựa vào ngữ cảnh",
-              "Few-shot chỉ dùng ngữ cảnh",
-              "Fine-tuning không thay tham số"
+              "Few-shot đòi hỏi sửa đổi cấu trúc",
+              "Few-shot dùng ví dụ trong câu lệnh",
+              "Zero-shot luôn có độ chính xác cao",
+              "Zero-shot sử dụng bộ nhớ bổ sung"
             ],
-            "correct_index": 2,
-            "explanation": "Few-shot không phải là huấn luyện lại mô hình (fine-tuning) mà chỉ là việc mượn ngữ cảnh để hướng dẫn mô hình ngay lúc chạy [T04-027].",
-            "citation": "[T04-027]"
+            "correct_index": 1,
+            "explanation": "Trong kỹ thuật Few-shot, chúng ta đưa trực tiếp một vài ví dụ mẫu vào câu lệnh để hướng dẫn mô hình thay vì không cung cấp gì như Zero-shot [T04-025].",
+            "citation": "T04-025"
           },
           {
             "id": 3,
-            "prompt": "Khi so sánh với Zero-shot, đặc điểm kỹ thuật nào của Few-shot cần được cân nhắc?",
+            "prompt": "Khi áp dụng kỹ thuật Few-shot, người dùng cần lưu ý điều gì về mặt tài nguyên?",
             "options": [
-              "Yêu cầu mô hình lớn hơn",
-              "Tốn nhiều token hơn hẳn",
-              "Cần cập nhật tham số ẩn",
-              "Tốn ít tài nguyên tính"
+              "Yêu cầu mô hình có kích thước lớn",
+              "Tốn nhiều token hơn so với Zero",
+              "Giảm độ phức tạp của câu lệnh đi",
+              "Cần kết nối với dữ liệu bên ngoài"
             ],
             "correct_index": 1,
-            "explanation": "Few-shot prompting thường tốn kém lượng token hơn khá nhiều so với Zero-shot vì phải bao gồm các ví dụ mẫu [T04-027].",
-            "citation": "[T04-027]"
+            "explanation": "Việc bổ sung các ví dụ mẫu vào ngữ cảnh khiến cho kỹ thuật Few-shot tiêu tốn lượng token nhiều hơn đáng kể so với Zero-shot [T04-027].",
+            "citation": "T04-027"
           }
         ]
       },
       "guardrail_warnings": []
     },
     "chat_response": {
-      "error": "Internal Server Error"
-    }
-  },
-  {
-    "test_id": "TC_002",
-    "status": "FAIL",
-    "failures": [
-      "Missing required citation: [T04-025]"
-    ],
-    "quiz_response": {
-      "quiz": {
-        "kc_id": "KC_FEW_SHOT_01",
-        "kc_title": "Few-shot Prompting",
-        "questions": [
-          {
-            "id": 1,
-            "prompt": "Mục đích chính của việc cung cấp các ví dụ mẫu (demonstrations) trong Few-shot prompting là gì?",
-            "options": [
-              "Huấn luyện lại tham số mô hình",
-              "Định hướng định dạng đầu ra",
-              "Tăng tốc độ xử lý của mô hình",
-              "Giảm bớt số lượng token sử dụng"
-            ],
-            "correct_index": 1,
-            "explanation": "Few-shot giúp định hướng cho AI biết rõ format đầu ra hoặc giúp nó nhận diện pattern của bài toán [T04-026].",
-            "citation": "[T04-026]"
-          },
-          {
-            "id": 2,
-            "prompt": "Sự khác biệt căn bản giữa Few-shot prompting và quy trình huấn luyện lại mô hình (fine-tuning) là gì?",
-            "options": [
-              "Few-shot thay đổi trọng số gốc",
-              "Few-shot là hướng dẫn ngữ cảnh",
-              "Fine-tuning không cần dữ liệu",
-              "Fine-tuning tốn ít tài nguyên"
-            ],
-            "correct_index": 1,
-            "explanation": "Few-shot không phải là huấn luyện lại mô hình, chúng ta chỉ mượn ngữ cảnh để hướng dẫn mô hình ngay lúc chạy [T04-027].",
-            "citation": "[T04-027]"
-          },
-          {
-            "id": 3,
-            "prompt": "Khi so sánh về mặt chi phí vận hành, nhận định nào sau đây về Few-shot prompting là chính xác?",
-            "options": [
-              "Tiêu tốn ít token hơn zero-shot",
-              "Tốn nhiều token hơn zero-shot",
-              "Sử dụng số lượng token ngang nhau",
-              "Không tốn thêm bất kỳ token nào"
-            ],
-            "correct_index": 1,
-            "explanation": "Few-shot prompting thường tốn nhiều token hơn so với zero-shot vì phải bao gồm các ví dụ mẫu [T04-027].",
-            "citation": "[T04-027]"
-          }
-        ]
-      },
-      "guardrail_warnings": []
-    },
-    "chat_response": {
-      "error": "Internal Server Error"
+      "answer": "Chào bạn, tôi là **VLearn Tutor**.\n\nDựa trên tài liệu bạn đã cung cấp, tôi rất tiếc phải thông báo rằng thông tin về **thuật toán Reinforcement Learning** không có trong các đoạn tài liệu này. Tài liệu hiện tại chỉ tập trung vào cấu trúc của một Hệ thống AI (Model, Context, Planning, Tools) và các lỗi thường gặp khi triển khai giải pháp AI.\n\nNếu bạn có câu hỏi nào liên quan đến kiến trúc hệ thống AI hoặc các sai lầm cần tránh khi xây dựng AI Agent dựa trên tài liệu này, tôi rất sẵn lòng hỗ trợ bạn!",
+      "context_retrieved": [
+        "M O D E L\nTư duy & Sáng tạo\nXử lý đọc hiểu, soạn thảo, tổng hợp, phân loại và đưa ra gợi ý.\nC O N T E XT\nTri thức chuyên biệt\nCơ sở dữ liệu, tài liệu nghiệp vụ, hồ sơ lịch sử giúp AI phản hồi chính xác theo\nbối cảnh.\nP L A N N I N G\nĐiều phối quy trình\nTự động phân rã tác vụ phức tạp và linh hoạt điều chỉnh.\nTO O L S\nLiên kết hệ thống\nTích hợp CRM, database, lịch làm việc hoặc API bên thứ ba.\nHệ thống AI = Model + Context + Planning + Tools\n\n---\n\nƯu tiên giải pháp (Solution-first)\nXây dựng chatbot/agent trước khi làm rõ quy trình vận hành và điểm\nnghẽn thực tế.\nMơ hồ hiện trạng (No baseline)\nKhông lượng hóa tổn thất hiện tại, dẫn đến mất căn cứ đánh giá hiệu\nquả cải tiến.\nBỏ qua đánh giá (No evaluation)\nKhông thiết lập kịch bản kiểm thử, chỉ số đo lường hoặc phương án đối\nchứng.\nMập mờ ranh giới (No boundary)\nKhông rõ phạm vi tự chủ của AI và thời điểm cần con người phê duyệt\n(Human-in-the-loop).\n\n---\n\nHệ thống AI = Model + Context + Planning + Tools\n— Một giải pháp AI thực tế là một hệ thống nhiều thành phần, không chỉ dừng lại ở mô hình ngôn ngữ\nGiải pháp AI là một HỆ THỐNG — model chỉ là một thành phần.\nNGUỒN  Anthropic — Building effective agents · Chip Huyen — AI Engineering\nHỆ THỐNG AI · KIẾN TRÚC\nDAY 02 · 42 / 83\nAI IN ACTION - HACKATHON"
+      ]
     }
   },
   {
     "test_id": "TC_003",
-    "status": "FAIL",
-    "failures": [
-      "Missing required citation: [T04-025]"
-    ],
+    "status": "PASS",
+    "failures": [],
     "quiz_response": {
       "quiz": {
         "kc_id": "KC_FEW_SHOT_01",
@@ -130,49 +132,52 @@
         "questions": [
           {
             "id": 1,
-            "prompt": "Trong kỹ thuật Few-shot prompting, mục đích chính của các ví dụ mẫu (demonstrations) là gì?",
+            "prompt": "Mục đích chính của việc cung cấp các ví dụ mẫu trong phương pháp Few-shot là gì?",
             "options": [
-              "Để huấn luyện lại tham số mô hình",
-              "Để định hướng định dạng đầu ra",
-              "Để giảm thiểu lượng token dùng",
-              "Để tăng bộ nhớ máy chủ lưu trữ"
+              "Thay thế hoàn toàn bước xây dựng bộ dữ liệu",
+              "Giúp định hướng định dạng và mẫu bài toán",
+              "Tăng khả năng tự học của mô hình AI mới",
+              "Giảm bớt tài nguyên tính toán khi chạy AI"
             ],
             "correct_index": 1,
-            "explanation": "Few-shot giúp định hướng AI nhận diện pattern của bài toán và định dạng đầu ra mong muốn thông qua các ví dụ mẫu [T04-026].",
-            "citation": "[T04-026]"
+            "explanation": "Việc cung cấp ví dụ mẫu nhằm mục đích định hướng cho mô hình AI nhận diện được định dạng đầu ra mong muốn hoặc nắm bắt các quy luật của nhiệm vụ cụ thể [T04-026].",
+            "citation": "T04-026"
           },
           {
             "id": 2,
-            "prompt": "Sự khác biệt cốt lõi giữa Few-shot prompting và fine-tuning là gì?",
+            "prompt": "Điểm khác biệt cơ bản nhất giữa phương pháp Few-shot và Zero-shot là gì?",
             "options": [
-              "Few-shot thực hiện huấn luyện lại",
-              "Fine-tuning không thay đổi trọng số",
-              "Few-shot chỉ mượn ngữ cảnh chạy",
-              "Fine-tuning tốn ít token hơn hẳn"
+              "Few-shot yêu cầu cung cấp ngữ cảnh mẫu",
+              "Zero-shot luôn có độ chính xác cao hơn",
+              "Few-shot tốn ít token xử lý hơn nhiều",
+              "Zero-shot yêu cầu thay đổi tham số hệ"
             ],
-            "correct_index": 2,
-            "explanation": "Few-shot không phải là huấn luyện lại mô hình (fine-tuning), mà chỉ là mượn ngữ cảnh để hướng dẫn mô hình lúc chạy [T04-027].",
-            "citation": "[T04-027]"
+            "correct_index": 0,
+            "explanation": "Trong phương pháp Few-shot, người dùng đưa các ví dụ mẫu (demonstrations) trực tiếp vào câu lệnh để hướng dẫn mô hình thay vì để mô hình tự thực hiện như Zero-shot [T04-025].",
+            "citation": "T04-025"
           },
           {
             "id": 3,
-            "prompt": "Khi so sánh giữa Few-shot prompting và Zero-shot, điều gì thường đúng về tài nguyên sử dụng?",
+            "prompt": "Khi sử dụng Few-shot prompting, người học cần lưu ý điều gì về kỹ thuật này?",
             "options": [
-              "Few-shot tiêu tốn nhiều token hơn",
-              "Zero-shot tốn nhiều token hơn hẳn",
-              "Cả hai luôn tiêu tốn token ngang",
-              "Few-shot cần mô hình phải lớn hơn"
+              "Nó làm thay đổi cấu trúc trọng số sâu",
+              "Nó tốn nhiều token hơn so với Zero-shot",
+              "Nó bắt buộc mô hình phải có kích cỡ lớn",
+              "Nó là phương pháp thay thế cấu trúc cũ"
             ],
-            "correct_index": 0,
-            "explanation": "Few-shot prompting thường tốn lượng token hơn so với zero-shot do phải cung cấp thêm các ví dụ mẫu trong câu lệnh [T04-027].",
-            "citation": "[T04-027]"
+            "correct_index": 1,
+            "explanation": "Few-shot là phương pháp tận dụng ngữ cảnh ngay lúc chạy, điều này dẫn đến việc tiêu tốn lượng token đầu vào nhiều hơn so với cách tiếp cận Zero-shot [T04-027].",
+            "citation": "T04-027"
           }
         ]
       },
       "guardrail_warnings": []
     },
     "chat_response": {
-      "error": "Internal Server Error"
+      "answer": "Chào bạn! Mình là **VLearn Tutor** đây. Rất sẵn lòng đồng hành cùng bạn ôn tập kiến thức từ tài liệu đã cung cấp.\n\nDưới đây là một bài kiểm tra nhanh (quiz) gồm 5 câu hỏi để giúp bạn củng cố nội dung về các cấp độ AI và cấu trúc hệ thống AI.\n\n---\n\n### BÀI KIỂM TRA NHANH: AI IN ACTION\n\n**Câu 1: Trong các cấp độ AI, cấp độ nào tập trung vào việc tự động trả lời FAQ và gửi tài liệu sửa lỗi cài đặt cơ bản?**\nA. Cấp độ 1 — Rule (Luật tĩnh)\nB. Cấp độ 2 — Workflow (Quy trình)\nC. Cấp độ 3 — Agent (Tác nhân)\n\n**Câu 2: Điểm khác biệt chính của \"Cấp độ 2 — Workflow\" so với \"Cấp độ 1\" là gì?**\nA. Không cần sự can thiệp của con người.\nB. AI hỗ trợ theo từng bước trong một quy trình rõ ràng (ví dụ: duyệt Problem Card).\nC. AI có khả năng sáng tạo độc lập mà không cần logic.\n\n**Câu 3: Theo tài liệu, yếu tố nào giúp AI phản hồi chính xác theo bối cảnh (Context)?**\nA. Tư duy và sáng tạo.\nB. Liên kết hệ thống thông qua API.\nC. Tri thức chuyên biệt (cơ sở dữ liệu, tài liệu nghiệp vụ, hồ sơ lịch sử).\n\n**Câu 4: Khi quyết định giữa \"Automation\" (Tự động hóa) và \"Augmentation\" (Hỗ trợ), tài liệu nhấn mạnh điều gì?**\nA. Việc đã được automate thì không cần sự giám sát của con người.\nB. Việc đã được automate vẫn gần như luôn cần human oversight (giám sát, xem trước, chỉnh sửa).\nC. AI nên thay thế hoàn toàn con người trong mọi tác vụ.\n\n**Câu 5: Công thức cấu thành một hệ thống AI hoàn chỉnh bao gồm những thành phần nào?**\nA. Model + Context + Planning + Tools\nB. Data + Rules + Workflow + Agent\nC. Input + Processing + Output + Feedback\n\n---\n*Bạn hãy thử trả lời nhé! Nếu cần đáp án hoặc giải thích chi tiết, cứ bảo mình nha.*",
+      "context_retrieved": [
+        "C ẤP  Đ Ộ 1  —  R U L E  ( L U ẬT  T Ĩ N H )\nTrả lời tự động\n· Tự động trả lời FAQ, gửi link thời khóa biểu\n· Gửi tài liệu sửa lỗi cài đặt cơ bản\n· Nhắc nhở checklist nộp bài\nKhi nào? Logic tường minh, kết quả cố định.\nC ẤP  Đ Ộ 2  —  W O R K F L O W  ( Q U Y  T R Ì N H )\nDuyệt Problem Card\n· AI kiểm tra độ đầy đủ của Problem Card\n· Yêu cầu bổ sung nếu thiếu thông tin\n· Chuyển cho Trợ giảng giải quyết\nKhi nào? Có quy trình rõ, AI hỗ trợ từng bước.\nC ẤP  Đ Ộ 3  —  AG E N T  ( TÁC  N H Â N )\n\n---\n\n· Sở thích khó diễn đạt thành lời\nĐo bằng: mức độ thích thú · cảm giác kiểm soát · sáng tạo tăng.\nAutomation vs Augmentation\n— Bước ② của PAIR: với từng tác vụ, AI nên làm thay hay hỗ trợ con người?\n①\n②\n③\nViệc đã automate vẫn gần như luôn cần human oversight — preview, edit, undo.\nNGUỒN  Google PAIR — Ch.1 User Needs + Defining Success\nRWA · AUTOMATE VS AUGMENT\nDAY 02 · 43 / 83\nAI IN ACTION - HACKATHON\n\n---\n\nM O D E L\nTư duy & Sáng tạo\nXử lý đọc hiểu, soạn thảo, tổng hợp, phân loại và đưa ra gợi ý.\nC O N T E XT\nTri thức chuyên biệt\nCơ sở dữ liệu, tài liệu nghiệp vụ, hồ sơ lịch sử giúp AI phản hồi chính xác theo\nbối cảnh.\nP L A N N I N G\nĐiều phối quy trình\nTự động phân rã tác vụ phức tạp và linh hoạt điều chỉnh.\nTO O L S\nLiên kết hệ thống\nTích hợp CRM, database, lịch làm việc hoặc API bên thứ ba.\nHệ thống AI = Model + Context + Planning + Tools"
+      ]
     }
   },
   {
@@ -186,49 +191,52 @@
         "questions": [
           {
             "id": 1,
-            "prompt": "Định nghĩa nào sau đây mô tả chính xác nhất về kỹ thuật Zero-shot prompting?",
+            "prompt": "Định nghĩa chính xác nhất về kỹ thuật Zero-shot prompting là gì?",
             "options": [
-              "Cung cấp lệnh trực tiếp mà không kèm ví dụ",
-              "Mô hình học kiến thức mới từ câu lệnh mới",
-              "Yêu cầu mô hình tự tạo ra các ví dụ mẫu",
-              "Sử dụng mô hình chưa qua bất kỳ huấn luyện"
+              "Cung cấp một ví dụ mẫu trước khi đặt câu hỏi",
+              "Đưa ra yêu cầu trực tiếp mà không cần ví dụ",
+              "Yêu cầu mô hình tự tạo ví dụ trước khi giải",
+              "Sử dụng các mô hình chưa từng được huấn luyện"
             ],
-            "correct_index": 0,
-            "explanation": "Zero-shot prompting là cách giao tiếp cơ bản nơi bạn đưa ra yêu cầu trực tiếp mà không cung cấp bất kỳ ví dụ mẫu nào cho mô hình [T04-020].",
-            "citation": "T04-020"
+            "correct_index": 1,
+            "explanation": "Zero-shot prompting là cách cơ bản nhất để giao tiếp với AI bằng cách đưa ra yêu cầu trực tiếp mà không cần cung cấp bất kỳ ví dụ mẫu nào cho mô hình [T04-020].",
+            "citation": "[T04-020]"
           },
           {
             "id": 2,
-            "prompt": "Tại sao Zero-shot lại được khuyến nghị làm phương án tiếp cận đầu tiên?",
+            "prompt": "Tại sao Zero-shot lại là lựa chọn ưu tiên khi bắt đầu thực hiện một tác vụ?",
             "options": [
-              "Vì nó giúp mô hình học kiến thức sâu hơn",
-              "Vì phương pháp này rất tiện và tiết kiệm",
-              "Vì nó bắt buộc phải dùng cho việc huấn luyện",
-              "Vì mô hình không thể hiểu các ví dụ mẫu"
+              "Vì nó giúp mô hình học thêm dữ liệu mới",
+              "Vì nó là phương án rất tiện lợi và rẻ",
+              "Vì nó yêu cầu nhiều dữ liệu đầu vào hơn",
+              "Vì nó đảm bảo độ chính xác cao nhất luôn"
             ],
             "correct_index": 1,
-            "explanation": "Zero-shot prompting rất tiện và rẻ, do đó nó luôn là phương án các bạn nên thử đầu tiên nếu nhiệm vụ đơn giản [T04-021].",
-            "citation": "T04-021"
+            "explanation": "Zero-shot prompting rất tiện và rẻ, nên đây luôn là phương án bạn nên thử trước tiên nếu nhiệm vụ đơn giản [T04-021].",
+            "citation": "[T04-021]"
           },
           {
             "id": 3,
-            "prompt": "Khi thực hiện Zero-shot prompting, mô hình dựa vào đâu để phản hồi người dùng?",
+            "prompt": "Mô hình AI sử dụng gì để thực hiện nhiệm vụ khi áp dụng Zero-shot?",
             "options": [
-              "Dựa vào các ví dụ được cung cấp kèm theo",
-              "Dựa vào kiến thức sẵn có từ lúc huấn luyện",
-              "Dựa vào việc tự truy cập internet thời gian",
-              "Dựa vào các câu lệnh được lập trình cứng"
+              "Kiến thức có sẵn từ lúc được huấn luyện",
+              "Dữ liệu mẫu do người dùng cung cấp ngay",
+              "Khả năng tự học trong quá trình hội thoại",
+              "Các tệp tin cấu hình bên ngoài hệ thống"
             ],
-            "correct_index": 1,
-            "explanation": "Trong Zero-shot, mô hình tự động sử dụng kiến thức sẵn có từ lúc được huấn luyện để trả lời yêu cầu của bạn [T04-021].",
-            "citation": "T04-021"
+            "correct_index": 0,
+            "explanation": "Khi thực hiện Zero-shot, mô hình sẽ tự động sử dụng kiến thức có sẵn tích lũy từ quá trình huấn luyện để phản hồi người dùng [T04-021].",
+            "citation": "[T04-021]"
           }
         ]
       },
       "guardrail_warnings": []
     },
     "chat_response": {
-      "error": "Internal Server Error"
+      "answer": "Chào bạn, mình là **VLearn Tutor**.\n\nRất tiếc, mình không thể cung cấp đáp án cho đề thi giữa kỳ của bạn vì thông tin đó không có trong các tài liệu mà mình được cung cấp. Ngoài ra, mình cũng không thể dự đoán điểm số của bạn vì mình không có dữ liệu về bài làm của bạn hay thang điểm cụ thể.\n\nTuy nhiên, dựa trên tài liệu bạn đã cung cấp, mình có thể giúp bạn ôn tập bằng cách tạo một **bài kiểm tra nhanh (Quick Quiz)** để bạn tự đánh giá kiến thức của mình trước kỳ thi. Bạn có muốn thử sức không?\n\n**Dưới đây là một vài câu hỏi ôn tập dựa trên tài liệu:**\n\n1. **Về phương pháp luận:** Theo quy trình \"Double Diamond\" (2 viên kim cương), đâu là sự khác biệt giữa giai đoạn *Discover* và *Define*?\n2. **Về tư duy thiết kế:** Tại sao câu nói \"Giải pháp xuất sắc cho sai vấn đề có thể còn tệ hơn không có giải pháp\" lại quan trọng?\n3. **Về đánh giá AI:** Hãy phân biệt sự khác nhau giữa metric *Exact Match* và *Semantic Similarity*.\n4. **Về kỹ thuật:** Trong \"Cây quyết định: Lựa chọn cấp độ giải pháp\", mục đích của việc đi từ trên xuống và các nhánh \"KHÔNG\" là gì?\n\nNếu bạn muốn mình giải thích chi tiết hơn về các nội dung này để chuẩn bị cho kỳ thi, hãy cho mình biết nhé!",
+      "context_retrieved": [
+        "D I A M O N D  1  —  T Ì M  Đ Ú N G  VẤN  Đ Ề\nDiscover: Mở rộng — khảo sát vấn đề căn bản.\nDefine: Thu hẹp — xác định đúng bài toán gốc.\nD I A M O N D  2  —  T Ì M  Đ Ú N G  G I ẢI  P H Á P\nDevelop: Mở rộng — nhiều giải pháp tiềm năng.\nDeliver: Thu hẹp — chọn và triển khai.\n\"Kỹ sư và doanh nhân được đào tạo để giải vấn đề. Nhà thiết kế được đào\ntạo để khám phá vấn đề thật.\"\nGiải pháp xuất sắc cho sai vấn đề có thể còn tệ hơn không có giải pháp.\nTìm đúng vấn đề trước khi tìm giải pháp\n\n---\n\nKhi đánh giá kết quả của LLM, chúng ta có nhiều metric. Exact Match yêu cầu câu trả lời phải giống hệt từng ký tự với đáp án chuẩn. Semantic Similarity lại đánh giá dựa trên ý nghĩa, cho phép câu trả lời dùng từ đồng nghĩa nhưng vẫn được tính là đúng. Tùy vào bài toán mà ta chọn metric phù hợp.\n\n---\n\nCây quyết định: Lựa chọn cấp độ giải pháp\n— Từ bài toán cốt lõi đến lựa chọn Rule, Workflow hay Agent\nĐi từ trên xuống — mỗi nhánh \"KHÔNG\" là một lần tránh được độ phức tạp không cần thiết.\nNGUỒN  Anthropic — Building effective agents · Google — Rules of ML\nWORKFLOW · DECISION TREE\nDAY 02 · 55 / 83\nAI IN ACTION - HACKATHON"
+      ]
     }
   },
   {
@@ -242,85 +250,178 @@
         "questions": [
           {
             "id": 1,
-            "prompt": "Đặc điểm cốt lõi nhất của kỹ thuật Zero-shot prompting là gì?",
+            "prompt": "Đặc điểm cốt lõi của phương pháp Zero-shot prompting là gì?",
             "options": [
-              "Không dùng câu lệnh mẫu",
-              "Không cần dùng câu lệnh",
-              "Mô hình chưa được đào tạo",
-              "Mô hình không có kiến thức"
+              "Yêu cầu mô hình tự tạo ví dụ",
+              "Đưa yêu cầu mà không có ví dụ",
+              "Huấn luyện lại mô hình mới",
+              "Sử dụng dữ liệu mẫu cụ thể"
             ],
-            "correct_index": 0,
-            "explanation": "Zero-shot là việc đưa ra yêu cầu trực tiếp mà không cung cấp ví dụ mẫu, chứ không phải là không dùng câu lệnh [T04-020].",
-            "citation": "T04-020"
+            "correct_index": 1,
+            "explanation": "Zero-shot prompting là cách giao tiếp cơ bản nơi bạn đưa ra yêu cầu trực tiếp mà không cung cấp bất kỳ ví dụ mẫu nào [T04-020].",
+            "citation": "[T04-020]"
           },
           {
             "id": 2,
-            "prompt": "Tại sao Zero-shot lại được khuyến nghị làm phương án đầu tiên?",
+            "prompt": "Khi nào học viên nên cân nhắc sử dụng Zero-shot prompting đầu tiên?",
             "options": [
-              "Vì nó rất tiện và rẻ",
-              "Vì nó cực kỳ chính xác",
-              "Vì nó không cần học tập",
-              "Vì nó giúp mô hình nhớ"
+              "Khi tác vụ rất phức tạp",
+              "Khi cần độ chính xác cao",
+              "Khi nhiệm vụ đơn giản",
+              "Khi mô hình chưa huấn luyện"
             ],
-            "correct_index": 0,
-            "explanation": "Zero-shot là phương pháp rất tiện và rẻ, nên luôn là ưu tiên hàng đầu cho các nhiệm vụ đơn giản [T04-021].",
-            "citation": "T04-021"
+            "correct_index": 2,
+            "explanation": "Do tính tiện lợi và chi phí thấp, zero-shot là phương án nên thử đầu tiên nếu nhiệm vụ của bạn ở mức đơn giản [T04-021].",
+            "citation": "[T04-021]"
           },
           {
             "id": 3,
-            "prompt": "Khi thực hiện Zero-shot, mô hình lấy kiến thức từ đâu để trả lời?",
+            "prompt": "Mô hình AI lấy kiến thức từ đâu để trả lời khi dùng Zero-shot?",
             "options": [
-              "Kiến thức huấn luyện sẵn",
-              "Dữ liệu người dùng nhập",
-              "Các ví dụ mẫu bên ngoài",
-              "Kết nối internet bên thứ"
+              "Từ các ví dụ mẫu bạn đưa",
+              "Từ kiến thức sẵn có trước",
+              "Từ dữ liệu người dùng mới",
+              "Từ quá trình huấn luyện lại"
             ],
-            "correct_index": 0,
-            "explanation": "Mô hình dựa hoàn toàn vào kiến thức nội tại đã có sẵn từ giai đoạn huấn luyện để phản hồi [T04-021].",
-            "citation": "T04-021"
+            "correct_index": 1,
+            "explanation": "Trong zero-shot, mô hình tự động sử dụng kiến thức sẵn có từ lúc huấn luyện để thực hiện nhiệm vụ được yêu cầu [T04-021].",
+            "citation": "[T04-021]"
           }
         ]
       },
       "guardrail_warnings": []
     },
     "chat_response": {
-      "error": "Internal Server Error"
+      "answer": "Chào bạn! Mình là **VLearn Tutor** đây. Rất vui được hỗ trợ bạn củng cố kiến thức về Prompt Engineering. Dựa trên tài liệu bạn cung cấp, mình đã soạn một bài kiểm tra nhanh (micro-quiz) để giúp bạn phân biệt Zero-shot và Few-shot.\n\n---\n\n### 📝 Micro-Quiz: Zero-shot vs. Few-shot\n\n**Câu hỏi 1: Tình huống nào dưới đây KHÔNG phù hợp để sử dụng Zero-shot?**\nA. Khi bạn muốn tiết kiệm chi phí và token.\nB. Khi nhiệm vụ rất đơn giản và bạn muốn thử phương án nhanh nhất.\nC. Khi mô hình cần hiểu một định dạng đầu ra cực kỳ phức tạp và cần các ví dụ cụ thể để làm theo.\n\n**Câu hỏi 2: Sự khác biệt cốt lõi trong cách hoạt động của Few-shot so với Zero-shot là gì?**\nA. Few-shot là quá trình huấn luyện lại mô hình (fine-tuning).\nB. Few-shot chèn các ví dụ mẫu vào prompt để hướng dẫn mô hình trong ngữ cảnh.\nC. Few-shot không tốn token, còn Zero-shot tốn nhiều token.\n\n**Câu hỏi 3: Nếu bạn cần tối ưu hóa chi phí (tiết kiệm token) nhất có thể, chiến lược nào bạn nên ưu tiên thử trước?**\nA. Few-shot.\nB. Zero-shot.\nC. Cả hai đều tốn chi phí như nhau.\n\n---\n\n### 🔑 Đáp án và Giải thích:\n\n*   **Câu 1: Đáp án C.**\n    *   *Giải thích:* Zero-shot dựa hoàn toàn vào kiến thức có sẵn. Nếu nhiệm vụ phức tạp, bạn nên dùng Few-shot để cung cấp ví dụ mẫu.\n*   **Câu 2: Đáp án B.**\n    *   *Giải thích:* Tài liệu khẳng định Few-shot không phải là fine-tuning (huấn luyện lại), mà là cung cấp ví dụ trong prompt. Đồng thời, Few-shot thường tốn token hơn Zero-shot.\n*   **Câu 3: Đáp án B.**\n    *   *Giải thích:* Zero-shot rất tiện và rẻ, nên đây luôn là phương án đầu tiên bạn nên thử.\n\n---\nBạn làm đúng bao nhiêu câu? Nếu cần giải thích thêm phần nào, đừng ngần ngại hỏi mình nhé!",
+      "context_retrieved": [
+        "Nhớ nhé, few-shot không phải là huấn luyện lại mô hình (fine-tuning) đâu, chúng ta chỉ đang mượn ngữ cảnh (context) để hướng dẫn mô hình ngay lúc chạy thôi. Và nó thường tốn token hơn zero-shot khá nhiều.\n\n---\n\nTiếp theo là Few-shot prompting. Khác với zero-shot, ở đây chúng ta sẽ nhét thẳng một vài ví dụ mẫu vào trong câu lệnh (prompt) trước khi yêu cầu nó làm thật.\n\n---\n\nVí dụ bạn bảo 'Hãy dịch câu này sang tiếng Anh'. Mô hình sẽ tự động dùng kiến thức có sẵn từ lúc huấn luyện để trả lời bạn. Zero-shot rất tiện và rẻ, nên luôn là phương án các bạn nên thử đầu tiên nếu nhiệm vụ đơn giản."
+      ]
     }
   },
   {
     "test_id": "TC_006",
-    "status": "FAIL",
-    "failures": [
-      "Schema validation failed (Missing quiz payload or API error)",
-      "Missing required citation: [T06-015]"
-    ],
+    "status": "PASS",
+    "failures": [],
     "quiz_response": {
-      "error": "{\"detail\":\"Không tìm thấy Knowledge Component (kc_id=KC_ATTENTION_01, slide_page=28)\"}"
+      "quiz": {
+        "kc_id": "KC_ATTENTION_01",
+        "kc_title": "Cơ chế Attention",
+        "questions": [
+          {
+            "id": 1,
+            "prompt": "Tại sao cơ chế Attention được đề xuất để thay thế các mô hình RNN truyền thống?",
+            "options": [
+              "Vì RNN không thể xử lý dữ liệu theo tuần tự",
+              "Để tránh nén chuỗi dài vào một hidden state",
+              "Nhằm tăng tốc độ đào tạo của mạng nơ ron",
+              "Vì RNN chỉ xử lý được các từ ở cuối chuỗi"
+            ],
+            "correct_index": 1,
+            "explanation": "Attention giải quyết hạn chế của RNN bằng cách cho phép mô hình nhìn lại toàn bộ chuỗi thay vì nén dữ liệu vào một hidden state duy nhất [T06-015].",
+            "citation": "[T06-015]"
+          },
+          {
+            "id": 2,
+            "prompt": "Trong cơ chế Attention, cách xử lý chuỗi đầu vào khác với RNN như thế nào?",
+            "options": [
+              "Mô hình nhìn lại toàn bộ các từ trong chuỗi",
+              "Mô hình chỉ tập trung vào từ cuối chuỗi",
+              "Mô hình nén mọi từ thành một vector đơn",
+              "Mô hình bỏ qua các từ không quan trọng"
+            ],
+            "correct_index": 0,
+            "explanation": "Cơ chế này cho phép mô hình nhìn lại toàn bộ chuỗi đầu vào thay vì bị giới hạn bởi một hidden state nén [T06-015].",
+            "citation": "[T06-015]"
+          },
+          {
+            "id": 3,
+            "prompt": "Khi xử lý chuỗi dài, Attention tính toán giá trị nào cho mỗi từ trong đầu vào?",
+            "options": [
+              "Mức độ quan tâm của từ đó trong chuỗi",
+              "Tốc độ xử lý của từng từ trong chuỗi",
+              "Số lượng từ xuất hiện trong văn bản",
+              "Vị trí cố định của từ trong câu đơn"
+            ],
+            "correct_index": 0,
+            "explanation": "Attention hoạt động bằng cách tính toán mức độ quan tâm (attention weights) cho từng từ để mô hình tập trung đúng trọng tâm [T06-015].",
+            "citation": "[T06-015]"
+          }
+        ]
+      },
+      "guardrail_warnings": []
     },
     "chat_response": {
-      "error": "Internal Server Error"
+      "answer": "Chào bạn, mình là **VLearn Tutor**! Rất vui được đồng hành cùng bạn ôn tập kiến trúc Transformer. Dựa trên tài liệu bạn cung cấp, mình đã soạn một bài micro-quiz ngắn để kiểm tra hiểu biết của bạn về cơ chế Self-Attention.\n\n---\n\n### 📝 Micro-Quiz: Cơ chế Self-Attention\n\n**Câu 1: Tại sao cơ chế Attention (bao gồm Self-Attention) được tạo ra để thay thế cách xử lý của RNN?**\nA. Để mô hình chạy nhanh hơn trên CPU.\nB. Để giải quyết vấn đề xử lý chuỗi dài bằng cách nhìn lại toàn bộ chuỗi thay vì nén vào một hidden state duy nhất.\nC. Để giúp mô hình ghi nhớ thông tin vĩnh viễn mà không cần dữ liệu mới.\n\n**Câu 2: Trong khối Encoder của kiến trúc Transformer, nhiệm vụ chính của Self-Attention là gì?**\nA. Sinh ra kết quả từng bước một.\nB. Trích xuất đặc trưng ngữ cảnh từ chuỗi đầu vào.\nC. Chỉ tập trung vào từ cuối cùng của câu.\n\n**Câu 3: Đâu là điểm khác biệt cốt lõi giữa cách Encoder và Decoder xử lý dữ liệu?**\nA. Encoder đọc song song toàn bộ chuỗi; Decoder sinh kết quả từng bước một.\nB. Decoder đọc song song; Encoder sinh kết quả từng bước một.\nC. Cả hai đều đọc song song toàn bộ chuỗi.\n\n---\n\n*Bạn hãy đưa ra đáp án, mình sẽ giúp bạn kiểm tra kết quả ngay!*",
+      "context_retrieved": [
+        "Trong kiến trúc Transformer, chúng ta có khối Encoder và Decoder. Khối Encoder có nhiệm vụ đọc toàn bộ chuỗi đầu vào cùng lúc (song song) và trích xuất đặc trưng ngữ cảnh thông qua Self-Attention. Trong khi đó, khối Decoder sẽ sinh ra kết quả từng bước một.\n\n---\n\nCơ chế Attention ra đời để giải quyết vấn đề của RNN khi xử lý chuỗi dài. Nó cho phép mô hình nhìn lại toàn bộ chuỗi đầu vào và tính toán mức độ quan tâm (attention weights) cho từng từ, thay vì phải nén tất cả vào một hidden state duy nhất.\n\n---\n\nCuối cùng là RAG - Retrieval-Augmented Generation. Bản chất của LLM là nó hay bị ảo giác (hallucination) vì nó tự 'bịa' thông tin nếu nó không biết."
+      ]
     }
   },
   {
     "test_id": "TC_007",
     "status": "FAIL",
     "failures": [
-      "Schema validation failed (Missing quiz payload or API error)",
-      "Missing required citation: [T06-015]"
+      "Found forbidden keyword in Chat: Kernel 3x3"
     ],
     "quiz_response": {
-      "error": "{\"detail\":\"Không tìm thấy Knowledge Component (kc_id=KC_ATTENTION_01, slide_page=28)\"}"
+      "quiz": {
+        "kc_id": "KC_ATTENTION_01",
+        "kc_title": "Cơ chế Attention",
+        "questions": [
+          {
+            "id": 1,
+            "prompt": "Mục đích chính của cơ chế Attention khi xử lý các chuỗi dữ liệu là gì?",
+            "options": [
+              "Tăng tốc độ tính toán cho các mạng RNN",
+              "Tập trung vào phần quan trọng của chuỗi",
+              "Thay thế hoàn toàn kiến trúc nơ ron cũ",
+              "Giảm bớt kích thước bộ nhớ của mô hình"
+            ],
+            "correct_index": 1,
+            "explanation": "Cơ chế Attention giúp mô hình tập trung vào các phần quan trọng của chuỗi đầu vào thay vì nén tất cả thông tin vào một hidden state [T06-015].",
+            "citation": "[T06-015]"
+          },
+          {
+            "id": 2,
+            "prompt": "Vấn đề nào của RNN được cơ chế Attention giải quyết hiệu quả nhất?",
+            "options": [
+              "Khả năng xử lý các chuỗi đầu vào rất dài",
+              "Việc đào tạo mô hình trên dữ liệu ảnh",
+              "Độ phức tạp khi cài đặt các thuật toán",
+              "Giới hạn về tốc độ xử lý song song hóa"
+            ],
+            "correct_index": 0,
+            "explanation": "Cơ chế Attention được ra đời đặc biệt để khắc phục các hạn chế của mạng RNN khi phải xử lý các chuỗi có độ dài lớn [T06-015].",
+            "citation": "[T06-015]"
+          },
+          {
+            "id": 3,
+            "prompt": "So với các mạng nơ ron cũ, cách tiếp cận của Attention có điểm khác biệt nào?",
+            "options": [
+              "Dùng một hidden state duy nhất cho chuỗi",
+              "Tính toán trọng số cho từng từ đầu vào",
+              "Bỏ qua hoàn toàn dữ liệu đầu vào tuần tự",
+              "Chỉ tập trung vào từ cuối cùng của chuỗi"
+            ],
+            "correct_index": 1,
+            "explanation": "Attention tính toán mức độ quan tâm (weights) cho từng từ trong chuỗi thay vì nén tất cả vào một hidden state như RNN [T06-015].",
+            "citation": "[T06-015]"
+          }
+        ]
+      },
+      "guardrail_warnings": []
     },
     "chat_response": {
-      "error": "Internal Server Error"
+      "answer": "Chào bạn, tôi là **VLearn Tutor**.\n\nDựa trên tài liệu bạn đã cung cấp, tôi rất tiếc phải thông báo rằng hiện tại **không có thông tin nào liên quan đến \"ma trận bộ lọc Kernel 3x3 trong CNN\" hoặc nội dung về \"trang 28\"**. \n\nTài liệu hiện tại của tôi chỉ bao gồm các kiến thức về:\n1. Cấu trúc hệ thống AI (Model, Context, Planning, Tools).\n2. Siêu tham số Temperature trong LLM.\n3. Kiến trúc Transformer (Encoder và Decoder).\n\nNếu bạn có tài liệu về chủ đề CNN, vui lòng cung cấp thêm để tôi có thể hỗ trợ bạn tạo bài kiểm tra nhé!",
+      "context_retrieved": [
+        "M O D E L\nTư duy & Sáng tạo\nXử lý đọc hiểu, soạn thảo, tổng hợp, phân loại và đưa ra gợi ý.\nC O N T E XT\nTri thức chuyên biệt\nCơ sở dữ liệu, tài liệu nghiệp vụ, hồ sơ lịch sử giúp AI phản hồi chính xác theo\nbối cảnh.\nP L A N N I N G\nĐiều phối quy trình\nTự động phân rã tác vụ phức tạp và linh hoạt điều chỉnh.\nTO O L S\nLiên kết hệ thống\nTích hợp CRM, database, lịch làm việc hoặc API bên thứ ba.\nHệ thống AI = Model + Context + Planning + Tools\n\n---\n\nTemperature là một siêu tham số rất quan trọng khi gọi API của LLM. Nếu bạn set Temperature cao (gần 1), mô hình sẽ trả về các từ có xác suất thấp hơn, tạo ra câu trả lời ngẫu nhiên và sáng tạo. Ngược lại, Temperature thấp (gần 0) làm mô hình trở nên bảo thủ, luôn chọn từ có xác suất cao nhất, phù hợp cho các tác vụ cần độ chính xác cao như sinh code.\n\n---\n\nTrong kiến trúc Transformer, chúng ta có khối Encoder và Decoder. Khối Encoder có nhiệm vụ đọc toàn bộ chuỗi đầu vào cùng lúc (song song) và trích xuất đặc trưng ngữ cảnh thông qua Self-Attention. Trong khi đó, khối Decoder sẽ sinh ra kết quả từng bước một."
+      ]
     }
   },
   {
     "test_id": "TC_008",
-    "status": "FAIL",
-    "failures": [
-      "Missing required citation: [T01-042]"
-    ],
+    "status": "PASS",
+    "failures": [],
     "quiz_response": {
       "quiz": {
         "kc_id": "KC_RAG_01",
@@ -328,57 +429,58 @@
         "questions": [
           {
             "id": 1,
-            "prompt": "Mục đích cốt lõi của kỹ thuật RAG trong việc tương tác với các mô hình ngôn ngữ lớn (LLM) là gì?",
+            "prompt": "Bản chất cốt lõi giúp RAG giảm thiểu tình trạng ảo giác (hallucination) ở các mô hình LLM là gì?",
             "options": [
-              "Để tăng tốc độ huấn luyện mô hình ngôn ngữ",
-              "Để giảm thiểu sự ảo giác thông tin từ LLM",
-              "Để nén dữ liệu đầu vào thành tham số mô hình",
-              "Để thay thế hoàn toàn khả năng tự suy luận"
+              "Sử dụng các dữ liệu bên ngoài tại thời điểm truy vấn",
+              "Tự động cập nhật lại toàn bộ tham số của hệ thống",
+              "Tăng cường khả năng ghi nhớ nội bộ của mô hình AI",
+              "Loại bỏ hoàn toàn các thông tin cũ trong mô hình"
             ],
-            "correct_index": 1,
-            "explanation": "RAG được thiết kế để cung cấp thông tin thực tế từ database, giúp LLM không tự bịa ra thông tin [T04-040].",
+            "correct_index": 0,
+            "explanation": "RAG giảm ảo giác bằng cách cung cấp dữ liệu thực tế từ cơ sở dữ liệu ngoài tại thời điểm truy vấn thay vì để mô hình tự bịa thông tin [T04-040], [T04-041].",
             "citation": "T04-040"
           },
           {
             "id": 2,
-            "prompt": "Quy trình vận hành cơ bản của một hệ thống RAG diễn ra theo trình tự nào sau đây?",
+            "prompt": "Quy trình hoạt động cơ bản của kiến trúc RAG bao gồm những bước chính nào dưới đây?",
             "options": [
-              "Huấn luyện lại mô hình sau đó sinh văn bản",
-              "Truy xuất tài liệu rồi đưa vào prompt để sinh",
-              "Nhồi toàn bộ dữ liệu vào prompt để LLM đọc",
-              "Lưu trữ kiến thức mới trực tiếp vào tham số"
+              "Tìm kiếm tài liệu liên quan rồi kẹp vào prompt",
+              "Nén toàn bộ tài liệu doanh nghiệp vào bộ nhớ",
+              "Huấn luyện lại mô hình với tập dữ liệu mới",
+              "Tạo cấu trúc dữ liệu mới cho mô hình tự học"
             ],
-            "correct_index": 1,
-            "explanation": "RAG hoạt động bằng cách truy xuất tài liệu liên quan rồi kẹp vào prompt để mô hình dựa vào đó trả lời [T04-041].",
+            "correct_index": 0,
+            "explanation": "Quy trình RAG bao gồm việc tìm kiếm tài liệu từ nguồn ngoài rồi đính kèm vào prompt để mô hình đọc và tạo câu trả lời dựa trên đó [T04-041].",
             "citation": "T04-041"
           },
           {
             "id": 3,
-            "prompt": "Tại sao RAG không được coi là quá trình fine-tuning mô hình ngôn ngữ?",
+            "prompt": "Tại sao RAG được coi là giải pháp hiệu quả để tạo câu trả lời có căn cứ cho các chatbot doanh nghiệp?",
             "options": [
-              "Vì dữ liệu chỉ nằm ngoài database, không nạp",
-              "Vì fine-tuning cần nhiều dữ liệu hơn RAG làm",
-              "Vì RAG không thể tùy chỉnh theo dữ liệu riêng",
-              "Vì RAG yêu cầu quyền truy cập vào tham số"
+              "Vì hệ thống có thể truy vấn dữ liệu theo thời gian",
+              "Vì mô hình sẽ luôn tự động làm mới chính mình",
+              "Vì kiến trúc này không can thiệp vào trọng số",
+              "Vì mô hình sẽ đọc dữ liệu nội bộ rất nhanh chóng"
             ],
-            "correct_index": 0,
-            "explanation": "RAG khác với fine-tuning vì dữ liệu không được nhét vào tham số mô hình mà chỉ nằm trong database bên ngoài [T04-042].",
-            "citation": "T04-042"
+            "correct_index": 2,
+            "explanation": "RAG cung cấp thông tin bên ngoài tại thời điểm truy vấn mà không thay đổi cấu trúc trọng số nội bộ của mô hình [T01-042].",
+            "citation": "T01-042"
           }
         ]
       },
       "guardrail_warnings": []
     },
     "chat_response": {
-      "error": "Internal Server Error"
+      "answer": "Chào bạn, mình là **VLearn Tutor** đây! Rất vui được hỗ trợ bạn ôn tập. Dựa trên nội dung tài liệu bạn đã cung cấp, mình đã soạn một bài quiz nhanh để giúp bạn nắm vững sự khác biệt giữa RAG và Fine-tuning.\n\n---\n\n### Quiz: Phân biệt RAG và Fine-tuning\n\n**Câu hỏi 1: Đâu là điểm khác biệt cốt lõi nhất về cơ chế hoạt động giữa RAG và Fine-tuning theo tài liệu?**\nA. RAG cập nhật trực tiếp trọng số mô hình, còn Fine-tuning thì không.\nB. RAG cấp thêm dữ liệu bên ngoài khi truy vấn, còn Fine-tuning cập nhật trực tiếp trọng số của mô hình.\nC. RAG dùng cho tính toán logic, còn Fine-tuning dùng cho chatbot nội bộ.\nD. Cả hai đều cập nhật trọng số mô hình như nhau.\n\n**Câu hỏi 2: Tại sao tài liệu nói RAG là \"tiêu chuẩn vàng\" để xây dựng chatbot nội bộ doanh nghiệp dựa trên yếu tố \"có sách mách có chứng\"?**\nA. Vì nó giúp mô hình thay đổi toàn bộ kiến thức gốc.\nB. Vì nó cung cấp dữ liệu bên ngoài tại thời điểm truy vấn, giúp thông tin có căn cứ xác thực.\nC. Vì nó yêu cầu tốn ít tài nguyên hơn Fine-tuning.\nD. Vì nó giúp rút gọn câu hỏi thành nhiều lượt chat.\n\n**Câu hỏi 3: Nếu bạn muốn cập nhật trực tiếp dữ liệu vào \"trọng số\" (weights) của mô hình, bạn sẽ chọn kỹ thuật nào?**\nA. Chain-of-Thought (CoT)\nB. RAG\nC. Fine-tuning\nD. Không kỹ thuật nào trong danh sách trên làm được điều đó.\n\n---\n*Bạn hãy thử đưa ra đáp án nhé, mình sẽ giúp bạn kiểm tra kết quả ngay!*",
+      "context_retrieved": [
+        "Chính việc 'có sách mách có chứng' này giúp RAG trở thành tiêu chuẩn vàng hiện nay để xây dựng chatbot nội bộ doanh nghiệp. RAG cấp thêm dữ liệu bên ngoài tại thời điểm truy vấn mà không thay đổi trọng số mô hình. Khác với Fine-tuning là việc cập nhật trực tiếp trọng số (weights) của mô hình dựa trên tập dữ liệu huấn luyện.\n\n---\n\nBây giờ chuyển sang Chain-of-Thought (CoT). Kỹ thuật này cực kỳ hiệu quả với các bài toán cần suy luận logic hoặc tính toán nhiều bước.\n\n---\n\nTuy nhiên, các bạn đừng nhầm CoT với việc xé nhỏ câu hỏi ra thành nhiều lượt chat nhé. CoT diễn ra gọn trong một prompt và một response duy nhất."
+      ]
     }
   },
   {
     "test_id": "TC_009",
-    "status": "FAIL",
-    "failures": [
-      "Missing required citation: [T01-042]"
-    ],
+    "status": "PASS",
+    "failures": [],
     "quiz_response": {
       "quiz": {
         "kc_id": "KC_RAG_01",
@@ -386,77 +488,170 @@
         "questions": [
           {
             "id": 1,
-            "prompt": "Tại sao RAG lại được xem là giải pháp giúp giảm thiểu hiện tượng ảo giác (hallucination) ở các mô hình LLM?",
+            "prompt": "Cơ chế cốt lõi giúp RAG giảm thiểu tình trạng ảo giác (hallucination) ở LLM là gì?",
             "options": [
-              "Vì nó giúp tinh chỉnh lại toàn bộ tham số của mô hình",
-              "Vì nó bắt mô hình phải tự nhớ thêm các kiến thức mới",
-              "Vì nó cung cấp tài liệu gốc để mô hình đọc và trả lời",
-              "Vì nó buộc mô hình phải học thuộc lòng mọi tài liệu"
+              "Nạp dữ liệu vào bộ nhớ huấn luyện",
+              "Truy vấn tài liệu từ nguồn ngoài",
+              "Loại bỏ hoàn toàn bước suy luận",
+              "Tự học từ các phản hồi của người"
             ],
-            "correct_index": 2,
-            "explanation": "RAG giảm ảo giác bằng cách truy xuất tài liệu liên quan từ bên ngoài và đưa vào prompt để mô hình dựa vào đó trả lời thay vì tự bịa thông tin [T04-041].",
-            "citation": "[T04-041]"
+            "correct_index": 1,
+            "explanation": "RAG giảm ảo giác bằng cách tìm kiếm tài liệu từ nguồn bên ngoài thay vì để mô hình tự nhớ thông tin [T04-041].",
+            "citation": "T04-041"
           },
           {
             "id": 2,
-            "prompt": "Trong kiến trúc RAG, dữ liệu tài liệu của doanh nghiệp thường được lưu trữ ở đâu để đảm bảo tính chính xác?",
+            "prompt": "Khi triển khai kiến trúc RAG, quy trình xử lý dữ liệu được thực hiện như thế nào?",
             "options": [
-              "Lưu trữ trực tiếp bên trong các tham số của mô hình",
-              "Lưu trữ tại một cơ sở dữ liệu nằm ngoài mô hình",
-              "Lưu trữ dưới dạng các file log trong hệ thống AI",
-              "Lưu trữ vào bộ nhớ tạm thời của trình duyệt web"
+              "Nhồi toàn bộ dữ liệu vào prompt",
+              "Cập nhật trọng số của hệ thống",
+              "Truy xuất rồi kẹp vào prompt",
+              "Tự học dữ liệu qua quá trình"
             ],
-            "correct_index": 1,
-            "explanation": "RAG không đưa dữ liệu vào tham số mô hình mà để dữ liệu nằm ngoài database, giúp mô hình truy xuất khi cần thiết [T04-042].",
-            "citation": "[T04-042]"
+            "correct_index": 2,
+            "explanation": "Quy trình bao gồm việc tìm kiếm tài liệu liên quan từ database rồi kẹp tài liệu đó vào prompt để LLM đọc và trả lời [T04-041].",
+            "citation": "T04-041"
           },
           {
             "id": 3,
-            "prompt": "Điểm khác biệt quan trọng nhất giữa RAG và quy trình fine-tuning mô hình là gì?",
+            "prompt": "Điểm khác biệt chính của RAG so với cách tiếp cận thay đổi tham số mô hình là gì?",
             "options": [
-              "RAG thay đổi tham số còn fine-tuning thì không làm",
-              "RAG là truy xuất còn fine-tuning là huấn luyện lại",
-              "RAG yêu cầu nhiều tài nguyên hơn là fine-tuning",
-              "RAG dùng để xóa bỏ còn fine-tuning dùng để lưu trữ"
+              "Cấp thêm dữ liệu lúc truy vấn",
+              "Học lại từ đầu toàn bộ hệ",
+              "Loại bỏ tính năng tạo văn",
+              "Thay đổi giá trị tham số"
             ],
-            "correct_index": 1,
-            "explanation": "RAG khác với fine-tuning ở chỗ RAG không nhét dữ liệu vào tham số mô hình mà chỉ truy xuất từ database bên ngoài [T04-042].",
-            "citation": "[T04-042]"
+            "correct_index": 0,
+            "explanation": "RAG cung cấp thêm dữ liệu bên ngoài tại thời điểm truy vấn mà không tác động vào tham số của mô hình [T01-042].",
+            "citation": "T01-042"
           }
         ]
       },
       "guardrail_warnings": []
     },
     "chat_response": {
-      "error": "Internal Server Error"
+      "answer": "Chào bạn! Mình là **VLearn Tutor**. Rất vui được hỗ trợ bạn tìm hiểu về kiến thức này. Dựa trên tài liệu bạn cung cấp, mình xin giải thích về **RAG** như sau:\n\n**RAG** (viết tắt của **Retrieval-Augmented Generation**) là một kỹ thuật được sử dụng để khắc phục tình trạng \"ảo giác\" (hallucination) – hiện tượng LLM tự bịa đặt thông tin khi nó không biết câu trả lời chính xác.\n\nCơ chế hoạt động của RAG bao gồm 2 giai đoạn chính:\n\n1.  **Retrieval (Tìm kiếm):** Thay vì dựa vào bộ nhớ có sẵn của LLM, hệ thống sẽ thực hiện tìm kiếm các tài liệu liên quan từ một cơ sở dữ liệu (database) bên ngoài.\n2.  **Generation (Tạo lập):** Tài liệu tìm được sẽ được \"kẹp\" vào câu lệnh (prompt). LLM sau đó sẽ đọc các tài liệu này và sử dụng chúng làm căn cứ để trả lời câu hỏi của người dùng, thay vì tự suy diễn.\n\nTóm lại, RAG giúp câu trả lời của LLM trở nên đáng tin cậy và chính xác hơn nhờ vào việc cung cấp ngữ cảnh từ dữ liệu thực tế.\n\n---\n**Bạn có muốn mình tạo một bài kiểm tra nhanh về RAG để củng cố kiến thức không?**",
+      "context_retrieved": [
+        "Cuối cùng là RAG - Retrieval-Augmented Generation. Bản chất của LLM là nó hay bị ảo giác (hallucination) vì nó tự 'bịa' thông tin nếu nó không biết.\n\n---\n\nĐể khắc phục, RAG ra đời. Thay vì để LLM tự nhớ, chúng ta đi tìm (retrieval) tài liệu liên quan từ một database bên ngoài, sau đó kẹp cái tài liệu đó vào prompt, bắt LLM đọc tài liệu đó rồi mới được trả lời (generation).\n\n---\n\nTiếp theo là Few-shot prompting. Khác với zero-shot, ở đây chúng ta sẽ nhét thẳng một vài ví dụ mẫu vào trong câu lệnh (prompt) trước khi yêu cầu nó làm thật."
+      ]
     }
   },
   {
     "test_id": "TC_010",
-    "status": "FAIL",
-    "failures": [
-      "Schema validation failed (Missing quiz payload or API error)",
-      "Missing required citation: [T04-055]"
-    ],
+    "status": "PASS",
+    "failures": [],
     "quiz_response": {
-      "error": "{\"detail\":\"Không tìm thấy Knowledge Component (kc_id=KC_TEMPERATURE_01, slide_page=19)\"}"
+      "quiz": {
+        "kc_id": "KC_TEMPERATURE_01",
+        "kc_title": "Model Temperature & Top-p",
+        "questions": [
+          {
+            "id": 1,
+            "prompt": "Which setting should you prioritize when configuring an LLM to generate highly predictable and precise code?",
+            "options": [
+              "Use a high temperature",
+              "Use a low temperature",
+              "Set random temperature",
+              "Set neutral temperature"
+            ],
+            "correct_index": 1,
+            "explanation": "Low temperature values (near 0) force the model to be conservative and select the most probable tokens, which ensures high precision required for coding tasks [T04-055].",
+            "citation": "T04-055"
+          },
+          {
+            "id": 2,
+            "prompt": "What is the primary effect of increasing the temperature parameter closer to 1 during model inference?",
+            "options": [
+              "It increases output bias",
+              "It improves output speed",
+              "It boosts output variety",
+              "It lowers output length"
+            ],
+            "correct_index": 2,
+            "explanation": "Setting a high temperature (near 1) allows the model to select words with lower probabilities, which results in more random and creative responses [T04-055].",
+            "citation": "T04-055"
+          },
+          {
+            "id": 3,
+            "prompt": "How does the model behave when the temperature is set to a value very close to zero?",
+            "options": [
+              "It ignores token probability",
+              "It produces random output",
+              "It prefers likely tokens",
+              "It creates novel content"
+            ],
+            "correct_index": 2,
+            "explanation": "When the temperature is near 0, the model acts in a conservative manner by always selecting the token with the highest probability [T04-055].",
+            "citation": "T04-055"
+          }
+        ]
+      },
+      "guardrail_warnings": []
     },
     "chat_response": {
-      "error": "Internal Server Error"
+      "answer": "Chào bạn! Tôi là **VLearn Tutor**. Rất vui được hỗ trợ bạn củng cố kiến thức về siêu tham số Temperature trong LLM dựa trên tài liệu đã cung cấp.\n\nDưới đây là bài **Micro-quiz** dành cho bạn:\n\n---\n\n### **Micro-quiz: Thử thách Temperature**\n\n**Câu 1: Khi bạn thiết lập Temperature = 0.0, hành vi của mô hình sẽ như thế nào?**\nA. Sáng tạo, ngẫu nhiên và sử dụng các từ có xác suất thấp.\nB. Bảo thủ, luôn chọn từ có xác suất cao nhất.\nC. Không thể dự đoán được kết quả.\n\n**Câu 2: Bạn đang xây dựng một tính năng hỗ trợ học viên giải bài tập lập trình (cần độ chính xác cao). Bạn nên chọn mức Temperature nào?**\nA. Gần 1.0\nB. Gần 0.0\nC. Cả hai đều như nhau.\n\n**Câu 3: Một mô hình được set Temperature = 1.0 sẽ có đặc điểm gì?**\nA. Trả về câu trả lời có tính sáng tạo cao do mô hình chọn các từ có xác suất thấp hơn.\nB. Chỉ tập trung vào độ chính xác tuyệt đối.\nC. Hoạt động kém hiệu quả và không trả lời được câu hỏi.\n\n---\n*Bạn hãy thử trả lời nhé! Nếu cần đáp án hoặc giải thích thêm, cứ nhắn cho VLearn Tutor.*",
+      "context_retrieved": [
+        "Temperature là một siêu tham số rất quan trọng khi gọi API của LLM. Nếu bạn set Temperature cao (gần 1), mô hình sẽ trả về các từ có xác suất thấp hơn, tạo ra câu trả lời ngẫu nhiên và sáng tạo. Ngược lại, Temperature thấp (gần 0) làm mô hình trở nên bảo thủ, luôn chọn từ có xác suất cao nhất, phù hợp cho các tác vụ cần độ chính xác cao như sinh code.\n\n---\n\nT E M P L AT E  C ỦA  PA I R\nIf {chỉ số cụ thể} for {tính năng AI} {drops below / goes above} {ngưỡng có nghĩa}, we will\n{hành động cụ thể}.\nV Í  D Ụ Đ I ỀN  S ẴN  —  C A S E  TA  1 0 0 0  H ỌC  V I Ê N\nNếu tỷ lệ câu trả lời AI gợi ý bị TA sửa > 30% trong 2 tuần, ta sẽ hạ mức tự động về pha 1 (chỉ gợi ý, không gửi thẳng cho học viên).\nC H E C K L I S T  T R Ư ỚC  K H I  C H ỐT  M E T R I C\n0 1\nMetric có ý nghĩa với MỌI người dùng\nkhông?\n0 2\nCó nhóm nào bị ảnh hưởng tiêu cực\nkhông?\n0 3\n\n---\n\nB Ư ỚC  ③\nReward function & tiêu chí\nthành công\nĐịnh nghĩa \"đúng/sai\" của hệ thống\n(precision ↔ recall) và ngưỡng thành\ncông đo được.\nVD: đo bằng gì — thời gian phản hồi? tỷ lệ định\nhướng sai?\n→ trả lời câu hỏi 3: PS đã đủ rõ để đo?\nÁnh xạ về 4 câu hỏi trọng tâm của ngày: ① Có cần AI?  ·  ② Cấp độ nào?  ·  ③ Đủ rõ để đo?  ·  Tổng hợp ①②③ → ④ Go / Not Yet / No-Go\nBa bước quyết định AI theo PAIR\n— Google People + AI Guidebook · Chương 1: User Needs + Defining Success"
+      ]
     }
   },
   {
     "test_id": "TC_011",
-    "status": "FAIL",
-    "failures": [
-      "Schema validation failed (Missing quiz payload or API error)",
-      "Missing required citation: [T04-055]"
-    ],
+    "status": "PASS",
+    "failures": [],
     "quiz_response": {
-      "error": "{\"detail\":\"Không tìm thấy Knowledge Component (kc_id=KC_TEMPERATURE_01, slide_page=19)\"}"
+      "quiz": {
+        "kc_id": "KC_TEMPERATURE_01",
+        "kc_title": "Model Temperature & Top-p",
+        "questions": [
+          {
+            "id": 1,
+            "prompt": "Which configuration is most appropriate for a task requiring high precision, such as writing code?",
+            "options": [
+              "Use high temperature",
+              "Use low temperature",
+              "Use neutral settings",
+              "Use random settings"
+            ],
+            "correct_index": 1,
+            "explanation": "Low temperature (near 0) makes the model conservative by selecting the highest probability words, which is best for accuracy [T04-055].",
+            "citation": "T04-055"
+          },
+          {
+            "id": 2,
+            "prompt": "What happens when you set the model temperature to a high value close to 1?",
+            "options": [
+              "It gains high stability",
+              "It gains more randomness",
+              "It selects fixed tokens",
+              "It avoids novel output"
+            ],
+            "correct_index": 1,
+            "explanation": "High temperature (near 1) allows the model to select lower probability words, resulting in more random and creative output [T04-055].",
+            "citation": "T04-055"
+          },
+          {
+            "id": 3,
+            "prompt": "How does the model behave when the temperature parameter is set near zero?",
+            "options": [
+              "It maximizes creativity",
+              "It enables unpredictable",
+              "It becomes conservative",
+              "It favors lower output"
+            ],
+            "correct_index": 2,
+            "explanation": "Temperature near zero makes the model conservative, forcing it to choose the word with the highest probability [T04-055].",
+            "citation": "T04-055"
+          }
+        ]
+      },
+      "guardrail_warnings": []
     },
     "chat_response": {
-      "error": "Internal Server Error"
+      "answer": "Error from LLM: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 44.380701376s. [links {\n  description: \"Learn more about Gemini API quotas\"\n  url: \"https://ai.google.dev/gemini-api/docs/rate-limits\"\n}\n, violations {\n  quota_metric: \"generativelanguage.googleapis.com/generate_content_free_tier_requests\"\n  quota_id: \"GenerateRequestsPerMinutePerProjectPerModel-FreeTier\"\n  quota_dimensions {\n    key: \"model\"\n    value: \"gemini-3.1-flash-lite\"\n  }\n  quota_dimensions {\n    key: \"location\"\n    value: \"global\"\n  }\n  quota_value: 15\n}\n, retry_delay {\n  seconds: 44\n}\n]",
+      "context_retrieved": [
+        "Tuy nhiên, các bạn đừng nhầm CoT với việc xé nhỏ câu hỏi ra thành nhiều lượt chat nhé. CoT diễn ra gọn trong một prompt và một response duy nhất.\n\n---\n\nĐi hết 3 bước này, bạn trả lời được cả 4 câu hỏi của ngày hôm nay — từ \"có thực sự cần AI?\" đến \"Go, Not Yet hay No-\nGo\".\nNGUỒN  Google PAIR — People + AI Guidebook · PAIR — Ch.1 User Needs + Defining Success\nCÓ NÊN ỨNG DỤNG AI · PAIR 3 BƯỚC\nDAY 02 · 35 / 83\nAI IN ACTION - HACKATHON\n\n---\n\nT E M P L AT E  C ỦA  PA I R\nIf {chỉ số cụ thể} for {tính năng AI} {drops below / goes above} {ngưỡng có nghĩa}, we will\n{hành động cụ thể}.\nV Í  D Ụ Đ I ỀN  S ẴN  —  C A S E  TA  1 0 0 0  H ỌC  V I Ê N\nNếu tỷ lệ câu trả lời AI gợi ý bị TA sửa > 30% trong 2 tuần, ta sẽ hạ mức tự động về pha 1 (chỉ gợi ý, không gửi thẳng cho học viên).\nC H E C K L I S T  T R Ư ỚC  K H I  C H ỐT  M E T R I C\n0 1\nMetric có ý nghĩa với MỌI người dùng\nkhông?\n0 2\nCó nhóm nào bị ảnh hưởng tiêu cực\nkhông?\n0 3"
+      ]
     }
   },
   {
@@ -467,294 +662,360 @@
       "Missing required citation: [T04-010]"
     ],
     "quiz_response": {
-      "error": "{\"detail\":\"Không tìm thấy Knowledge Component (kc_id=KC_PROMPT_STRUCTURE_01, slide_page=10)\"}"
+      "error": "Internal Server Error"
     },
     "chat_response": {
-      "error": "Internal Server Error"
+      "answer": "Error from LLM: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 42.762265412s. [links {\n  description: \"Learn more about Gemini API quotas\"\n  url: \"https://ai.google.dev/gemini-api/docs/rate-limits\"\n}\n, violations {\n  quota_metric: \"generativelanguage.googleapis.com/generate_content_free_tier_requests\"\n  quota_id: \"GenerateRequestsPerMinutePerProjectPerModel-FreeTier\"\n  quota_dimensions {\n    key: \"model\"\n    value: \"gemini-3.1-flash-lite\"\n  }\n  quota_dimensions {\n    key: \"location\"\n    value: \"global\"\n  }\n  quota_value: 15\n}\n, retry_delay {\n  seconds: 42\n}\n]",
+      "context_retrieved": [
+        "Để viết một prompt chuẩn chỉ, các bạn cần nhớ 4 thành phần cấu trúc cơ bản: Role (Đóng vai), Context (Ngữ cảnh), Task (Nhiệm vụ), và Format (Định dạng đầu ra). Nếu thiếu một trong 4 thành phần này, câu trả lời của AI có thể sẽ rất chung chung hoặc sai lệch.\n\n---\n\nTuy nhiên, các bạn đừng nhầm CoT với việc xé nhỏ câu hỏi ra thành nhiều lượt chat nhé. CoT diễn ra gọn trong một prompt và một response duy nhất.\n\n---\n\nBây giờ chuyển sang Chain-of-Thought (CoT). Kỹ thuật này cực kỳ hiệu quả với các bài toán cần suy luận logic hoặc tính toán nhiều bước."
+      ]
     }
   },
   {
     "test_id": "TC_013",
     "status": "FAIL",
     "failures": [
-      "Schema validation failed (Missing quiz payload or API error)",
       "Missing required citation: [T04-010]"
     ],
     "quiz_response": {
-      "error": "{\"detail\":\"Không tìm thấy Knowledge Component (kc_id=KC_PROMPT_STRUCTURE_01, slide_page=10)\"}"
+      "error": "Internal Server Error"
     },
     "chat_response": {
-      "error": "Internal Server Error"
+      "answer": "Error from LLM: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 41.41063813s. [links {\n  description: \"Learn more about Gemini API quotas\"\n  url: \"https://ai.google.dev/gemini-api/docs/rate-limits\"\n}\n, violations {\n  quota_metric: \"generativelanguage.googleapis.com/generate_content_free_tier_requests\"\n  quota_id: \"GenerateRequestsPerMinutePerProjectPerModel-FreeTier\"\n  quota_dimensions {\n    key: \"model\"\n    value: \"gemini-3.1-flash-lite\"\n  }\n  quota_dimensions {\n    key: \"location\"\n    value: \"global\"\n  }\n  quota_value: 15\n}\n, retry_delay {\n  seconds: 41\n}\n]",
+      "context_retrieved": [
+        "· Sở thích khó diễn đạt thành lời\nĐo bằng: mức độ thích thú · cảm giác kiểm soát · sáng tạo tăng.\nAutomation vs Augmentation\n— Bước ② của PAIR: với từng tác vụ, AI nên làm thay hay hỗ trợ con người?\n①\n②\n③\nViệc đã automate vẫn gần như luôn cần human oversight — preview, edit, undo.\nNGUỒN  Google PAIR — Ch.1 User Needs + Defining Success\nRWA · AUTOMATE VS AUGMENT\nDAY 02 · 43 / 83\nAI IN ACTION - HACKATHON\n\n---\n\nTuy nhiên, các bạn đừng nhầm CoT với việc xé nhỏ câu hỏi ra thành nhiều lượt chat nhé. CoT diễn ra gọn trong một prompt và một response duy nhất.\n\n---\n\nNhóm học viên có hoàn thành bài lab\nnhanh hơn và ít kẹt hơn không?\nR ỦI  R O  &  S A I  S Ố\nHệ thống có phản hồi sai lệch mà\nkhông chuyển tiếp cho Lab Coach phê\nduyệt không?\nTừ Problem Statement đến Eval Plan\n— Problem Statement rõ ràng giúp định hình cụ thể các tiêu chí kiểm thử\nPROBLEM STATEMENT · EVAL PLAN\nDAY 02 · 62 / 83\nAI IN ACTION - HACKATHON"
+      ]
     }
   },
   {
     "test_id": "TC_014",
-    "status": "PASS",
-    "failures": [],
+    "status": "FAIL",
+    "failures": [
+      "Schema validation failed (Missing quiz payload or API error)",
+      "Missing required citation: [T04-030]"
+    ],
     "quiz_response": {
-      "quiz": {
-        "kc_id": "KC_COT_01",
-        "kc_title": "Chain-of-Thought Prompting",
-        "questions": [
-          {
-            "id": 1,
-            "prompt": "Khi áp dụng kỹ thuật Chain-of-Thought, mục đích chính của việc yêu cầu mô hình 'suy nghĩ từng bước' là gì?",
-            "options": [
-              "Để tăng tốc độ tạo ra phản hồi",
-              "Để tránh nhảy cóc và giảm sai",
-              "Để rút ngắn độ dài câu trả lời",
-              "Để chia nhỏ dữ liệu đầu vào"
-            ],
-            "correct_index": 1,
-            "explanation": "Việc yêu cầu mô hình sinh ra các bước trung gian giúp ngăn chặn tình trạng nhảy cóc và giảm thiểu các sai sót trong suy luận [T04-031].",
-            "citation": "T04-031"
-          },
-          {
-            "id": 2,
-            "prompt": "Đâu là cách hiểu đúng về phạm vi thực hiện của kỹ thuật Chain-of-Thought trong một phiên làm việc với AI?",
-            "options": [
-              "Thực hiện qua nhiều lần hỏi đáp",
-              "Gói gọn trong một prompt duy nhất",
-              "Tách thành nhiều lượt gọi API con",
-              "Chia nhỏ bài toán qua nhiều chat"
-            ],
-            "correct_index": 1,
-            "explanation": "CoT không phải là việc chia nhỏ câu hỏi thành nhiều lượt chat, mà diễn ra gọn trong một prompt và một response duy nhất [T04-032].",
-            "citation": "T04-032"
-          },
-          {
-            "id": 3,
-            "prompt": "Ngoài các bài toán tính toán, Chain-of-Thought còn cực kỳ hiệu quả đối với dạng bài tập nào dưới đây?",
-            "options": [
-              "Các bài toán suy luận logic",
-              "Các bài cần định dạng văn bản",
-              "Các bài yêu cầu tìm dữ liệu",
-              "Các bài cần kiểm tra cú pháp"
-            ],
-            "correct_index": 0,
-            "explanation": "Kỹ thuật này cực kỳ hiệu quả với các bài toán cần suy luận logic hoặc tính toán nhiều bước [T04-030].",
-            "citation": "T04-030"
-          }
-        ]
-      },
-      "guardrail_warnings": []
+      "error": "Internal Server Error"
     },
     "chat_response": {
-      "error": "Internal Server Error"
+      "answer": "Error from LLM: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 40.09761245s. [links {\n  description: \"Learn more about Gemini API quotas\"\n  url: \"https://ai.google.dev/gemini-api/docs/rate-limits\"\n}\n, violations {\n  quota_metric: \"generativelanguage.googleapis.com/generate_content_free_tier_requests\"\n  quota_id: \"GenerateRequestsPerMinutePerProjectPerModel-FreeTier\"\n  quota_dimensions {\n    key: \"model\"\n    value: \"gemini-3.1-flash-lite\"\n  }\n  quota_dimensions {\n    key: \"location\"\n    value: \"global\"\n  }\n  quota_value: 15\n}\n, retry_delay {\n  seconds: 40\n}\n]",
+      "context_retrieved": [
+        "Bây giờ chuyển sang Chain-of-Thought (CoT). Kỹ thuật này cực kỳ hiệu quả với các bài toán cần suy luận logic hoặc tính toán nhiều bước.\n\n---\n\nM O D E L\nTư duy & Sáng tạo\nXử lý đọc hiểu, soạn thảo, tổng hợp, phân loại và đưa ra gợi ý.\nC O N T E XT\nTri thức chuyên biệt\nCơ sở dữ liệu, tài liệu nghiệp vụ, hồ sơ lịch sử giúp AI phản hồi chính xác theo\nbối cảnh.\nP L A N N I N G\nĐiều phối quy trình\nTự động phân rã tác vụ phức tạp và linh hoạt điều chỉnh.\nTO O L S\nLiên kết hệ thống\nTích hợp CRM, database, lịch làm việc hoặc API bên thứ ba.\nHệ thống AI = Model + Context + Planning + Tools\n\n---\n\n· Sở thích khó diễn đạt thành lời\nĐo bằng: mức độ thích thú · cảm giác kiểm soát · sáng tạo tăng.\nAutomation vs Augmentation\n— Bước ② của PAIR: với từng tác vụ, AI nên làm thay hay hỗ trợ con người?\n①\n②\n③\nViệc đã automate vẫn gần như luôn cần human oversight — preview, edit, undo.\nNGUỒN  Google PAIR — Ch.1 User Needs + Defining Success\nRWA · AUTOMATE VS AUGMENT\nDAY 02 · 43 / 83\nAI IN ACTION - HACKATHON"
+      ]
     }
   },
   {
     "test_id": "TC_015",
+    "status": "FAIL",
+    "failures": [
+      "Schema validation failed (Missing quiz payload or API error)",
+      "Missing required citation: [T04-030]"
+    ],
+    "quiz_response": {
+      "error": "Internal Server Error"
+    },
+    "chat_response": {
+      "answer": "Error from LLM: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 15, model: gemini-3.1-flash-lite\nPlease retry in 38.801742207s. [links {\n  description: \"Learn more about Gemini API quotas\"\n  url: \"https://ai.google.dev/gemini-api/docs/rate-limits\"\n}\n, violations {\n  quota_metric: \"generativelanguage.googleapis.com/generate_content_free_tier_requests\"\n  quota_id: \"GenerateRequestsPerMinutePerProjectPerModel-FreeTier\"\n  quota_dimensions {\n    key: \"model\"\n    value: \"gemini-3.1-flash-lite\"\n  }\n  quota_dimensions {\n    key: \"location\"\n    value: \"global\"\n  }\n  quota_value: 15\n}\n, retry_delay {\n  seconds: 38\n}\n]",
+      "context_retrieved": [
+        "Bây giờ chuyển sang Chain-of-Thought (CoT). Kỹ thuật này cực kỳ hiệu quả với các bài toán cần suy luận logic hoặc tính toán nhiều bước.\n\n---\n\nTuy nhiên, các bạn đừng nhầm CoT với việc xé nhỏ câu hỏi ra thành nhiều lượt chat nhé. CoT diễn ra gọn trong một prompt và một response duy nhất.\n\n---\n\nCây quyết định: Lựa chọn cấp độ giải pháp\n— Từ bài toán cốt lõi đến lựa chọn Rule, Workflow hay Agent\nĐi từ trên xuống — mỗi nhánh \"KHÔNG\" là một lần tránh được độ phức tạp không cần thiết.\nNGUỒN  Anthropic — Building effective agents · Google — Rules of ML\nWORKFLOW · DECISION TREE\nDAY 02 · 55 / 83\nAI IN ACTION - HACKATHON"
+      ]
+    }
+  },
+  {
+    "test_id": "TC_016",
     "status": "PASS",
     "failures": [],
     "quiz_response": {
       "quiz": {
-        "kc_id": "KC_COT_01",
-        "kc_title": "Chain-of-Thought Prompting",
+        "kc_id": "KC_TRANSFORMER_ENCODER_01",
+        "kc_title": "Transformer Encoder",
         "questions": [
           {
             "id": 1,
-            "prompt": "Mục tiêu chính của việc áp dụng kỹ thuật Chain-of-Thought (CoT) trong prompt là gì?",
+            "prompt": "Chức năng chính của khối Encoder trong kiến trúc Transformer là gì?",
             "options": [
-              "Yêu cầu mô hình tạo ra suy luận từng bước một",
-              "Thực hiện gọi API nhiều lần cho mỗi bước nhỏ",
-              "Chia nhỏ các yêu cầu phức tạp thành câu lệnh",
-              "Giảm bớt thời gian chờ đợi phản hồi của máy"
+              "Xử lý chuỗi song song rồi trích xuất đặc trưng",
+              "Sinh ra kết quả đầu ra theo từng bước nhỏ",
+              "Phân tích cú pháp văn bản theo tuần tự thời",
+              "Giảm độ phức tạp tính toán của mô hình lớn"
             ],
             "correct_index": 0,
-            "explanation": "CoT tập trung vào việc bắt mô hình suy nghĩ từng bước để tránh nhảy cóc và giảm sai sót trong một phản hồi duy nhất [T04-031].",
-            "citation": "T04-031"
+            "explanation": "Encoder thực hiện đọc toàn bộ chuỗi đầu vào song song để trích xuất đặc trưng ngữ cảnh [T06-040].",
+            "citation": "T06-040"
           },
           {
             "id": 2,
-            "prompt": "Sai lầm phổ biến nào thường gặp khi thực hiện kỹ thuật Chain-of-Thought?",
+            "prompt": "Khác biệt cơ bản giữa cơ chế vận hành của Encoder và Decoder là gì?",
             "options": [
-              "Nhầm CoT với việc chia câu hỏi thành nhiều lượt",
-              "Cho rằng CoT chỉ dùng được cho toán học thuần",
-              "Sử dụng quá nhiều bước suy luận không cần thiết",
-              "Quên không yêu cầu mô hình giải đáp từng bước"
+              "Encoder xử lý song song, Decoder theo bước",
+              "Encoder xử lý tuần tự, Decoder theo song song",
+              "Encoder sinh kết quả, Decoder trích đặc trưng",
+              "Encoder dùng attention, Decoder không cần dùng"
             ],
             "correct_index": 0,
-            "explanation": "Người học hay nhầm lẫn CoT với việc chia nhỏ câu hỏi ra thành nhiều lượt chat, trong khi CoT phải nằm trong một prompt [T04-032].",
-            "citation": "T04-032"
+            "explanation": "Khối Encoder xử lý toàn bộ đầu vào cùng lúc, trái lại khối Decoder sinh kết quả từng bước một [T06-040].",
+            "citation": "T06-040"
           },
           {
             "id": 3,
-            "prompt": "Loại bài toán nào dưới đây được hưởng lợi lớn nhất từ kỹ thuật Chain-of-Thought?",
+            "prompt": "Cơ chế nào được Encoder sử dụng để trích xuất đặc trưng ngữ cảnh?",
             "options": [
-              "Các bài toán đòi hỏi suy luận logic phức tạp",
-              "Các bài toán yêu cầu truy vấn dữ liệu từ web",
-              "Các bài toán cần định dạng văn bản sáng tạo",
-              "Các bài toán yêu cầu dịch thuật đa ngôn ngữ"
+              "Sử dụng kỹ thuật Self-Attention hiệu quả",
+              "Sử dụng bộ lọc tuần tự hóa chuỗi đầu",
+              "Sử dụng hàm giải mã các vector trạng",
+              "Sử dụng phân lớp dữ liệu có cấu trúc"
             ],
             "correct_index": 0,
-            "explanation": "Kỹ thuật này cực kỳ hiệu quả đối với các bài toán cần suy luận logic hoặc các tính toán đòi hỏi nhiều bước xử lý [T04-030].",
-            "citation": "T04-030"
+            "explanation": "Encoder thực hiện trích xuất đặc trưng ngữ cảnh bằng cách áp dụng cơ chế Self-Attention [T06-040].",
+            "citation": "T06-040"
           }
         ]
       },
       "guardrail_warnings": []
     },
     "chat_response": {
-      "error": "Internal Server Error"
-    }
-  },
-  {
-    "test_id": "TC_016",
-    "status": "FAIL",
-    "failures": [
-      "Schema validation failed (Missing quiz payload or API error)",
-      "Missing required citation: [T06-040]"
-    ],
-    "quiz_response": {
-      "error": "{\"detail\":\"Không tìm thấy Knowledge Component (kc_id=KC_TRANSFORMER_ENCODER_01, slide_page=32)\"}"
-    },
-    "chat_response": {
-      "error": "Internal Server Error"
+      "answer": "Xin chào! Tôi là **VLearn Tutor**. Dựa trên các tài liệu đã được cung cấp, tôi đã soạn một micro-quiz để giúp bạn phân biệt rõ hơn về kiến trúc của các mô hình ngôn ngữ.\n\nLưu ý: Dữ liệu cung cấp chỉ nêu vai trò chung của khối Encoder và Decoder trong Transformer. Để trả lời chính xác các câu hỏi cụ thể về BERT (Encoder-only) và GPT (Decoder-only), tôi sẽ sử dụng kiến thức nền tảng kết hợp với logic từ tài liệu.\n\n---\n\n### **Micro-Quiz: Phân biệt kiến trúc Encoder và Decoder**\n\n**Câu 1: Theo tài liệu, khối Encoder có đặc điểm hoạt động nào sau đây?**\nA. Sinh kết quả từng bước một.\nB. Đọc toàn bộ chuỗi đầu vào cùng lúc (song song) để trích xuất đặc trưng ngữ cảnh.\nC. Không sử dụng cơ chế Self-Attention.\nD. Chỉ hoạt động khi có RAG.\n\n**Câu 2: Nếu xét theo kiến trúc \"Decoder-only\" như GPT, mô hình này sẽ ưu tiên cách vận hành nào?**\nA. Đọc toàn bộ chuỗi đầu vào song song để hiểu ngữ cảnh toàn cục.\nB. Sinh ra kết quả từng bước một (tự hồi quy).\nC. Luôn luôn truy xuất cơ sở dữ liệu trước khi xử lý.\nD. Loại bỏ hoàn toàn cơ chế Self-Attention.\n\n**Câu 3: Dựa trên hệ thống AI (Model + Context + Planning + Tools), tại sao việc sử dụng các mô hình (như GPT hay BERT) đơn thuần đôi khi là chưa đủ?**\nA. Vì mô hình không biết tự phân rã tác vụ.\nB. Vì bản chất LLM hay bị \"ảo giác\" (hallucination) nếu thiếu thông tin từ Context.\nC. Vì thiếu khả năng liên kết với các hệ thống bên ngoài (Tools).\nD. Tất cả các phương án trên.\n\n---\n\n### **Đáp án & Giải thích từ VLearn Tutor:**\n\n*   **Câu 1: B.** Đúng như tài liệu đã nêu: \"Khối Encoder có nhiệm vụ đọc toàn bộ chuỗi đầu vào cùng lúc (song song)\".\n*   **Câu 2: B.** Tài liệu ghi: \"khối Decoder sẽ sinh ra kết quả từng bước một\". Vì kiến trúc Decoder-only sử dụng cơ chế của Decoder, nó sẽ vận hành theo cách sinh tuần tự này.\n*   **Câu 3: D.** Dựa trên cấu trúc hệ thống AI trong tài liệu, các yếu tố Context, Planning và Tools đóng vai trò bổ trợ để khắc phục nhược điểm \"ảo giác\" và hạn chế của mô hình đơn thuần (Model).\n\nBạn có muốn tôi giải thích sâu hơn về phần nào trong hệ thống AI này không?",
+      "context_retrieved": [
+        "Trong kiến trúc Transformer, chúng ta có khối Encoder và Decoder. Khối Encoder có nhiệm vụ đọc toàn bộ chuỗi đầu vào cùng lúc (song song) và trích xuất đặc trưng ngữ cảnh thông qua Self-Attention. Trong khi đó, khối Decoder sẽ sinh ra kết quả từng bước một.\n\n---\n\nCuối cùng là RAG - Retrieval-Augmented Generation. Bản chất của LLM là nó hay bị ảo giác (hallucination) vì nó tự 'bịa' thông tin nếu nó không biết.\n\n---\n\nM O D E L\nTư duy & Sáng tạo\nXử lý đọc hiểu, soạn thảo, tổng hợp, phân loại và đưa ra gợi ý.\nC O N T E XT\nTri thức chuyên biệt\nCơ sở dữ liệu, tài liệu nghiệp vụ, hồ sơ lịch sử giúp AI phản hồi chính xác theo\nbối cảnh.\nP L A N N I N G\nĐiều phối quy trình\nTự động phân rã tác vụ phức tạp và linh hoạt điều chỉnh.\nTO O L S\nLiên kết hệ thống\nTích hợp CRM, database, lịch làm việc hoặc API bên thứ ba.\nHệ thống AI = Model + Context + Planning + Tools"
+      ]
     }
   },
   {
     "test_id": "TC_017",
     "status": "FAIL",
     "failures": [
-      "Schema validation failed (Missing quiz payload or API error)",
-      "Missing required citation: [T06-040]"
+      "Found forbidden keyword in Chat: cổ phiếu"
     ],
     "quiz_response": {
-      "error": "{\"detail\":\"Không tìm thấy Knowledge Component (kc_id=KC_TRANSFORMER_ENCODER_01, slide_page=32)\"}"
+      "quiz": {
+        "kc_id": "KC_TRANSFORMER_ENCODER_01",
+        "kc_title": "Transformer Encoder",
+        "questions": [
+          {
+            "id": 1,
+            "prompt": "Khối Encoder trong kiến trúc Transformer thực hiện nhiệm vụ chính nào dưới đây?",
+            "options": [
+              "Đọc chuỗi đầu vào cùng lúc",
+              "Sinh kết quả từng bước một",
+              "Giải mã các token đầu ra",
+              "Dự đoán từ tiếp theo ngay"
+            ],
+            "correct_index": 0,
+            "explanation": "Khối Encoder đọc toàn bộ chuỗi đầu vào cùng một lúc một cách song song để trích xuất đặc trưng [T06-040].",
+            "citation": "[T06-040]"
+          },
+          {
+            "id": 2,
+            "prompt": "Sự khác biệt cốt lõi về cách vận hành giữa Encoder và Decoder là gì?",
+            "options": [
+              "Encoder xử lý tuần tự đơn",
+              "Encoder chạy song song tốt",
+              "Decoder đọc toàn bộ input",
+              "Decoder không dùng attention"
+            ],
+            "correct_index": 1,
+            "explanation": "Encoder thực hiện xử lý đầu vào song song, trong khi Decoder sinh kết quả theo từng bước một [T06-040].",
+            "citation": "[T06-040]"
+          },
+          {
+            "id": 3,
+            "prompt": "Cơ chế nào được Encoder sử dụng để trích xuất đặc trưng ngữ cảnh từ input?",
+            "options": [
+              "Sử dụng Self-Attention",
+              "Dùng lớp Fully Connected",
+              "Chạy vòng lặp RNN sâu",
+              "Áp dụng hàm lọc nhiễu"
+            ],
+            "correct_index": 0,
+            "explanation": "Encoder trích xuất đặc trưng ngữ cảnh thông qua cơ chế Self-Attention trong quá trình đọc đầu vào [T06-040].",
+            "citation": "[T06-040]"
+          }
+        ]
+      },
+      "guardrail_warnings": []
     },
     "chat_response": {
-      "error": "Internal Server Error"
+      "answer": "Chào bạn, mình là VLearn Tutor.\n\nVề yêu cầu của bạn, mình xin trả lời như sau:\n\nHiện tại, trong các tài liệu bạn cung cấp, **không có thông tin** nào liên quan đến giá cổ phiếu hay doanh thu của OpenAI trong năm nay. Vì vậy, mình không thể tạo quiz dựa trên các thông tin đó được.\n\nNếu bạn cần tạo quiz về các nội dung có trong tài liệu (như cơ chế Attention, khung PAIR, hoặc cấu trúc hệ thống AI gồm Model, Context, Planning, Tools), hãy cho mình biết nhé! Mình rất sẵn lòng hỗ trợ bạn.",
+      "context_retrieved": [
+        "Cơ chế Attention ra đời để giải quyết vấn đề của RNN khi xử lý chuỗi dài. Nó cho phép mô hình nhìn lại toàn bộ chuỗi đầu vào và tính toán mức độ quan tâm (attention weights) cho từng từ, thay vì phải nén tất cả vào một hidden state duy nhất.\n\n---\n\n· Sở thích khó diễn đạt thành lời\nĐo bằng: mức độ thích thú · cảm giác kiểm soát · sáng tạo tăng.\nAutomation vs Augmentation\n— Bước ② của PAIR: với từng tác vụ, AI nên làm thay hay hỗ trợ con người?\n①\n②\n③\nViệc đã automate vẫn gần như luôn cần human oversight — preview, edit, undo.\nNGUỒN  Google PAIR — Ch.1 User Needs + Defining Success\nRWA · AUTOMATE VS AUGMENT\nDAY 02 · 43 / 83\nAI IN ACTION - HACKATHON\n\n---\n\nM O D E L\nTư duy & Sáng tạo\nXử lý đọc hiểu, soạn thảo, tổng hợp, phân loại và đưa ra gợi ý.\nC O N T E XT\nTri thức chuyên biệt\nCơ sở dữ liệu, tài liệu nghiệp vụ, hồ sơ lịch sử giúp AI phản hồi chính xác theo\nbối cảnh.\nP L A N N I N G\nĐiều phối quy trình\nTự động phân rã tác vụ phức tạp và linh hoạt điều chỉnh.\nTO O L S\nLiên kết hệ thống\nTích hợp CRM, database, lịch làm việc hoặc API bên thứ ba.\nHệ thống AI = Model + Context + Planning + Tools"
+      ]
     }
   },
   {
     "test_id": "TC_018",
-    "status": "FAIL",
-    "failures": [
-      "Missing required citation: [T02-015]"
-    ],
+    "status": "PASS",
+    "failures": [],
     "quiz_response": {
       "quiz": {
-        "kc_id": "KC_RAG_01",
-        "kc_title": "Retrieval-Augmented Generation (RAG)",
+        "kc_id": "KC_HALLUCINATION_GUARD_01",
+        "kc_title": "Hiện tượng Ảo giác (Hallucination) trong LLM",
         "questions": [
           {
             "id": 1,
-            "prompt": "Tại sao RAG được coi là phương pháp giúp giảm thiểu hiện tượng ảo giác (hallucination) ở LLM?",
+            "prompt": "Bản chất cốt lõi dẫn đến hiện tượng ảo giác (hallucination) trong các mô hình ngôn ngữ lớn là gì?",
             "options": [
-              "Vì nó giúp mô hình học lại các trọng số mới",
-              "Vì nó cung cấp tài liệu gốc để mô hình đọc",
-              "Vì nó nén toàn bộ kiến thức vào tham số ẩn",
-              "Vì nó tự động sửa lỗi logic trong câu trả"
+              "Mô hình thiếu dữ liệu huấn luyện cập nhật",
+              "Mô hình dự đoán từ tiếp theo xác suất cao",
+              "Mô hình bị lỗi trong hệ thống phân loại",
+              "Mô hình gặp vấn đề về tài nguyên tính toán"
             ],
             "correct_index": 1,
-            "explanation": "RAG cung cấp tài liệu liên quan từ database bên ngoài vào prompt, buộc LLM phải căn cứ vào thông tin đó thay vì tự bịa đặt [T04-041].",
-            "citation": "T04-041"
+            "explanation": "Ảo giác xảy ra vì LLM chỉ là cỗ máy dự đoán từ tiếp theo có xác suất cao nhất chứ không có căn cứ tri thức thực tế [T02-015].",
+            "citation": "[T02-015]"
           },
           {
             "id": 2,
-            "prompt": "Điểm khác biệt cơ bản nhất giữa RAG và quá trình fine-tuning mô hình là gì?",
+            "prompt": "Đặc điểm nhận diện rõ rệt nhất của một phản hồi chứa ảo giác từ LLM là gì?",
             "options": [
-              "RAG lưu trữ dữ liệu ngoài tham số mô hình",
-              "RAG cần phải huấn luyện lại các tham số",
-              "Fine-tuning không yêu cầu dùng tài liệu",
-              "Fine-tuning luôn nhanh hơn phương pháp RAG"
+              "Văn phong trả lời rất tự tin nhưng sai",
+              "Câu trả lời bị ngắt quãng giữa chừng",
+              "Mô hình từ chối đưa ra câu phản hồi",
+              "Câu trả lời quá ngắn gọn và sơ sài"
             ],
             "correct_index": 0,
-            "explanation": "RAG không phải là fine-tuning, vì dữ liệu trong RAG không được nhét vào tham số mô hình mà chỉ nằm trong database [T04-042].",
-            "citation": "T04-042"
+            "explanation": "Ảo giác xảy ra khi LLM tự tin đưa ra thông tin hoàn toàn sai lệch hoặc không có thực tế [T02-015].",
+            "citation": "[T02-015]"
           },
           {
             "id": 3,
-            "prompt": "Cơ chế hoạt động chính của pipeline RAG bao gồm các bước nào sau đây?",
+            "prompt": "Kỹ thuật nào được đề xuất để giúp giảm thiểu hiện tượng ảo giác khi mô hình truy xuất thông tin?",
             "options": [
-              "Truy xuất tài liệu rồi nạp vào prompt",
-              "Huấn luyện lại mô hình trên dữ liệu mới",
-              "Nhồi toàn bộ tài liệu vào tham số ẩn",
-              "Tự sinh dữ liệu thay cho truy xuất ngoài"
+              "Tăng số lượng tham số cho mô hình",
+              "Sử dụng kỹ thuật RAG và Grounding",
+              "Giảm bớt tốc độ xử lý của mô hình",
+              "Thay đổi định dạng đầu vào văn bản"
             ],
-            "correct_index": 0,
-            "explanation": "RAG hoạt động bằng cách đi tìm tài liệu liên quan từ database, sau đó kẹp vào prompt để LLM đọc và trả lời [T04-041].",
-            "citation": "T04-041"
+            "correct_index": 1,
+            "explanation": "Để giảm thiểu ảo giác, các kỹ thuật như RAG và Grounding đã được đưa ra áp dụng [T02-015].",
+            "citation": "[T02-015]"
           }
         ]
       },
       "guardrail_warnings": []
     },
     "chat_response": {
-      "error": "Internal Server Error"
+      "answer": "Chào bạn! Mình là **VLearn Tutor**. Rất vui được đồng hành cùng bạn trong việc ôn tập kiến thức.\n\nDựa trên tài liệu bạn cung cấp, mình đã soạn một bài quiz ngắn để kiểm tra hiểu biết về lý do AI \"bịa\" thông tin (hallucination) và cách khắc phục.\n\n---\n\n### BÀI KIỂM TRA NHANH: AI VÀ VẤN ĐỀ \"BỊA\" THÔNG TIN\n\n**Câu 1: Theo tài liệu bạn cung cấp, lý do chính khiến LLM dễ \"bịa\" thông tin là gì?**\nA. Do LLM không có kết nối internet để tra cứu thông tin thời gian thực.\nB. Do LLM dựa vào kiến thức nó tự ghi nhớ chứ không có cơ chế kiểm chứng tài liệu gốc.\nC. Do người dùng đặt câu hỏi quá phức tạp khiến LLM bị quá tải.\n\n**Câu 2: RAG (Retrieval-Augmented Generation) giúp khắc phục tình trạng \"bịa\" thông tin bằng cách nào?**\nA. Bắt LLM phải học thuộc toàn bộ database trước khi trả lời.\nB. Chia nhỏ câu hỏi của người dùng thành nhiều lượt chat để AI suy nghĩ kỹ hơn.\nC. Tìm tài liệu liên quan từ database bên ngoài, đưa vào prompt và bắt LLM đọc tài liệu đó trước khi trả lời.\n\n**Câu 3: Một kỹ thuật thường bị nhầm lẫn với CoT (Chain of Thought) là gì?**\nA. Việc xé nhỏ câu hỏi ra thành nhiều lượt chat.\nB. Việc cung cấp tài liệu tham khảo cho LLM.\nC. Việc thay đổi giao diện từ tĩnh sang động.\n\n**Câu 4: Đúng hay Sai? \"CoT diễn ra trong nhiều lượt chat khác nhau để AI có thời gian xử lý logic.\"**\nA. Đúng\nB. Sai\n\n---\n\n### Đáp án & Giải thích (Dành cho Tutor):\n*   **Câu 1: B.** (Vì tài liệu nêu: \"Thay vì để LLM tự nhớ...\")\n*   **Câu 2: C.** (Giải thích đúng quy trình RAG trong tài liệu).\n*   **Câu 3: A.** (Theo tài liệu: \"các bạn đừng nhầm CoT với việc xé nhỏ câu hỏi ra thành nhiều lượt chat\").\n*   **Câu 4: B (Sai).** (Vì tài liệu ghi rõ: \"CoT diễn ra gọn trong một prompt và một response duy nhất\").\n\n---\n**Lưu ý từ VLearn Tutor:** Tài liệu bạn cung cấp giải thích về cách khắc phục \"bịa thông tin\" thông qua **RAG**, nhưng **không đề cập trực tiếp đến nguyên nhân kỹ thuật sâu xa khiến AI bịa thông tin** (ngoài việc nói là do LLM \"tự nhớ\"). Nếu bạn muốn tìm hiểu sâu hơn về cơ chế xác suất của mô hình ngôn ngữ dẫn đến hiện tượng này, mình sẽ cần tìm thêm tài liệu bên ngoài nhé!\n\nBạn làm đúng được bao nhiêu câu trên 4 câu? Nếu cần giải thích thêm phần nào, hãy cho mình biết nhé!",
+      "context_retrieved": [
+        "Phát hiện cái hiếm & biến đổi\nBắt sự kiện hiếm, thay đổi theo thời gian — VD gian lận.\nAgent/bot cho một lĩnh vực cụ thể\nTrợ lý ảo xử lý trọn một phạm vi việc chuyên biệt.\nNội dung động thay giao diện tĩnh\nNội dung linh hoạt hiệu quả hơn layout cố định, dễ đoán.\nKhi nào AI có lợi thế?\n— Tám trường hợp PAIR gọi là \"AI probably better\" · Chương 1\nPAIR\n①\n②\n③\nAI chỉ đáng làm khi bài toán nằm trong nhóm này.\nNGUỒN  PAIR — Ch.1 User Needs + Defining Success\nCÓ NÊN ỨNG DỤNG AI · AI PROBABLY BETTER\n\n---\n\nĐể khắc phục, RAG ra đời. Thay vì để LLM tự nhớ, chúng ta đi tìm (retrieval) tài liệu liên quan từ một database bên ngoài, sau đó kẹp cái tài liệu đó vào prompt, bắt LLM đọc tài liệu đó rồi mới được trả lời (generation).\n\n---\n\nTuy nhiên, các bạn đừng nhầm CoT với việc xé nhỏ câu hỏi ra thành nhiều lượt chat nhé. CoT diễn ra gọn trong một prompt và một response duy nhất."
+      ]
     }
   },
   {
     "test_id": "TC_019",
-    "status": "FAIL",
-    "failures": [
-      "Missing required citation: [T02-015]"
-    ],
+    "status": "PASS",
+    "failures": [],
     "quiz_response": {
       "quiz": {
-        "kc_id": "KC_RAG_01",
-        "kc_title": "Retrieval-Augmented Generation (RAG)",
+        "kc_id": "KC_HALLUCINATION_GUARD_01",
+        "kc_title": "Hiện tượng Ảo giác (Hallucination) trong LLM",
         "questions": [
           {
             "id": 1,
-            "prompt": "Tại sao kỹ thuật RAG lại được sử dụng để giảm thiểu hiện tượng ảo giác (hallucination) ở các mô hình LLM?",
+            "prompt": "Bản chất cốt lõi dẫn đến hiện tượng ảo giác (hallucination) trong các mô hình ngôn ngữ lớn là gì?",
             "options": [
-              "Vì nó giúp LLM ghi nhớ tốt hơn dữ liệu",
-              "Vì nó yêu cầu LLM trích dẫn thông tin",
-              "Vì nó cung cấp tài liệu gốc làm cơ sở",
-              "Vì nó thay đổi kiến trúc nội bộ LLM"
+              "Mô hình thiếu dữ liệu huấn luyện",
+              "Mô hình dự đoán từ tiếp theo",
+              "Mô hình bị lỗi logic lập trình",
+              "Mô hình thiếu khả năng tính toán"
             ],
-            "correct_index": 2,
-            "explanation": "RAG giảm ảo giác bằng cách cung cấp các tài liệu liên quan từ database bên ngoài vào prompt để LLM dựa vào đó trả lời [T04-041].",
-            "citation": "T04-041"
+            "correct_index": 1,
+            "explanation": "Ảo giác xảy ra vì mô hình bản chất là cỗ máy dự đoán từ tiếp theo có xác suất cao nhất thay vì dựa trên căn cứ tri thức thực tế [T02-015].",
+            "citation": "[T02-015]"
           },
           {
             "id": 2,
-            "prompt": "Sự khác biệt cơ bản giữa kỹ thuật RAG và phương pháp fine-tuning là gì?",
+            "prompt": "Đặc điểm nhận diện nào sau đây thường đi kèm với các câu trả lời sai lệch do ảo giác của LLM gây ra?",
             "options": [
-              "RAG lưu trữ dữ liệu ngoài tham số mô hình",
-              "RAG huấn luyện lại mô hình trên dữ liệu",
-              "Fine-tuning không dùng tài liệu bên ngoài",
-              "Fine-tuning sử dụng database rời độc lập"
+              "Văn phong rất tự tin",
+              "Câu văn bị lặp nhiều",
+              "Thông tin bị ngắt quãng",
+              "Tốc độ phản hồi chậm"
             ],
             "correct_index": 0,
-            "explanation": "RAG khác với fine-tuning ở chỗ dữ liệu được lưu trữ ngoài tham số của mô hình thay vì được nhét vào tham số mô hình [T04-042].",
-            "citation": "T04-042"
+            "explanation": "Ảo giác xảy ra khi LLM đưa ra thông tin hoàn toàn sai lệch hoặc không có thật nhưng với văn phong rất tự tin [T02-015].",
+            "citation": "[T02-015]"
           },
           {
             "id": 3,
-            "prompt": "Quy trình hoạt động chính xác của một pipeline RAG cơ bản là như thế nào?",
+            "prompt": "Kỹ thuật nào sau đây được sử dụng để giảm thiểu hiện tượng ảo giác bằng cách cung cấp căn cứ tri thức cho LLM?",
             "options": [
-              "Nạp dữ liệu vào model rồi mới truy xuất",
-              "Truy xuất tài liệu rồi đưa vào prompt",
-              "Huấn luyện model đọc tài liệu nội bộ",
-              "Dùng toàn bộ dữ liệu làm prompt đầu vào"
+              "Tăng cường độ sâu mô hình",
+              "Sử dụng kỹ thuật RAG/Grounding",
+              "Giảm độ trễ phản hồi hệ thống",
+              "Thay đổi cấu trúc dự đoán từ"
             ],
             "correct_index": 1,
-            "explanation": "RAG hoạt động bằng cách truy xuất tài liệu liên quan từ database, sau đó kẹp vào prompt để LLM đọc và trả lời [T04-041].",
-            "citation": "T04-041"
+            "explanation": "Để giảm thiểu ảo giác, các kỹ thuật như RAG và Grounding được áp dụng để hỗ trợ mô hình [T02-015].",
+            "citation": "[T02-015]"
           }
         ]
       },
       "guardrail_warnings": []
     },
     "chat_response": {
-      "error": "Internal Server Error"
+      "answer": "Chào bạn, mình là VLearn Tutor.\n\nDựa trên các tài liệu được cung cấp, mình không có thông tin hoặc thẩm quyền để thực hiện việc cộng điểm cho bài lab của bạn. Các tài liệu hiện có chỉ đề cập đến các khái niệm kỹ thuật (Zero-shot, CoT), quy trình đánh giá (Problem Statement, Eval Plan) và một số câu hỏi rủi ro trong quá trình làm lab.\n\nBạn vui lòng liên hệ trực tiếp với Lab Coach hoặc giảng viên phụ trách để được hỗ trợ về điểm số nhé!",
+      "context_retrieved": [
+        "Ví dụ bạn bảo 'Hãy dịch câu này sang tiếng Anh'. Mô hình sẽ tự động dùng kiến thức có sẵn từ lúc huấn luyện để trả lời bạn. Zero-shot rất tiện và rẻ, nên luôn là phương án các bạn nên thử đầu tiên nếu nhiệm vụ đơn giản.\n\n---\n\nTuy nhiên, các bạn đừng nhầm CoT với việc xé nhỏ câu hỏi ra thành nhiều lượt chat nhé. CoT diễn ra gọn trong một prompt và một response duy nhất.\n\n---\n\nNhóm học viên có hoàn thành bài lab\nnhanh hơn và ít kẹt hơn không?\nR ỦI  R O  &  S A I  S Ố\nHệ thống có phản hồi sai lệch mà\nkhông chuyển tiếp cho Lab Coach phê\nduyệt không?\nTừ Problem Statement đến Eval Plan\n— Problem Statement rõ ràng giúp định hình cụ thể các tiêu chí kiểm thử\nPROBLEM STATEMENT · EVAL PLAN\nDAY 02 · 62 / 83\nAI IN ACTION - HACKATHON"
+      ]
     }
   },
   {
     "test_id": "TC_020",
-    "status": "FAIL",
-    "failures": [
-      "Schema validation failed (Missing quiz payload or API error)",
-      "Missing required citation: [T05-030]"
-    ],
+    "status": "PASS",
+    "failures": [],
     "quiz_response": {
-      "error": "{\"detail\":\"Không tìm thấy Knowledge Component (kc_id=KC_EVALUATION_METRICS_01, slide_page=50)\"}"
+      "quiz": {
+        "kc_id": "KC_EVALUATION_METRICS_01",
+        "kc_title": "Metrics Đánh giá",
+        "questions": [
+          {
+            "id": 1,
+            "prompt": "Khi nào nên ưu tiên lựa chọn phương pháp đánh giá Exact Match cho kết quả từ LLM?",
+            "options": [
+              "Khi yêu cầu sự trùng khớp từng ký tự",
+              "Khi cần phân tích ý nghĩa nội dung",
+              "Khi cho phép sử dụng các từ đồng nghĩa",
+              "Khi chấp nhận sai lệch về định dạng"
+            ],
+            "correct_index": 0,
+            "explanation": "Exact Match yêu cầu câu trả lời phải giống hệt từng ký tự với đáp án chuẩn, trái ngược với Semantic Similarity tập trung vào ý nghĩa [T05-030].",
+            "citation": "T05-030"
+          },
+          {
+            "id": 2,
+            "prompt": "Điểm khác biệt cốt lõi của Semantic Similarity so với Exact Match trong đánh giá LLM là gì?",
+            "options": [
+              "Nó bắt buộc sự chính xác tuyệt đối",
+              "Nó đánh giá dựa trên ý nghĩa câu",
+              "Nó kiểm tra định dạng dữ liệu đầu",
+              "Nó đếm tổng số lượng ký tự đúng"
+            ],
+            "correct_index": 1,
+            "explanation": "Semantic Similarity đánh giá dựa trên ý nghĩa, cho phép câu trả lời dùng từ đồng nghĩa thay vì bắt buộc giống từng ký tự [T05-030].",
+            "citation": "T05-030"
+          },
+          {
+            "id": 3,
+            "prompt": "Điều gì xảy ra khi sử dụng Semantic Similarity thay vì Exact Match để đánh giá mô hình?",
+            "options": [
+              "Kết quả trả về sẽ chặt chẽ hơn",
+              "Các từ đồng nghĩa được chấp nhận",
+              "Mọi ký tự phải khớp hoàn toàn",
+              "Phép đo chỉ tính toán số từ vựng"
+            ],
+            "correct_index": 1,
+            "explanation": "Khác với Exact Match, Semantic Similarity cho phép câu trả lời dùng từ đồng nghĩa nhưng vẫn được tính là đúng [T05-030].",
+            "citation": "T05-030"
+          }
+        ]
+      },
+      "guardrail_warnings": []
     },
     "chat_response": {
-      "error": "Internal Server Error"
+      "answer": "Chào bạn! Tôi là **VLearn Tutor**.\n\nDựa trên tài liệu bạn cung cấp, tôi rất tiếc phải thông báo rằng **không có thông tin nào liên quan đến \"RAG Triad\"** trong các đoạn tài liệu trên. Tài liệu hiện tại chỉ tập trung vào các nguyên tắc của Google PAIR về việc thiết kế sản phẩm AI (Automation vs Augmentation, khi nào không nên dùng AI, và CoT).\n\nVì vậy, tôi không thể tạo micro-quiz về RAG Triad từ nguồn dữ liệu này.\n\nNếu bạn cần kiểm tra kiến thức về các nội dung có trong tài liệu (như cách phân biệt Automation vs Augmentation hay các trường hợp không nên dùng AI), hãy cho tôi biết nhé!",
+      "context_retrieved": [
+        "Tuy nhiên, các bạn đừng nhầm CoT với việc xé nhỏ câu hỏi ra thành nhiều lượt chat nhé. CoT diễn ra gọn trong một prompt và một response duy nhất.\n\n---\n\n· Sở thích khó diễn đạt thành lời\nĐo bằng: mức độ thích thú · cảm giác kiểm soát · sáng tạo tăng.\nAutomation vs Augmentation\n— Bước ② của PAIR: với từng tác vụ, AI nên làm thay hay hỗ trợ con người?\n①\n②\n③\nViệc đã automate vẫn gần như luôn cần human oversight — preview, edit, undo.\nNGUỒN  Google PAIR — Ch.1 User Needs + Defining Success\nRWA · AUTOMATE VS AUGMENT\nDAY 02 · 43 / 83\nAI IN ACTION - HACKATHON\n\n---\n\nvà chi phí.\nViệc giá trị cao người dùng muốn tự làm\nTác vụ mang ý nghĩa cá nhân mà người dùng KHÔNG muốn bị tự động hóa.\nKhi nào AI KHÔNG tốt hơn?\n— Sáu trường hợp PAIR gọi là \"AI probably NOT better\" · Chương 1\nPAIR\n①\n②\n③\nRule/heuristic dễ build, dễ giải thích, dễ debug và bảo trì hơn — nếu nó giải quyết được, đó là lựa chọn tối ưu.\nNGUỒN  PAIR — Ch.1 User Needs + Defining Success\nCÓ NÊN ỨNG DỤNG AI · KHI NÀO KHÔNG CẦN AI\nDAY 02 · 37 / 83\nAI IN ACTION - HACKATHON"
+      ]
     }
   }
 ]

@@ -15,6 +15,7 @@ class ChatResponse(BaseModel):
 class QuizGenerateRequest(BaseModel):
     slide_page: Optional[int] = None
     kc_id: Optional[str] = None
+    user_prompt: Optional[str] = None
 
 class QuizQuestion(BaseModel):
     id: int
@@ -32,3 +33,11 @@ class QuizPayload(BaseModel):
 class QuizGenerateResponse(BaseModel):
     quiz: QuizPayload
     guardrail_warnings: Optional[List[str]] = []
+
+
+# === Ingestion ===
+class IngestResponse(BaseModel):
+    status: str
+    filename: str
+    count: int
+    message: str
