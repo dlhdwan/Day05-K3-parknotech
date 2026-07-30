@@ -1,0 +1,46 @@
+[
+  {
+    "transcript_id": "T04-020",
+    "text": "Đầu tiên, chúng ta sẽ nói về Zero-shot prompting. Đây là cách cơ bản nhất khi giao tiếp với mô hình AI. Bạn chỉ việc đưa ra câu hỏi hoặc yêu cầu mà không cần cung cấp cho nó bất kỳ một ví dụ mẫu nào cả."
+  },
+  {
+    "transcript_id": "T04-021",
+    "text": "Ví dụ bạn bảo 'Hãy dịch câu này sang tiếng Anh'. Mô hình sẽ tự động dùng kiến thức có sẵn từ lúc huấn luyện để trả lời bạn. Zero-shot rất tiện và rẻ, nên luôn là phương án các bạn nên thử đầu tiên nếu nhiệm vụ đơn giản."
+  },
+  {
+    "transcript_id": "T04-025",
+    "text": "Tiếp theo là Few-shot prompting. Khác với zero-shot, ở đây chúng ta sẽ nhét thẳng một vài ví dụ mẫu vào trong câu lệnh (prompt) trước khi yêu cầu nó làm thật."
+  },
+  {
+    "transcript_id": "T04-026",
+    "text": "Mục đích của việc này là để làm gì? Là để định hướng cho AI biết rõ format đầu ra mà bạn muốn, hoặc giúp nó nhận diện được pattern của bài toán. Các ví dụ này đóng vai trò như 'demonstrations'."
+  },
+  {
+    "transcript_id": "T04-027",
+    "text": "Nhớ nhé, few-shot không phải là huấn luyện lại mô hình (fine-tuning) đâu, chúng ta chỉ đang mượn ngữ cảnh (context) để hướng dẫn mô hình ngay lúc chạy thôi. Và nó thường tốn token hơn zero-shot khá nhiều."
+  },
+  {
+    "transcript_id": "T04-030",
+    "text": "Bây giờ chuyển sang Chain-of-Thought (CoT). Kỹ thuật này cực kỳ hiệu quả với các bài toán cần suy luận logic hoặc tính toán nhiều bước."
+  },
+  {
+    "transcript_id": "T04-031",
+    "text": "Thay vì bắt AI nhả ra đáp án ngay lập tức, bạn bắt nó phải 'suy nghĩ từng bước một' (think step by step). Việc ép mô hình phải sinh ra các bước trung gian giúp nó không bị nhảy cóc và giảm thiểu sai sót đáng kể."
+  },
+  {
+    "transcript_id": "T04-032",
+    "text": "Tuy nhiên, các bạn đừng nhầm CoT với việc xé nhỏ câu hỏi ra thành nhiều lượt chat nhé. CoT diễn ra gọn trong một prompt và một response duy nhất."
+  },
+  {
+    "transcript_id": "T04-040",
+    "text": "Cuối cùng là RAG - Retrieval-Augmented Generation. Bản chất của LLM là nó hay bị ảo giác (hallucination) vì nó tự 'bịa' thông tin nếu nó không biết."
+  },
+  {
+    "transcript_id": "T04-041",
+    "text": "Để khắc phục, RAG ra đời. Thay vì để LLM tự nhớ, chúng ta đi tìm (retrieval) tài liệu liên quan từ một database bên ngoài, sau đó kẹp cái tài liệu đó vào prompt, bắt LLM đọc tài liệu đó rồi mới được trả lời (generation)."
+  },
+  {
+    "transcript_id": "T04-042",
+    "text": "Chính việc 'có sách mách có chứng' này giúp RAG trở thành tiêu chuẩn vàng hiện nay để xây dựng chatbot nội bộ doanh nghiệp. Lưu ý RAG không phải là fine-tuning, dữ liệu không được nhét vào tham số của mô hình mà chỉ nằm ngoài database thôi."
+  }
+]
