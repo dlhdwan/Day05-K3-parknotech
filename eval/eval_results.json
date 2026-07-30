@@ -1,0 +1,760 @@
+[
+  {
+    "test_id": "TC_001",
+    "status": "FAIL",
+    "failures": [
+      "Missing required citation: [T04-025]",
+      "Found forbidden keyword in Quiz: fine-tuning",
+      "Found forbidden keyword in Quiz: huấn luyện lại mô hình"
+    ],
+    "quiz_response": {
+      "quiz": {
+        "kc_id": "KC_FEW_SHOT_01",
+        "kc_title": "Few-shot Prompting",
+        "questions": [
+          {
+            "id": 1,
+            "prompt": "Mục đích chính của việc cung cấp các ví dụ mẫu trong kỹ thuật Few-shot là gì?",
+            "options": [
+              "Huấn luyện lại tham số mô hình",
+              "Định hướng định dạng đầu ra",
+              "Tăng tốc độ xử lý câu lệnh",
+              "Giảm bớt số lượng token dùng"
+            ],
+            "correct_index": 1,
+            "explanation": "Few-shot được sử dụng để định hướng cho AI nhận diện pattern và định dạng đầu ra mong muốn thông qua các ví dụ mẫu [T04-026].",
+            "citation": "[T04-026]"
+          },
+          {
+            "id": 2,
+            "prompt": "Sự khác biệt cơ bản giữa Few-shot prompting và fine-tuning là gì?",
+            "options": [
+              "Few-shot thực hiện huấn luyện",
+              "Fine-tuning dựa vào ngữ cảnh",
+              "Few-shot chỉ dùng ngữ cảnh",
+              "Fine-tuning không thay tham số"
+            ],
+            "correct_index": 2,
+            "explanation": "Few-shot không phải là huấn luyện lại mô hình (fine-tuning) mà chỉ là việc mượn ngữ cảnh để hướng dẫn mô hình ngay lúc chạy [T04-027].",
+            "citation": "[T04-027]"
+          },
+          {
+            "id": 3,
+            "prompt": "Khi so sánh với Zero-shot, đặc điểm kỹ thuật nào của Few-shot cần được cân nhắc?",
+            "options": [
+              "Yêu cầu mô hình lớn hơn",
+              "Tốn nhiều token hơn hẳn",
+              "Cần cập nhật tham số ẩn",
+              "Tốn ít tài nguyên tính"
+            ],
+            "correct_index": 1,
+            "explanation": "Few-shot prompting thường tốn kém lượng token hơn khá nhiều so với Zero-shot vì phải bao gồm các ví dụ mẫu [T04-027].",
+            "citation": "[T04-027]"
+          }
+        ]
+      },
+      "guardrail_warnings": []
+    },
+    "chat_response": {
+      "error": "Internal Server Error"
+    }
+  },
+  {
+    "test_id": "TC_002",
+    "status": "FAIL",
+    "failures": [
+      "Missing required citation: [T04-025]"
+    ],
+    "quiz_response": {
+      "quiz": {
+        "kc_id": "KC_FEW_SHOT_01",
+        "kc_title": "Few-shot Prompting",
+        "questions": [
+          {
+            "id": 1,
+            "prompt": "Mục đích chính của việc cung cấp các ví dụ mẫu (demonstrations) trong Few-shot prompting là gì?",
+            "options": [
+              "Huấn luyện lại tham số mô hình",
+              "Định hướng định dạng đầu ra",
+              "Tăng tốc độ xử lý của mô hình",
+              "Giảm bớt số lượng token sử dụng"
+            ],
+            "correct_index": 1,
+            "explanation": "Few-shot giúp định hướng cho AI biết rõ format đầu ra hoặc giúp nó nhận diện pattern của bài toán [T04-026].",
+            "citation": "[T04-026]"
+          },
+          {
+            "id": 2,
+            "prompt": "Sự khác biệt căn bản giữa Few-shot prompting và quy trình huấn luyện lại mô hình (fine-tuning) là gì?",
+            "options": [
+              "Few-shot thay đổi trọng số gốc",
+              "Few-shot là hướng dẫn ngữ cảnh",
+              "Fine-tuning không cần dữ liệu",
+              "Fine-tuning tốn ít tài nguyên"
+            ],
+            "correct_index": 1,
+            "explanation": "Few-shot không phải là huấn luyện lại mô hình, chúng ta chỉ mượn ngữ cảnh để hướng dẫn mô hình ngay lúc chạy [T04-027].",
+            "citation": "[T04-027]"
+          },
+          {
+            "id": 3,
+            "prompt": "Khi so sánh về mặt chi phí vận hành, nhận định nào sau đây về Few-shot prompting là chính xác?",
+            "options": [
+              "Tiêu tốn ít token hơn zero-shot",
+              "Tốn nhiều token hơn zero-shot",
+              "Sử dụng số lượng token ngang nhau",
+              "Không tốn thêm bất kỳ token nào"
+            ],
+            "correct_index": 1,
+            "explanation": "Few-shot prompting thường tốn nhiều token hơn so với zero-shot vì phải bao gồm các ví dụ mẫu [T04-027].",
+            "citation": "[T04-027]"
+          }
+        ]
+      },
+      "guardrail_warnings": []
+    },
+    "chat_response": {
+      "error": "Internal Server Error"
+    }
+  },
+  {
+    "test_id": "TC_003",
+    "status": "FAIL",
+    "failures": [
+      "Missing required citation: [T04-025]"
+    ],
+    "quiz_response": {
+      "quiz": {
+        "kc_id": "KC_FEW_SHOT_01",
+        "kc_title": "Few-shot Prompting",
+        "questions": [
+          {
+            "id": 1,
+            "prompt": "Trong kỹ thuật Few-shot prompting, mục đích chính của các ví dụ mẫu (demonstrations) là gì?",
+            "options": [
+              "Để huấn luyện lại tham số mô hình",
+              "Để định hướng định dạng đầu ra",
+              "Để giảm thiểu lượng token dùng",
+              "Để tăng bộ nhớ máy chủ lưu trữ"
+            ],
+            "correct_index": 1,
+            "explanation": "Few-shot giúp định hướng AI nhận diện pattern của bài toán và định dạng đầu ra mong muốn thông qua các ví dụ mẫu [T04-026].",
+            "citation": "[T04-026]"
+          },
+          {
+            "id": 2,
+            "prompt": "Sự khác biệt cốt lõi giữa Few-shot prompting và fine-tuning là gì?",
+            "options": [
+              "Few-shot thực hiện huấn luyện lại",
+              "Fine-tuning không thay đổi trọng số",
+              "Few-shot chỉ mượn ngữ cảnh chạy",
+              "Fine-tuning tốn ít token hơn hẳn"
+            ],
+            "correct_index": 2,
+            "explanation": "Few-shot không phải là huấn luyện lại mô hình (fine-tuning), mà chỉ là mượn ngữ cảnh để hướng dẫn mô hình lúc chạy [T04-027].",
+            "citation": "[T04-027]"
+          },
+          {
+            "id": 3,
+            "prompt": "Khi so sánh giữa Few-shot prompting và Zero-shot, điều gì thường đúng về tài nguyên sử dụng?",
+            "options": [
+              "Few-shot tiêu tốn nhiều token hơn",
+              "Zero-shot tốn nhiều token hơn hẳn",
+              "Cả hai luôn tiêu tốn token ngang",
+              "Few-shot cần mô hình phải lớn hơn"
+            ],
+            "correct_index": 0,
+            "explanation": "Few-shot prompting thường tốn lượng token hơn so với zero-shot do phải cung cấp thêm các ví dụ mẫu trong câu lệnh [T04-027].",
+            "citation": "[T04-027]"
+          }
+        ]
+      },
+      "guardrail_warnings": []
+    },
+    "chat_response": {
+      "error": "Internal Server Error"
+    }
+  },
+  {
+    "test_id": "TC_004",
+    "status": "PASS",
+    "failures": [],
+    "quiz_response": {
+      "quiz": {
+        "kc_id": "KC_ZERO_SHOT_01",
+        "kc_title": "Zero-shot Prompting",
+        "questions": [
+          {
+            "id": 1,
+            "prompt": "Định nghĩa nào sau đây mô tả chính xác nhất về kỹ thuật Zero-shot prompting?",
+            "options": [
+              "Cung cấp lệnh trực tiếp mà không kèm ví dụ",
+              "Mô hình học kiến thức mới từ câu lệnh mới",
+              "Yêu cầu mô hình tự tạo ra các ví dụ mẫu",
+              "Sử dụng mô hình chưa qua bất kỳ huấn luyện"
+            ],
+            "correct_index": 0,
+            "explanation": "Zero-shot prompting là cách giao tiếp cơ bản nơi bạn đưa ra yêu cầu trực tiếp mà không cung cấp bất kỳ ví dụ mẫu nào cho mô hình [T04-020].",
+            "citation": "T04-020"
+          },
+          {
+            "id": 2,
+            "prompt": "Tại sao Zero-shot lại được khuyến nghị làm phương án tiếp cận đầu tiên?",
+            "options": [
+              "Vì nó giúp mô hình học kiến thức sâu hơn",
+              "Vì phương pháp này rất tiện và tiết kiệm",
+              "Vì nó bắt buộc phải dùng cho việc huấn luyện",
+              "Vì mô hình không thể hiểu các ví dụ mẫu"
+            ],
+            "correct_index": 1,
+            "explanation": "Zero-shot prompting rất tiện và rẻ, do đó nó luôn là phương án các bạn nên thử đầu tiên nếu nhiệm vụ đơn giản [T04-021].",
+            "citation": "T04-021"
+          },
+          {
+            "id": 3,
+            "prompt": "Khi thực hiện Zero-shot prompting, mô hình dựa vào đâu để phản hồi người dùng?",
+            "options": [
+              "Dựa vào các ví dụ được cung cấp kèm theo",
+              "Dựa vào kiến thức sẵn có từ lúc huấn luyện",
+              "Dựa vào việc tự truy cập internet thời gian",
+              "Dựa vào các câu lệnh được lập trình cứng"
+            ],
+            "correct_index": 1,
+            "explanation": "Trong Zero-shot, mô hình tự động sử dụng kiến thức sẵn có từ lúc được huấn luyện để trả lời yêu cầu của bạn [T04-021].",
+            "citation": "T04-021"
+          }
+        ]
+      },
+      "guardrail_warnings": []
+    },
+    "chat_response": {
+      "error": "Internal Server Error"
+    }
+  },
+  {
+    "test_id": "TC_005",
+    "status": "PASS",
+    "failures": [],
+    "quiz_response": {
+      "quiz": {
+        "kc_id": "KC_ZERO_SHOT_01",
+        "kc_title": "Zero-shot Prompting",
+        "questions": [
+          {
+            "id": 1,
+            "prompt": "Đặc điểm cốt lõi nhất của kỹ thuật Zero-shot prompting là gì?",
+            "options": [
+              "Không dùng câu lệnh mẫu",
+              "Không cần dùng câu lệnh",
+              "Mô hình chưa được đào tạo",
+              "Mô hình không có kiến thức"
+            ],
+            "correct_index": 0,
+            "explanation": "Zero-shot là việc đưa ra yêu cầu trực tiếp mà không cung cấp ví dụ mẫu, chứ không phải là không dùng câu lệnh [T04-020].",
+            "citation": "T04-020"
+          },
+          {
+            "id": 2,
+            "prompt": "Tại sao Zero-shot lại được khuyến nghị làm phương án đầu tiên?",
+            "options": [
+              "Vì nó rất tiện và rẻ",
+              "Vì nó cực kỳ chính xác",
+              "Vì nó không cần học tập",
+              "Vì nó giúp mô hình nhớ"
+            ],
+            "correct_index": 0,
+            "explanation": "Zero-shot là phương pháp rất tiện và rẻ, nên luôn là ưu tiên hàng đầu cho các nhiệm vụ đơn giản [T04-021].",
+            "citation": "T04-021"
+          },
+          {
+            "id": 3,
+            "prompt": "Khi thực hiện Zero-shot, mô hình lấy kiến thức từ đâu để trả lời?",
+            "options": [
+              "Kiến thức huấn luyện sẵn",
+              "Dữ liệu người dùng nhập",
+              "Các ví dụ mẫu bên ngoài",
+              "Kết nối internet bên thứ"
+            ],
+            "correct_index": 0,
+            "explanation": "Mô hình dựa hoàn toàn vào kiến thức nội tại đã có sẵn từ giai đoạn huấn luyện để phản hồi [T04-021].",
+            "citation": "T04-021"
+          }
+        ]
+      },
+      "guardrail_warnings": []
+    },
+    "chat_response": {
+      "error": "Internal Server Error"
+    }
+  },
+  {
+    "test_id": "TC_006",
+    "status": "FAIL",
+    "failures": [
+      "Schema validation failed (Missing quiz payload or API error)",
+      "Missing required citation: [T06-015]"
+    ],
+    "quiz_response": {
+      "error": "{\"detail\":\"Không tìm thấy Knowledge Component (kc_id=KC_ATTENTION_01, slide_page=28)\"}"
+    },
+    "chat_response": {
+      "error": "Internal Server Error"
+    }
+  },
+  {
+    "test_id": "TC_007",
+    "status": "FAIL",
+    "failures": [
+      "Schema validation failed (Missing quiz payload or API error)",
+      "Missing required citation: [T06-015]"
+    ],
+    "quiz_response": {
+      "error": "{\"detail\":\"Không tìm thấy Knowledge Component (kc_id=KC_ATTENTION_01, slide_page=28)\"}"
+    },
+    "chat_response": {
+      "error": "Internal Server Error"
+    }
+  },
+  {
+    "test_id": "TC_008",
+    "status": "FAIL",
+    "failures": [
+      "Missing required citation: [T01-042]"
+    ],
+    "quiz_response": {
+      "quiz": {
+        "kc_id": "KC_RAG_01",
+        "kc_title": "Retrieval-Augmented Generation (RAG)",
+        "questions": [
+          {
+            "id": 1,
+            "prompt": "Mục đích cốt lõi của kỹ thuật RAG trong việc tương tác với các mô hình ngôn ngữ lớn (LLM) là gì?",
+            "options": [
+              "Để tăng tốc độ huấn luyện mô hình ngôn ngữ",
+              "Để giảm thiểu sự ảo giác thông tin từ LLM",
+              "Để nén dữ liệu đầu vào thành tham số mô hình",
+              "Để thay thế hoàn toàn khả năng tự suy luận"
+            ],
+            "correct_index": 1,
+            "explanation": "RAG được thiết kế để cung cấp thông tin thực tế từ database, giúp LLM không tự bịa ra thông tin [T04-040].",
+            "citation": "T04-040"
+          },
+          {
+            "id": 2,
+            "prompt": "Quy trình vận hành cơ bản của một hệ thống RAG diễn ra theo trình tự nào sau đây?",
+            "options": [
+              "Huấn luyện lại mô hình sau đó sinh văn bản",
+              "Truy xuất tài liệu rồi đưa vào prompt để sinh",
+              "Nhồi toàn bộ dữ liệu vào prompt để LLM đọc",
+              "Lưu trữ kiến thức mới trực tiếp vào tham số"
+            ],
+            "correct_index": 1,
+            "explanation": "RAG hoạt động bằng cách truy xuất tài liệu liên quan rồi kẹp vào prompt để mô hình dựa vào đó trả lời [T04-041].",
+            "citation": "T04-041"
+          },
+          {
+            "id": 3,
+            "prompt": "Tại sao RAG không được coi là quá trình fine-tuning mô hình ngôn ngữ?",
+            "options": [
+              "Vì dữ liệu chỉ nằm ngoài database, không nạp",
+              "Vì fine-tuning cần nhiều dữ liệu hơn RAG làm",
+              "Vì RAG không thể tùy chỉnh theo dữ liệu riêng",
+              "Vì RAG yêu cầu quyền truy cập vào tham số"
+            ],
+            "correct_index": 0,
+            "explanation": "RAG khác với fine-tuning vì dữ liệu không được nhét vào tham số mô hình mà chỉ nằm trong database bên ngoài [T04-042].",
+            "citation": "T04-042"
+          }
+        ]
+      },
+      "guardrail_warnings": []
+    },
+    "chat_response": {
+      "error": "Internal Server Error"
+    }
+  },
+  {
+    "test_id": "TC_009",
+    "status": "FAIL",
+    "failures": [
+      "Missing required citation: [T01-042]"
+    ],
+    "quiz_response": {
+      "quiz": {
+        "kc_id": "KC_RAG_01",
+        "kc_title": "Retrieval-Augmented Generation (RAG)",
+        "questions": [
+          {
+            "id": 1,
+            "prompt": "Tại sao RAG lại được xem là giải pháp giúp giảm thiểu hiện tượng ảo giác (hallucination) ở các mô hình LLM?",
+            "options": [
+              "Vì nó giúp tinh chỉnh lại toàn bộ tham số của mô hình",
+              "Vì nó bắt mô hình phải tự nhớ thêm các kiến thức mới",
+              "Vì nó cung cấp tài liệu gốc để mô hình đọc và trả lời",
+              "Vì nó buộc mô hình phải học thuộc lòng mọi tài liệu"
+            ],
+            "correct_index": 2,
+            "explanation": "RAG giảm ảo giác bằng cách truy xuất tài liệu liên quan từ bên ngoài và đưa vào prompt để mô hình dựa vào đó trả lời thay vì tự bịa thông tin [T04-041].",
+            "citation": "[T04-041]"
+          },
+          {
+            "id": 2,
+            "prompt": "Trong kiến trúc RAG, dữ liệu tài liệu của doanh nghiệp thường được lưu trữ ở đâu để đảm bảo tính chính xác?",
+            "options": [
+              "Lưu trữ trực tiếp bên trong các tham số của mô hình",
+              "Lưu trữ tại một cơ sở dữ liệu nằm ngoài mô hình",
+              "Lưu trữ dưới dạng các file log trong hệ thống AI",
+              "Lưu trữ vào bộ nhớ tạm thời của trình duyệt web"
+            ],
+            "correct_index": 1,
+            "explanation": "RAG không đưa dữ liệu vào tham số mô hình mà để dữ liệu nằm ngoài database, giúp mô hình truy xuất khi cần thiết [T04-042].",
+            "citation": "[T04-042]"
+          },
+          {
+            "id": 3,
+            "prompt": "Điểm khác biệt quan trọng nhất giữa RAG và quy trình fine-tuning mô hình là gì?",
+            "options": [
+              "RAG thay đổi tham số còn fine-tuning thì không làm",
+              "RAG là truy xuất còn fine-tuning là huấn luyện lại",
+              "RAG yêu cầu nhiều tài nguyên hơn là fine-tuning",
+              "RAG dùng để xóa bỏ còn fine-tuning dùng để lưu trữ"
+            ],
+            "correct_index": 1,
+            "explanation": "RAG khác với fine-tuning ở chỗ RAG không nhét dữ liệu vào tham số mô hình mà chỉ truy xuất từ database bên ngoài [T04-042].",
+            "citation": "[T04-042]"
+          }
+        ]
+      },
+      "guardrail_warnings": []
+    },
+    "chat_response": {
+      "error": "Internal Server Error"
+    }
+  },
+  {
+    "test_id": "TC_010",
+    "status": "FAIL",
+    "failures": [
+      "Schema validation failed (Missing quiz payload or API error)",
+      "Missing required citation: [T04-055]"
+    ],
+    "quiz_response": {
+      "error": "{\"detail\":\"Không tìm thấy Knowledge Component (kc_id=KC_TEMPERATURE_01, slide_page=19)\"}"
+    },
+    "chat_response": {
+      "error": "Internal Server Error"
+    }
+  },
+  {
+    "test_id": "TC_011",
+    "status": "FAIL",
+    "failures": [
+      "Schema validation failed (Missing quiz payload or API error)",
+      "Missing required citation: [T04-055]"
+    ],
+    "quiz_response": {
+      "error": "{\"detail\":\"Không tìm thấy Knowledge Component (kc_id=KC_TEMPERATURE_01, slide_page=19)\"}"
+    },
+    "chat_response": {
+      "error": "Internal Server Error"
+    }
+  },
+  {
+    "test_id": "TC_012",
+    "status": "FAIL",
+    "failures": [
+      "Schema validation failed (Missing quiz payload or API error)",
+      "Missing required citation: [T04-010]"
+    ],
+    "quiz_response": {
+      "error": "{\"detail\":\"Không tìm thấy Knowledge Component (kc_id=KC_PROMPT_STRUCTURE_01, slide_page=10)\"}"
+    },
+    "chat_response": {
+      "error": "Internal Server Error"
+    }
+  },
+  {
+    "test_id": "TC_013",
+    "status": "FAIL",
+    "failures": [
+      "Schema validation failed (Missing quiz payload or API error)",
+      "Missing required citation: [T04-010]"
+    ],
+    "quiz_response": {
+      "error": "{\"detail\":\"Không tìm thấy Knowledge Component (kc_id=KC_PROMPT_STRUCTURE_01, slide_page=10)\"}"
+    },
+    "chat_response": {
+      "error": "Internal Server Error"
+    }
+  },
+  {
+    "test_id": "TC_014",
+    "status": "PASS",
+    "failures": [],
+    "quiz_response": {
+      "quiz": {
+        "kc_id": "KC_COT_01",
+        "kc_title": "Chain-of-Thought Prompting",
+        "questions": [
+          {
+            "id": 1,
+            "prompt": "Khi áp dụng kỹ thuật Chain-of-Thought, mục đích chính của việc yêu cầu mô hình 'suy nghĩ từng bước' là gì?",
+            "options": [
+              "Để tăng tốc độ tạo ra phản hồi",
+              "Để tránh nhảy cóc và giảm sai",
+              "Để rút ngắn độ dài câu trả lời",
+              "Để chia nhỏ dữ liệu đầu vào"
+            ],
+            "correct_index": 1,
+            "explanation": "Việc yêu cầu mô hình sinh ra các bước trung gian giúp ngăn chặn tình trạng nhảy cóc và giảm thiểu các sai sót trong suy luận [T04-031].",
+            "citation": "T04-031"
+          },
+          {
+            "id": 2,
+            "prompt": "Đâu là cách hiểu đúng về phạm vi thực hiện của kỹ thuật Chain-of-Thought trong một phiên làm việc với AI?",
+            "options": [
+              "Thực hiện qua nhiều lần hỏi đáp",
+              "Gói gọn trong một prompt duy nhất",
+              "Tách thành nhiều lượt gọi API con",
+              "Chia nhỏ bài toán qua nhiều chat"
+            ],
+            "correct_index": 1,
+            "explanation": "CoT không phải là việc chia nhỏ câu hỏi thành nhiều lượt chat, mà diễn ra gọn trong một prompt và một response duy nhất [T04-032].",
+            "citation": "T04-032"
+          },
+          {
+            "id": 3,
+            "prompt": "Ngoài các bài toán tính toán, Chain-of-Thought còn cực kỳ hiệu quả đối với dạng bài tập nào dưới đây?",
+            "options": [
+              "Các bài toán suy luận logic",
+              "Các bài cần định dạng văn bản",
+              "Các bài yêu cầu tìm dữ liệu",
+              "Các bài cần kiểm tra cú pháp"
+            ],
+            "correct_index": 0,
+            "explanation": "Kỹ thuật này cực kỳ hiệu quả với các bài toán cần suy luận logic hoặc tính toán nhiều bước [T04-030].",
+            "citation": "T04-030"
+          }
+        ]
+      },
+      "guardrail_warnings": []
+    },
+    "chat_response": {
+      "error": "Internal Server Error"
+    }
+  },
+  {
+    "test_id": "TC_015",
+    "status": "PASS",
+    "failures": [],
+    "quiz_response": {
+      "quiz": {
+        "kc_id": "KC_COT_01",
+        "kc_title": "Chain-of-Thought Prompting",
+        "questions": [
+          {
+            "id": 1,
+            "prompt": "Mục tiêu chính của việc áp dụng kỹ thuật Chain-of-Thought (CoT) trong prompt là gì?",
+            "options": [
+              "Yêu cầu mô hình tạo ra suy luận từng bước một",
+              "Thực hiện gọi API nhiều lần cho mỗi bước nhỏ",
+              "Chia nhỏ các yêu cầu phức tạp thành câu lệnh",
+              "Giảm bớt thời gian chờ đợi phản hồi của máy"
+            ],
+            "correct_index": 0,
+            "explanation": "CoT tập trung vào việc bắt mô hình suy nghĩ từng bước để tránh nhảy cóc và giảm sai sót trong một phản hồi duy nhất [T04-031].",
+            "citation": "T04-031"
+          },
+          {
+            "id": 2,
+            "prompt": "Sai lầm phổ biến nào thường gặp khi thực hiện kỹ thuật Chain-of-Thought?",
+            "options": [
+              "Nhầm CoT với việc chia câu hỏi thành nhiều lượt",
+              "Cho rằng CoT chỉ dùng được cho toán học thuần",
+              "Sử dụng quá nhiều bước suy luận không cần thiết",
+              "Quên không yêu cầu mô hình giải đáp từng bước"
+            ],
+            "correct_index": 0,
+            "explanation": "Người học hay nhầm lẫn CoT với việc chia nhỏ câu hỏi ra thành nhiều lượt chat, trong khi CoT phải nằm trong một prompt [T04-032].",
+            "citation": "T04-032"
+          },
+          {
+            "id": 3,
+            "prompt": "Loại bài toán nào dưới đây được hưởng lợi lớn nhất từ kỹ thuật Chain-of-Thought?",
+            "options": [
+              "Các bài toán đòi hỏi suy luận logic phức tạp",
+              "Các bài toán yêu cầu truy vấn dữ liệu từ web",
+              "Các bài toán cần định dạng văn bản sáng tạo",
+              "Các bài toán yêu cầu dịch thuật đa ngôn ngữ"
+            ],
+            "correct_index": 0,
+            "explanation": "Kỹ thuật này cực kỳ hiệu quả đối với các bài toán cần suy luận logic hoặc các tính toán đòi hỏi nhiều bước xử lý [T04-030].",
+            "citation": "T04-030"
+          }
+        ]
+      },
+      "guardrail_warnings": []
+    },
+    "chat_response": {
+      "error": "Internal Server Error"
+    }
+  },
+  {
+    "test_id": "TC_016",
+    "status": "FAIL",
+    "failures": [
+      "Schema validation failed (Missing quiz payload or API error)",
+      "Missing required citation: [T06-040]"
+    ],
+    "quiz_response": {
+      "error": "{\"detail\":\"Không tìm thấy Knowledge Component (kc_id=KC_TRANSFORMER_ENCODER_01, slide_page=32)\"}"
+    },
+    "chat_response": {
+      "error": "Internal Server Error"
+    }
+  },
+  {
+    "test_id": "TC_017",
+    "status": "FAIL",
+    "failures": [
+      "Schema validation failed (Missing quiz payload or API error)",
+      "Missing required citation: [T06-040]"
+    ],
+    "quiz_response": {
+      "error": "{\"detail\":\"Không tìm thấy Knowledge Component (kc_id=KC_TRANSFORMER_ENCODER_01, slide_page=32)\"}"
+    },
+    "chat_response": {
+      "error": "Internal Server Error"
+    }
+  },
+  {
+    "test_id": "TC_018",
+    "status": "FAIL",
+    "failures": [
+      "Missing required citation: [T02-015]"
+    ],
+    "quiz_response": {
+      "quiz": {
+        "kc_id": "KC_RAG_01",
+        "kc_title": "Retrieval-Augmented Generation (RAG)",
+        "questions": [
+          {
+            "id": 1,
+            "prompt": "Tại sao RAG được coi là phương pháp giúp giảm thiểu hiện tượng ảo giác (hallucination) ở LLM?",
+            "options": [
+              "Vì nó giúp mô hình học lại các trọng số mới",
+              "Vì nó cung cấp tài liệu gốc để mô hình đọc",
+              "Vì nó nén toàn bộ kiến thức vào tham số ẩn",
+              "Vì nó tự động sửa lỗi logic trong câu trả"
+            ],
+            "correct_index": 1,
+            "explanation": "RAG cung cấp tài liệu liên quan từ database bên ngoài vào prompt, buộc LLM phải căn cứ vào thông tin đó thay vì tự bịa đặt [T04-041].",
+            "citation": "T04-041"
+          },
+          {
+            "id": 2,
+            "prompt": "Điểm khác biệt cơ bản nhất giữa RAG và quá trình fine-tuning mô hình là gì?",
+            "options": [
+              "RAG lưu trữ dữ liệu ngoài tham số mô hình",
+              "RAG cần phải huấn luyện lại các tham số",
+              "Fine-tuning không yêu cầu dùng tài liệu",
+              "Fine-tuning luôn nhanh hơn phương pháp RAG"
+            ],
+            "correct_index": 0,
+            "explanation": "RAG không phải là fine-tuning, vì dữ liệu trong RAG không được nhét vào tham số mô hình mà chỉ nằm trong database [T04-042].",
+            "citation": "T04-042"
+          },
+          {
+            "id": 3,
+            "prompt": "Cơ chế hoạt động chính của pipeline RAG bao gồm các bước nào sau đây?",
+            "options": [
+              "Truy xuất tài liệu rồi nạp vào prompt",
+              "Huấn luyện lại mô hình trên dữ liệu mới",
+              "Nhồi toàn bộ tài liệu vào tham số ẩn",
+              "Tự sinh dữ liệu thay cho truy xuất ngoài"
+            ],
+            "correct_index": 0,
+            "explanation": "RAG hoạt động bằng cách đi tìm tài liệu liên quan từ database, sau đó kẹp vào prompt để LLM đọc và trả lời [T04-041].",
+            "citation": "T04-041"
+          }
+        ]
+      },
+      "guardrail_warnings": []
+    },
+    "chat_response": {
+      "error": "Internal Server Error"
+    }
+  },
+  {
+    "test_id": "TC_019",
+    "status": "FAIL",
+    "failures": [
+      "Missing required citation: [T02-015]"
+    ],
+    "quiz_response": {
+      "quiz": {
+        "kc_id": "KC_RAG_01",
+        "kc_title": "Retrieval-Augmented Generation (RAG)",
+        "questions": [
+          {
+            "id": 1,
+            "prompt": "Tại sao kỹ thuật RAG lại được sử dụng để giảm thiểu hiện tượng ảo giác (hallucination) ở các mô hình LLM?",
+            "options": [
+              "Vì nó giúp LLM ghi nhớ tốt hơn dữ liệu",
+              "Vì nó yêu cầu LLM trích dẫn thông tin",
+              "Vì nó cung cấp tài liệu gốc làm cơ sở",
+              "Vì nó thay đổi kiến trúc nội bộ LLM"
+            ],
+            "correct_index": 2,
+            "explanation": "RAG giảm ảo giác bằng cách cung cấp các tài liệu liên quan từ database bên ngoài vào prompt để LLM dựa vào đó trả lời [T04-041].",
+            "citation": "T04-041"
+          },
+          {
+            "id": 2,
+            "prompt": "Sự khác biệt cơ bản giữa kỹ thuật RAG và phương pháp fine-tuning là gì?",
+            "options": [
+              "RAG lưu trữ dữ liệu ngoài tham số mô hình",
+              "RAG huấn luyện lại mô hình trên dữ liệu",
+              "Fine-tuning không dùng tài liệu bên ngoài",
+              "Fine-tuning sử dụng database rời độc lập"
+            ],
+            "correct_index": 0,
+            "explanation": "RAG khác với fine-tuning ở chỗ dữ liệu được lưu trữ ngoài tham số của mô hình thay vì được nhét vào tham số mô hình [T04-042].",
+            "citation": "T04-042"
+          },
+          {
+            "id": 3,
+            "prompt": "Quy trình hoạt động chính xác của một pipeline RAG cơ bản là như thế nào?",
+            "options": [
+              "Nạp dữ liệu vào model rồi mới truy xuất",
+              "Truy xuất tài liệu rồi đưa vào prompt",
+              "Huấn luyện model đọc tài liệu nội bộ",
+              "Dùng toàn bộ dữ liệu làm prompt đầu vào"
+            ],
+            "correct_index": 1,
+            "explanation": "RAG hoạt động bằng cách truy xuất tài liệu liên quan từ database, sau đó kẹp vào prompt để LLM đọc và trả lời [T04-041].",
+            "citation": "T04-041"
+          }
+        ]
+      },
+      "guardrail_warnings": []
+    },
+    "chat_response": {
+      "error": "Internal Server Error"
+    }
+  },
+  {
+    "test_id": "TC_020",
+    "status": "FAIL",
+    "failures": [
+      "Schema validation failed (Missing quiz payload or API error)",
+      "Missing required citation: [T05-030]"
+    ],
+    "quiz_response": {
+      "error": "{\"detail\":\"Không tìm thấy Knowledge Component (kc_id=KC_EVALUATION_METRICS_01, slide_page=50)\"}"
+    },
+    "chat_response": {
+      "error": "Internal Server Error"
+    }
+  }
+]

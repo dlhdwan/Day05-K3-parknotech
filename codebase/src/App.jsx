@@ -6,54 +6,31 @@ import {
   ArrowLeft
 } from 'lucide-react';
 
-const quizQuestions = [
-  {
-    id: 1,
-    prompt: 'Điểm khác biệt cốt lõi giữa zero-shot và few-shot prompting là gì?',
-    options: [
-      'Few-shot luôn dùng mô hình lớn hơn',
-      'Few-shot cung cấp một vài ví dụ mẫu trong prompt',
-      'Zero-shot không cần câu lệnh',
-      'Zero-shot chỉ dùng được cho phân loại',
-    ],
-    correct: 1,
-    explanation: 'Few-shot đưa một vài cặp input–output mẫu vào prompt để mô hình nhận ra nhiệm vụ và định dạng mong muốn.',
-  },
-  {
-    id: 2,
-    prompt: 'Khi nào nên thử zero-shot trước?',
-    options: [
-      'Khi nhiệm vụ rõ ràng và chưa cần giữ định dạng phức tạp',
-      'Chỉ khi không có dữ liệu huấn luyện',
-      'Khi cần mô hình giải thích từng bước',
-      'Chỉ với câu hỏi có/không',
-    ],
-    correct: 0,
-    explanation: 'Zero-shot là điểm bắt đầu nhanh và rẻ cho nhiệm vụ rõ ràng. Chỉ thêm ví dụ khi kết quả chưa ổn định hoặc cần giữ format.',
-  },
-  {
-    id: 3,
-    prompt: 'Ví dụ nào sử dụng few-shot prompting?',
-    options: [
-      '“Tóm tắt đoạn sau trong một câu.”',
-      '“Hãy suy nghĩ từng bước trước khi trả lời.”',
-      'Đưa hai mẫu phân loại cảm xúc, rồi yêu cầu phân loại câu mới',
-      'Yêu cầu mô hình trả về JSON mà không cung cấp mẫu',
-    ],
-    correct: 2,
-    explanation: 'Hai mẫu phân loại đóng vai trò demonstration, giúp mô hình suy ra cách xử lý input mới.',
-  }
-];
+// Quiz questions được lấy từ API /api/quiz/generate (không hardcode)
 
-function QuizSlide({ onBack }) {
+function QuizSlide({ onBack, questions }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState({});
   const [showResults, setShowResults] = useState(false);
   const [isSubmittedForQuestion, setIsSubmittedForQuestion] = useState({});
 
-  const question = quizQuestions[currentQuestion];
+  if (!questions || questions.length === 0) {
+    return (
+      <div className="quiz-slide-container">
+        <div className="quiz-slide-header">
+          <button className="btn-outline" onClick={onBack}><ArrowLeft size={16}/> Quay lại tài liệu</button>
+          <span className="quiz-slide-title"><Sparkles size={16}/> Đang tạo quiz từ AI...</span>
+        </div>
+        <div className="quiz-slide-body" style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+          <div className="loading-dots"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    );
+  }
+
+  const question = questions[currentQuestion];
   const hasAnsweredCurrent = answers[currentQuestion] !== undefined;
-  const isCorrect = answers[currentQuestion] === question.correct;
+  const isCorrect = answers[currentQuestion] === question.correct_index;
   const isSubmitted = isSubmittedForQuestion[currentQuestion];
 
   const handleSelect = (index) => {
@@ -66,7 +43,7 @@ function QuizSlide({ onBack }) {
   };
 
   const handleNext = () => {
-    if (currentQuestion < quizQuestions.length - 1) {
+    if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(prev => prev + 1);
     } else {
       setShowResults(true);
@@ -75,9 +52,9 @@ function QuizSlide({ onBack }) {
 
   if (showResults) {
     const score = Object.keys(answers).reduce((acc, qIndex) => {
-      return acc + (answers[qIndex] === quizQuestions[qIndex].correct ? 1 : 0);
+      return acc + (answers[qIndex] === questions[qIndex].correct_index ? 1 : 0);
     }, 0);
-    const percent = Math.round((score / quizQuestions.length) * 100);
+    const percent = Math.round((score / questions.length) * 100);
 
     return (
       <div className="quiz-slide-container">
@@ -87,9 +64,9 @@ function QuizSlide({ onBack }) {
         </div>
         <div className="quiz-results-large">
           <div className="score-circle-large" style={{ '--score': `${percent * 3.6}deg` }}>
-            <span>{score}/{quizQuestions.length}</span>
+            <span>{score}/{questions.length}</span>
           </div>
-          <h2>{score === 3 ? 'Tuyệt vời!' : 'Hoàn thành!'}</h2>
+          <h2>{score === questions.length ? 'Tuyệt vời!' : 'Hoàn thành!'}</h2>
           <p>Bạn đã nắm được nội dung chính của phần tài liệu này.</p>
           <div style={{display: 'flex', gap: 12, justifyContent: 'center', marginTop: 24}}>
              <button className="btn-secondary" onClick={() => {
@@ -109,7 +86,7 @@ function QuizSlide({ onBack }) {
     <div className="quiz-slide-container">
       <div className="quiz-slide-header">
          <button className="btn-outline" onClick={onBack}><ArrowLeft size={16}/> Quay lại tài liệu</button>
-         <span className="quiz-slide-title"><Sparkles size={16}/> Kiểm tra nhanh ({currentQuestion + 1}/{quizQuestions.length})</span>
+         <span className="quiz-slide-title"><Sparkles size={16}/> Kiểm tra nhanh ({currentQuestion + 1}/{questions.length})</span>
       </div>
       <div className="quiz-slide-body">
         <h2 className="quiz-slide-question">{question.prompt}</h2>
@@ -117,7 +94,7 @@ function QuizSlide({ onBack }) {
           {question.options.map((opt, idx) => {
             let className = "quiz-slide-option";
             if (isSubmitted) {
-               if (idx === question.correct) className += " correct";
+               if (idx === question.correct_index) className += " correct";
                else if (idx === answers[currentQuestion]) className += " incorrect";
             } else if (answers[currentQuestion] === idx) {
                className += " selected";
@@ -134,11 +111,12 @@ function QuizSlide({ onBack }) {
         {isSubmitted && (
            <div className={`quiz-slide-explanation ${isCorrect ? 'correct' : 'incorrect'}`}>
               <strong>{isCorrect ? 'Chính xác!' : 'Chưa chính xác.'}</strong> {question.explanation}
+              {question.citation && <span style={{opacity:0.7, marginLeft:4}}>({question.citation})</span>}
            </div>
         )}
       </div>
       <div className="quiz-slide-footer">
-        <button className="btn-secondary" disabled={currentQuestion === 0} onClick={() => setCurrentQuestion(prev => prev - 1)}>
+        <button className="btn-secondary" disabled={currentQuestion === 0} onClick={() => { setCurrentQuestion(prev => prev - 1); }}>
           Câu trước
         </button>
         {!isSubmitted ? (
@@ -147,7 +125,7 @@ function QuizSlide({ onBack }) {
           </button>
         ) : (
           <button className="btn-primary" onClick={handleNext}>
-            {currentQuestion === quizQuestions.length - 1 ? 'Xem kết quả' : 'Câu tiếp theo'}
+            {currentQuestion === questions.length - 1 ? 'Xem kết quả' : 'Câu tiếp theo'}
           </button>
         )}
       </div>
@@ -166,6 +144,9 @@ export function App() {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [centerView, setCenterView] = useState('pdf'); // 'pdf' | 'quiz'
+  const [quizQuestions, setQuizQuestions] = useState([]);
+  const [quizLoading, setQuizLoading] = useState(false);
+  const [quizMeta, setQuizMeta] = useState(null);
   
   const messagesEndRef = useRef(null);
 
@@ -177,7 +158,7 @@ export function App() {
     scrollToBottom();
   }, [messages, isLoading]);
 
-  const handleSend = (e) => {
+  const handleSend = async (e) => {
     e.preventDefault();
     if (!input.trim()) return;
 
@@ -187,19 +168,56 @@ export function App() {
     
     setIsLoading(true);
 
-    // Simulate AI response delay
-    setTimeout(() => {
+    try {
+      const res = await fetch('http://localhost:8000/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: userText })
+      });
+      const data = await res.json();
+      
       setIsLoading(false);
       setMessages(prev => [...prev, {
         role: 'tutor',
-        text: 'Dựa trên đoạn tài liệu về Zero-shot và Few-shot prompting, tôi đã tạo một bài kiểm tra nhanh gồm 3 câu hỏi để bạn tự đánh giá. Bấm nút dưới đây để làm bài nhé!',
-        isQuizTrigger: true
+        text: data.answer || "Không có phản hồi từ máy chủ.",
+        isQuizTrigger: data.answer && data.answer.toLowerCase().includes("quiz")
       }]);
-    }, 1200);
+    } catch (error) {
+      setIsLoading(false);
+      setMessages(prev => [...prev, {
+        role: 'tutor',
+        text: "Lỗi kết nối tới Backend: " + error.message,
+        isQuizTrigger: false
+      }]);
+    }
   };
 
-  const autofillQuizRequest = () => {
-    setInput('Tạo quiz kiểm tra nhanh cho trang 14 về Few-shot prompting');
+  const generateQuiz = async (slidePage = 14) => {
+    setQuizLoading(true);
+    setQuizQuestions([]);
+    setCenterView('quiz');
+    try {
+      const res = await fetch('http://localhost:8000/api/quiz/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slide_page: slidePage })
+      });
+      const data = await res.json();
+      if (data.quiz && data.quiz.questions) {
+        setQuizQuestions(data.quiz.questions);
+        setQuizMeta({ kc_id: data.quiz.kc_id, kc_title: data.quiz.kc_title });
+      }
+    } catch (err) {
+      console.error('Quiz generation failed:', err);
+      setMessages(prev => [...prev, {
+        role: 'tutor',
+        text: 'Lỗi khi tạo quiz: ' + err.message,
+        isQuizTrigger: false
+      }]);
+      setCenterView('pdf');
+    } finally {
+      setQuizLoading(false);
+    }
   };
 
   return (
@@ -289,13 +307,13 @@ export function App() {
                      <div className="instructor-info">Instructor: Mai Anh Nguyen (Blue)</div>
                   </div>
                   
-                  <div style={{marginTop: 'auto', padding: 12, background: '#fff', borderRadius: 8, fontSize: 13, border: '1px dashed #a0aab2', color: '#64707b', cursor: 'pointer', textAlign: 'center'}} onClick={autofillQuizRequest}>
-                     💡 Click vào đây để điền nhanh yêu cầu Tutor tạo Quiz cho đoạn này
+                  <div style={{marginTop: 'auto', padding: 12, background: '#fff', borderRadius: 8, fontSize: 13, border: '1px dashed #a0aab2', color: '#64707b', cursor: 'pointer', textAlign: 'center'}} onClick={() => generateQuiz(14)}>
+                     💡 Click vào đây để tạo Quiz AI cho đoạn này (slide 14)
                   </div>
                </div>
              </>
            ) : (
-             <QuizSlide onBack={() => setCenterView('pdf')} />
+             <QuizSlide onBack={() => setCenterView('pdf')} questions={quizQuestions} />
            )}
         </section>
 
@@ -326,7 +344,7 @@ export function App() {
                        <div className="msg-bubble">
                           <p>{msg.text}</p>
                           {msg.isQuizTrigger && (
-                             <button className="btn-primary" style={{marginTop: 12, width: '100%', justifyContent: 'center'}} onClick={() => setCenterView('quiz')}>
+                             <button className="btn-primary" style={{marginTop: 12, width: '100%', justifyContent: 'center'}} onClick={() => generateQuiz(14)}>
                                Bắt đầu làm Quiz <ChevronRight size={16}/>
                              </button>
                           )}
