@@ -55,6 +55,8 @@ def validate_quiz_schema(quiz_data: dict, num_questions: int = 3) -> Tuple[bool,
     questions = quiz_data.get("questions", [])
     if not questions or len(questions) == 0:
         warnings.append("Expected at least 1 question, got 0")
+    elif len(questions) != num_questions:
+        warnings.append(f"Expected exactly {num_questions} questions, got {len(questions)}")
 
     for q in questions:
         required_fields = ["id", "prompt", "options", "correct_index", "explanation", "citation"]
@@ -103,4 +105,3 @@ def check_forbidden_keywords(text: str, forbidden_words: List[str]) -> Tuple[boo
             warnings.append(f"Found forbidden keyword: '{word}'")
     passed = len(warnings) == 0
     return passed, warnings
-

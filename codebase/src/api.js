@@ -43,15 +43,22 @@ export function createApiClient({
   }
 
   return {
-    async postChat(query) {
-      return postJson('/api/chat', { query });
+    async postChat(query, { history = [], fileId, slidePage } = {}) {
+      return postJson('/api/chat', {
+        query,
+        history,
+        file_id: fileId,
+        slide_page: slidePage,
+      });
     },
 
-    async generateQuiz({ slidePage, kcId, userPrompt } = {}) {
+    async generateQuiz({ slidePage, kcId, userPrompt, numQuestions, conversationContext } = {}) {
       const body = {};
       if (slidePage) body.slide_page = slidePage;
       if (kcId) body.kc_id = kcId;
       if (userPrompt) body.user_prompt = userPrompt;
+      if (numQuestions) body.num_questions = numQuestions;
+      if (conversationContext) body.conversation_context = conversationContext;
 
       if (!body.slide_page && !body.kc_id) {
         throw new Error('Cần chọn slide hoặc KC trước khi tạo quiz.');

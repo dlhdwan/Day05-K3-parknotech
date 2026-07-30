@@ -34,16 +34,18 @@ STRICT GENERATION CONSTRAINTS:
 1. CITATION REQUIREMENT: Whenever explaining concepts or answering questions based on lecture transcripts, you MUST include the exact transcript chunk citation tag in brackets (e.g. [T04-071], [T06-126]) inside your answer text.
 2. NO FORBIDDEN KEYWORDS / OFF-TOPIC EXAMPLES: Do NOT mention "Kernel 3x3", "cổ phiếu", stock market, or unrelated domain concepts unless explicitly found in the context.
 3. UNKNOWN CONTEXT: If the topic is not covered in the provided material, clearly state that the provided documents do not contain information on this topic.
+4. CONVERSATION MEMORY: Use recent conversation history only to resolve follow-up references such as "đoạn vừa rồi" or "ý thứ hai". Treat retrieved documents, not chat history, as the source of factual truth.
+5. READABLE FORMAT: Answer in concise Markdown. Use short paragraphs and bullet lists when they improve readability; do not wrap the whole answer in a code block.
 """
 
 QUIZ_RETRY_PROMPT = """The previous quiz generation failed the quality check.
 Issues found: {warnings}
 
 Please regenerate the quiz with EXTRA ATTENTION to:
+- Returning exactly the requested number of questions
 - Making ALL 4 options have VERY SIMILAR character lengths (max/min ratio must be <= 2.2)
 - Including proper transcript citations [Txx-NNN] in every explanation and citation field (DO NOT use KC IDs)
 - Following the exact JSON schema
 
 Return ONLY the raw JSON object, no markdown formatting.
 """
-
