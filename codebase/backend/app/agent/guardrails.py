@@ -68,3 +68,39 @@ def validate_quiz_schema(quiz_data: dict) -> Tuple[bool, List[str]]:
 
     passed = len(warnings) == 0
     return passed, warnings
+
+
+import re
+
+def check_citation_format(quiz_data: dict) -> Tuple[bool, List[str]]:
+    """
+    Kiểm tra xem citation có sử dụng đúng định dạng [Txx-NNN] hay không (tránh dùng KC_...).
+    """
+    if "error" in quiz_data:
+        return True, []
+        
+    warnings = []
+    questions = quiz_data.get("questions", [])
+    for q in questions:
+        citation = str(q.get("citation", ""))
+        explanation = str(q.get("explanation", ""))
+        
+        if citation.startswith("KC_") or "KC_" in citation:
+            warnings.append(f"Q{q.get('id', '?')}: Citation field relies on KC ID '{citation}' instead of transcript ID [Txx-NNN]")
+            
+        if not re.search(r'T\d{2}-\d{3}', citation) and not re.search(r'T\d{2}-\d{3}', explanation):
+            warnings.append(f"Q{q.get('id', '?')}: Missing valid transcript citation format [Txx-NNN]")
+            
+    passed = len(warnings) == 0
+    return passed, warnings
+
+
+def check_forbidden_keywords(text: str, forbidden_words: List[str]) -> Tuple[bool, List[str]]:
+    warnings = []
+    text_lower = text.lower()
+    for word in forbidden_words:
+        if word.lower() in text_lower:
+            warnings.append(f"Found forbidden keyword: '{word}'")
+    passed = len(warnings) == 0
+    return passed, warnings
+
