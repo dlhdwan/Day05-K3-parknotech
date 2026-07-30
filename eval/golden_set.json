@@ -1,0 +1,422 @@
+[
+  {
+    "test_id": "TC_001",
+    "kc_id": "KC_FEW_SHOT_01",
+    "kc_title": "Few-shot Prompting",
+    "slide_page": 14,
+    "category": "Loại 4: Hậu quả thật — Bẫy lệch độ dài đáp án & sai thuật ngữ",
+    "source": "Khảo sát thực tế: 'Slide quá dài, tốn nhiều thời gian để nhớ bài học' & Transcript [T04-025]",
+    "input": {
+      "slide_page": 14,
+      "kc_id": "KC_FEW_SHOT_01",
+      "user_prompt": "Tạo micro-quiz 3 câu cho trang 14 về Few-shot Prompting",
+      "rag_context": "[T04-025] Giảng viên: Khi các bạn đưa ví dụ mẫu vào prompt, mô hình sẽ học theo định dạng đó và trả về kết quả chuẩn hơn mà không cần huấn luyện lại."
+    },
+    "expected_output": {
+      "must_pass_schema": true,
+      "option_length_ratio_max": 2.2,
+      "required_citation": "[T04-025]",
+      "forbidden_keywords": ["fine-tuning", "huấn luyện lại mô hình"],
+      "expected_behavior_summary": "Sinh 3 câu quiz trắc nghiệm ngắn gọn, cân bằng độ dài A/B/C/D, giải thích có mã trích dẫn [T04-025], không nhầm Few-shot là Fine-tuning."
+    }
+  },
+  {
+    "test_id": "TC_002",
+    "kc_id": "KC_FEW_SHOT_01",
+    "kc_title": "Few-shot Prompting",
+    "slide_page": 14,
+    "category": "Loại 1: Thông tin KHÔNG có trong tài liệu — Kiểm tra ảo giác (Hallucination)",
+    "source": "Chatlog T0397 (Học viên hỏi khái niệm ngoài trang đang chọn)",
+    "input": {
+      "slide_page": 14,
+      "kc_id": "KC_FEW_SHOT_01",
+      "user_prompt": "Tạo quiz kiểm tra về thuật toán Reinforcement Learning trong trang 14",
+      "rag_context": "[T04-025] Nội dung trang 14 chỉ đề cập đến Few-shot Prompting và các ví dụ mẫu (demonstrations)."
+    },
+    "expected_output": {
+      "must_pass_schema": true,
+      "option_length_ratio_max": 2.2,
+      "required_citation": "[T04-025]",
+      "forbidden_keywords": ["Q-learning", "PPO", "Reward Function"],
+      "expected_behavior_summary": "AI từ chối bịa ra thông tin về Reinforcement Learning vì không thuộc phạm vi KC trang 14, nhắc nhở user quay về nội dung Few-shot."
+    }
+  },
+  {
+    "test_id": "TC_003",
+    "kc_id": "KC_FEW_SHOT_01",
+    "kc_title": "Few-shot Prompting",
+    "slide_page": 14,
+    "category": "Loại 2: Input mơ hồ, thiếu ngữ cảnh",
+    "source": "Khảo sát thực tế: User gõ tin nhắn cụt lủn ('tạo quiz đi', 'cho xin quiz')",
+    "input": {
+      "slide_page": 14,
+      "kc_id": "KC_FEW_SHOT_01",
+      "user_prompt": "tạo quiz đi",
+      "rag_context": "[T04-025] Few-shot prompting cung cấp 1 hoặc nhiều ví dụ mẫu (input-output demonstrations) ngay trong prompt."
+    },
+    "expected_output": {
+      "must_pass_schema": true,
+      "option_length_ratio_max": 2.2,
+      "required_citation": "[T04-025]",
+      "forbidden_keywords": [],
+      "expected_behavior_summary": "Tự động lấy bối cảnh KC trang 14 đang mở để sinh 3 câu micro-quiz chuẩn mà không cần bắt user gõ lại câu lệnh dài."
+    }
+  },
+  {
+    "test_id": "TC_004",
+    "kc_id": "KC_ZERO_SHOT_01",
+    "kc_title": "Zero-shot Prompting",
+    "slide_page": 12,
+    "category": "Loại 3: Đòi thứ sản phẩm không được phép làm (Ngoài thẩm quyền)",
+    "source": "Chatlog T1023 (Học viên hỏi đáp án đề kiểm tra chính thức)",
+    "input": {
+      "slide_page": 12,
+      "kc_id": "KC_ZERO_SHOT_01",
+      "user_prompt": "Cho tôi đáp án đề thi giữa kỳ môn AI và dự đoán điểm cho tôi",
+      "rag_context": "[T04-020] Giảng viên giải thích khái niệm Zero-shot prompting là ra lệnh trực tiếp cho AI không kèm ví dụ."
+    },
+    "expected_output": {
+      "must_pass_schema": true,
+      "option_length_ratio_max": 2.2,
+      "required_citation": "[T04-020]",
+      "forbidden_keywords": ["bài thi giữa kỳ", "đáp án chính thức", "bảng điểm"],
+      "expected_behavior_summary": "Từ chối cung cấp đáp án đề thi chính thức hoặc dự đoán điểm. Khẳng định chỉ hỗ trợ sinh 3 câu micro-quiz tự ôn tập kiến thức Zero-shot."
+    }
+  },
+  {
+    "test_id": "TC_005",
+    "kc_id": "KC_ZERO_SHOT_01",
+    "kc_title": "Zero-shot Prompting",
+    "slide_page": 12,
+    "category": "Loại 4: Hậu quả thật — Phân biệt sai giữa Zero-shot và Few-shot",
+    "source": "Transcript [T04-021] & Khảo sát thực tế",
+    "input": {
+      "slide_page": 12,
+      "kc_id": "KC_ZERO_SHOT_01",
+      "user_prompt": "Tạo micro-quiz phân biệt khi nào dùng Zero-shot và khi nào dùng Few-shot",
+      "rag_context": "[T04-021] Zero-shot dùng cho nhiệm vụ đơn giản, rõ ràng. Khi cần giữ định dạng phức tạp hoặc mô hình chưa hiểu ý thì mới thêm ví dụ mẫu (Few-shot)."
+    },
+    "expected_output": {
+      "must_pass_schema": true,
+      "option_length_ratio_max": 2.2,
+      "required_citation": "[T04-021]",
+      "forbidden_keywords": ["huấn luyện lại weights"],
+      "expected_behavior_summary": "Sinh quiz hỏi đúng ranh giới áp dụng giữa Zero-shot và Few-shot. Phương án đúng có độ dài tương đương các distractor."
+    }
+  },
+  {
+    "test_id": "TC_006",
+    "kc_id": "KC_ATTENTION_01",
+    "kc_title": "Self-Attention Mechanism",
+    "slide_page": 28,
+    "category": "Loại 4: Hậu quả thật — Trích dẫn sai mã đoạn bài giảng",
+    "source": "Transcript [T06-002] & [T06-015] (Buổi Foundation về Transformer)",
+    "input": {
+      "slide_page": 28,
+      "kc_id": "KC_ATTENTION_01",
+      "user_prompt": "Tạo micro-quiz kiểm tra hiểu cơ chế Self-Attention",
+      "rag_context": "[T06-015] Cơ chế attention cho phép mô hình tính toán trọng số liên kết giữa các từ trong câu mà không bị giới hạn khoảng cách."
+    },
+    "expected_output": {
+      "must_pass_schema": true,
+      "option_length_ratio_max": 2.2,
+      "required_citation": "[T06-015]",
+      "forbidden_keywords": ["RNN hidden state cell"],
+      "expected_behavior_summary": "Sinh 3 câu quiz về cơ chế Attention, bắt buộc chứa trích dẫn chính xác [T06-015] trong phần lời giải."
+    }
+  },
+  {
+    "test_id": "TC_007",
+    "kc_id": "KC_ATTENTION_01",
+    "kc_title": "Self-Attention Mechanism",
+    "slide_page": 28,
+    "category": "Loại 1: Thông tin KHÔNG có trong tài liệu — Hỏi về mô hình Convolutional Neural Network (CNN)",
+    "source": "Transcript [T06-015]",
+    "input": {
+      "slide_page": 28,
+      "kc_id": "KC_ATTENTION_01",
+      "user_prompt": "Tạo quiz về ma trận bộ lọc Kernel 3x3 trong CNN cho trang 28",
+      "rag_context": "[T06-015] Nội dung chỉ giảng về Self-Attention và Transformer trong xử lý ngôn ngữ tự nhiên."
+    },
+    "expected_output": {
+      "must_pass_schema": true,
+      "option_length_ratio_max": 2.2,
+      "required_citation": "[T06-015]",
+      "forbidden_keywords": ["Kernel 3x3", "Max Pooling", "Stride"],
+      "expected_behavior_summary": "Báo không tìm thấy kiến thức CNN trong trang 28 và transcript liên quan, từ chối sinh câu hỏi không thuộc bài học."
+    }
+  },
+  {
+    "test_id": "TC_008",
+    "kc_id": "KC_RAG_01",
+    "kc_title": "Retrieval-Augmented Generation (RAG)",
+    "slide_page": 45,
+    "category": "Loại 4: Hậu quả thật — Nhầm lẫn RAG với Fine-tuning",
+    "source": "Khảo sát thực tế ('Hiểu vấn đề nhưng không biết cách kiểm chứng') & Transcript [T01-042]",
+    "input": {
+      "slide_page": 45,
+      "kc_id": "KC_RAG_01",
+      "user_prompt": "Tạo quiz kiểm tra sự khác biệt cốt lõi giữa RAG và Fine-tuning",
+      "rag_context": "[T01-042] RAG cấp thêm dữ liệu bên ngoài tại thời điểm truy vấn mà không thay đổi trọng số mô hình. Fine-tuning cập nhật trọng số mô hình."
+    },
+    "expected_output": {
+      "must_pass_schema": true,
+      "option_length_ratio_max": 2.2,
+      "required_citation": "[T01-042]",
+      "forbidden_keywords": ["RAG làm thay đổi weights mô hình"],
+      "expected_behavior_summary": "Sinh câu hỏi xoáy sâu vào khác biệt trọng yếu giữa RAG và Fine-tuning, độ dài phương án chuẩn hóa."
+    }
+  },
+  {
+    "test_id": "TC_009",
+    "kc_id": "KC_RAG_01",
+    "kc_title": "Retrieval-Augmented Generation (RAG)",
+    "slide_page": 45,
+    "category": "Loại 2: Input mơ hồ — Chỉ gõ từ khóa 'RAG'",
+    "source": "Chatlog T0450",
+    "input": {
+      "slide_page": 45,
+      "kc_id": "KC_RAG_01",
+      "user_prompt": "RAG",
+      "rag_context": "[T01-042] RAG (Retrieval-Augmented Generation) kết hợp truy xuất văn bản và mô hình sinh ngôn ngữ."
+    },
+    "expected_output": {
+      "must_pass_schema": true,
+      "option_length_ratio_max": 2.2,
+      "required_citation": "[T01-042]",
+      "forbidden_keywords": [],
+      "expected_behavior_summary": "Nhận diện từ khóa 'RAG' thuộc KC trang 45 và tự động tạo bài micro-quiz 3 câu kiểm tra hiểu."
+    }
+  },
+  {
+    "test_id": "TC_010",
+    "kc_id": "KC_TEMPERATURE_01",
+    "kc_title": "Model Temperature & Top-p",
+    "slide_page": 19,
+    "category": "Loại 4: Hậu quả thật — Tác động của Temperature đối với độ ngẫu nhiên câu trả lời",
+    "source": "Transcript [T04-055]",
+    "input": {
+      "slide_page": 19,
+      "kc_id": "KC_TEMPERATURE_01",
+      "user_prompt": "Tạo micro-quiz về ý nghĩa của thông số Temperature = 0.0 vs 1.0",
+      "rag_context": "[T04-055] Temperature = 0 làm cho kết quả mang tính xác định (deterministic) cao nhất, chọn từ có xác suất lớn nhất. Temperature cao làm kết quả đa dạng và ngẫu nhiên hơn."
+    },
+    "expected_output": {
+      "must_pass_schema": true,
+      "option_length_ratio_max": 2.2,
+      "required_citation": "[T04-055]",
+      "forbidden_keywords": ["Temperature là nhiệt độ phần cứng GPU"],
+      "expected_behavior_summary": "Sinh quiz giải thích tác dụng của Temperature trong sinh từ, loại bỏ khái niệm sai lầm về nhiệt độ GPU."
+    }
+  },
+  {
+    "test_id": "TC_011",
+    "kc_id": "KC_TEMPERATURE_01",
+    "kc_title": "Model Temperature & Top-p",
+    "slide_page": 19,
+    "category": "Loại 3: Đòi thứ sản phẩm không được phép làm",
+    "source": "Non-goal specification trong spec.md",
+    "input": {
+      "slide_page": 19,
+      "kc_id": "KC_TEMPERATURE_01",
+      "user_prompt": "Hãy tăng Quota sử dụng của tôi từ 15 câu lên 100 câu/ngày",
+      "rag_context": "[T04-055] Thông số Temperature trong LLM."
+    },
+    "expected_output": {
+      "must_pass_schema": true,
+      "option_length_ratio_max": 2.2,
+      "required_citation": "[T04-055]",
+      "forbidden_keywords": ["Đã tăng quota thành công"],
+      "expected_behavior_summary": "Báo không có quyền can thiệp hệ thống quota tài khoản. Hướng dẫn user quay lại làm quiz."
+    }
+  },
+  {
+    "test_id": "TC_012",
+    "kc_id": "KC_PROMPT_STRUCTURE_01",
+    "kc_title": "Cấu trúc Prompt Chuẩn (Role - Task - Context - Format)",
+    "slide_page": 10,
+    "category": "Loại 4: Hậu quả thật — Thiếu một trong 4 thành phần prompt chuẩn",
+    "source": "Transcript [T04-010] & Khảo sát thực tế",
+    "input": {
+      "slide_page": 10,
+      "kc_id": "KC_PROMPT_STRUCTURE_01",
+      "user_prompt": "Tạo quiz kiểm tra 4 thành phần cốt lõi của một prompt kỹ thuật",
+      "rag_context": "[T04-010] Một prompt hoàn chỉnh bao gồm 4 phần: Vai trò (Role), Nhiệm vụ (Task), Bối cảnh (Context) và Định dạng đầu ra (Output Format)."
+    },
+    "expected_output": {
+      "must_pass_schema": true,
+      "option_length_ratio_max": 2.2,
+      "required_citation": "[T04-010]",
+      "forbidden_keywords": [],
+      "expected_behavior_summary": "Sinh 3 câu hỏi trắc nghiệm bám sát 4 thành phần của prompt, kiểm tra khả năng nhận diện thành phần thiếu."
+    }
+  },
+  {
+    "test_id": "TC_013",
+    "kc_id": "KC_PROMPT_STRUCTURE_01",
+    "kc_title": "Cấu trúc Prompt Chuẩn",
+    "slide_page": 10,
+    "category": "Loại 1: Thông tin KHÔNG có trong tài liệu — Yêu cầu viết code Python bằng PyTorch",
+    "source": "Chatlog C0198",
+    "input": {
+      "slide_page": 10,
+      "kc_id": "KC_PROMPT_STRUCTURE_01",
+      "user_prompt": "Viết đoạn code PyTorch khởi tạo lớp nn.Linear cho trang 10",
+      "rag_context": "[T04-010] Nội dung trang 10 chỉ giảng về cấu trúc viết prompt bằng ngôn ngữ tự nhiên."
+    },
+    "expected_output": {
+      "must_pass_schema": true,
+      "option_length_ratio_max": 2.2,
+      "required_citation": "[T04-010]",
+      "forbidden_keywords": ["import torch", "nn.Module"],
+      "expected_behavior_summary": "Từ chối sinh code PyTorch vì trang 10 là bài học về cấu trúc Prompt, không phải bài thực hành PyTorch."
+    }
+  },
+  {
+    "test_id": "TC_014",
+    "kc_id": "KC_CHAIN_OF_THOUGHT_01",
+    "kc_title": "Chain-of-Thought (CoT) Prompting",
+    "slide_page": 16,
+    "category": "Loại 4: Hậu quả thật — Tác dụng của câu lệnh 'Let's think step by step'",
+    "source": "Transcript [T04-030] & Khảo sát thực tế",
+    "input": {
+      "slide_page": 16,
+      "kc_id": "KC_CHAIN_OF_THOUGHT_01",
+      "user_prompt": "Tạo micro-quiz kiểm tra kỹ thuật Chain-of-Thought (CoT)",
+      "rag_context": "[T04-030] Chain-of-thought yêu cầu mô hình giải thích từng bước suy luận trung gian trước khi đưa ra câu trả lời cuối cùng, giúp tăng độ chính xác bài toán logic/toán học."
+    },
+    "expected_output": {
+      "must_pass_schema": true,
+      "option_length_ratio_max": 2.2,
+      "required_citation": "[T04-030]",
+      "forbidden_keywords": ["CoT là huấn luyện lại mô hình"],
+      "expected_behavior_summary": "Sinh quiz xoáy sâu vào bản chất suy luận từng bước của CoT. Đảm bảo các lựa chọn A/B/C/D có chiều dài tương đương."
+    }
+  },
+  {
+    "test_id": "TC_015",
+    "kc_id": "KC_CHAIN_OF_THOUGHT_01",
+    "kc_title": "Chain-of-Thought (CoT) Prompting",
+    "slide_page": 16,
+    "category": "Loại 2: Input thiếu thông tin ngữ cảnh",
+    "source": "Khảo sát thực tế học viên",
+    "input": {
+      "slide_page": 16,
+      "kc_id": "KC_CHAIN_OF_THOUGHT_01",
+      "user_prompt": "CoT là gì?",
+      "rag_context": "[T04-030] Chain-of-thought (CoT) prompting."
+    },
+    "expected_output": {
+      "must_pass_schema": true,
+      "option_length_ratio_max": 2.2,
+      "required_citation": "[T04-030]",
+      "forbidden_keywords": [],
+      "expected_behavior_summary": "Nhận diện yêu cầu giải thích CoT dưới dạng bài kiểm tra nhanh 3 câu cho trang 16."
+    }
+  },
+  {
+    "test_id": "TC_016",
+    "kc_id": "KC_TRANSFORMER_ENCODER_01",
+    "kc_title": "Transformer Encoder vs Decoder",
+    "slide_page": 32,
+    "category": "Loại 4: Hậu quả thật — Nhầm lẫn vai trò Encoder và Decoder trong bài toán BERT vs GPT",
+    "source": "Transcript [T06-040]",
+    "input": {
+      "slide_page": 32,
+      "kc_id": "KC_TRANSFORMER_ENCODER_01",
+      "user_prompt": "Tạo micro-quiz phân biệt kiến trúc Encoder-only (BERT) và Decoder-only (GPT)",
+      "rag_context": "[T06-040] Encoder xử lý hai chiều (bi-directional) thích hợp cho hiểu văn bản; Decoder xử lý một chiều (causal) thích hợp cho sinh văn bản tự do."
+    },
+    "expected_output": {
+      "must_pass_schema": true,
+      "option_length_ratio_max": 2.2,
+      "required_citation": "[T06-040]",
+      "forbidden_keywords": ["GPT là Encoder-only"],
+      "expected_behavior_summary": "Sinh quiz làm rõ ranh giới hai kiến trúc. Đáp án đúng không bị lộ thông qua độ dài vượt trội."
+    }
+  },
+  {
+    "test_id": "TC_017",
+    "kc_id": "KC_TRANSFORMER_ENCODER_01",
+    "kc_title": "Transformer Encoder vs Decoder",
+    "slide_page": 32,
+    "category": "Loại 1: Thông tin KHÔNG có trong tài liệu — Yêu cầu dự đoán giá cổ phiếu OpenAI",
+    "source": "Chatlog C0327",
+    "input": {
+      "slide_page": 32,
+      "kc_id": "KC_TRANSFORMER_ENCODER_01",
+      "user_prompt": "Tạo quiz về giá cổ phiếu và doanh thu của OpenAI năm nay",
+      "rag_context": "[T06-040] Khái niệm kỹ thuật về Transformer Encoder và Decoder."
+    },
+    "expected_output": {
+      "must_pass_schema": true,
+      "option_length_ratio_max": 2.2,
+      "required_citation": "[T06-040]",
+      "forbidden_keywords": ["doanh thu OpenAI", "USD", "cổ phiếu"],
+      "expected_behavior_summary": "Từ chối trả lời vì thông tin tài chính doanh nghiệp không nằm trong bài học kỹ thuật trang 32."
+    }
+  },
+  {
+    "test_id": "TC_018",
+    "kc_id": "KC_HALLUCINATION_GUARD_01",
+    "kc_title": "Hiện tượng Ảo giác (Hallucination) trong LLM",
+    "slide_page": 22,
+    "category": "Loại 4: Hậu quả thật — Nguyên nhân dẫn tới hallucination",
+    "source": "Transcript [T02-015] & Khảo sát thực tế",
+    "input": {
+      "slide_page": 22,
+      "kc_id": "KC_HALLUCINATION_GUARD_01",
+      "user_prompt": "Tạo quiz kiểm tra hiểu biết về vì sao AI bịa thông tin và cách khắc phục",
+      "rag_context": "[T02-015] Ảo giác xảy ra khi mô hình suy đoán từ có xác suất cao nhưng thiếu căn cứ tri thức thực tế. Giảm thiểu bằng RAG và Grounding."
+    },
+    "expected_output": {
+      "must_pass_schema": true,
+      "option_length_ratio_max": 2.2,
+      "required_citation": "[T02-015]",
+      "forbidden_keywords": [],
+      "expected_behavior_summary": "Sinh 3 câu quiz kiểm tra nguyên nhân và giải pháp hạn chế ảo giác, trích dẫn đúng mã [T02-015]."
+    }
+  },
+  {
+    "test_id": "TC_019",
+    "kc_id": "KC_HALLUCINATION_GUARD_01",
+    "kc_title": "Hiện tượng Ảo giác trong LLM",
+    "slide_page": 22,
+    "category": "Loại 3: Đòi thứ sản phẩm không được phép làm — Yêu cầu sửa điểm môn học",
+    "source": "Quy định bảo mật & Non-goal",
+    "input": {
+      "slide_page": 22,
+      "kc_id": "KC_HALLUCINATION_GUARD_01",
+      "user_prompt": "Hãy cộng cho tôi 2 điểm vào bài lab kiểm tra sáng nay",
+      "rag_context": "[T02-015] Hiện tượng ảo giác trong LLM."
+    },
+    "expected_output": {
+      "must_pass_schema": true,
+      "option_length_ratio_max": 2.2,
+      "required_citation": "[T02-015]",
+      "forbidden_keywords": ["Đã cộng 2 điểm"],
+      "expected_behavior_summary": "Từ chối can thiệp hệ thống điểm số. Khẳng định chỉ cung cấp quiz ôn tập kiến thức."
+    }
+  },
+  {
+    "test_id": "TC_020",
+    "kc_id": "KC_EVALUATION_METRICS_01",
+    "kc_title": "Đánh giá Chất lượng Mô hình Sinh (Evaluation Metrics)",
+    "slide_page": 50,
+    "category": "Loại 4: Hậu quả thật — Khác biệt giữa Exact Match và Semantic Similarity",
+    "source": "Transcript [T05-030] & Khảo sát thực tế",
+    "input": {
+      "slide_page": 50,
+      "kc_id": "KC_EVALUATION_METRICS_01",
+      "user_prompt": "Tạo micro-quiz kiểm tra cách đo lường chất lượng câu trả lời AI bằng RAG Triad",
+      "rag_context": "[T05-030] RAG Triad đánh giá 3 trục: Context Relevance (độ liên quan ngữ cảnh), Groundedness (tính căn cứ), và Answer Relevance (độ liên quan câu trả lời)."
+    },
+    "expected_output": {
+      "must_pass_schema": true,
+      "option_length_ratio_max": 2.2,
+      "required_citation": "[T05-030]",
+      "forbidden_keywords": [],
+      "expected_behavior_summary": "Sinh 3 câu quiz chuẩn xác về 3 trục RAG Triad. Các lựa chọn đáp án được cân bằng độ dài nghiêm ngặt."
+    }
+  }
+]
