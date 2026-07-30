@@ -212,3 +212,33 @@ python run_ingest.py
 # 4. Frontend
 cd codebase && npm install && npm run dev
 ```
+
+---
+
+## 10. Frontend Gap Analysis & Completion Plan (2026-07-30)
+
+### Các thiếu hụt kỹ thuật đã phát hiện
+- Frontend prototype cũ gom hầu hết logic trong `codebase/src/App.jsx`, khó kiểm soát state khi mở rộng flow quiz.
+- Trigger tạo quiz còn hardcode slide 14 và không bám trạng thái bài học/KC đang chọn.
+- URL backend hardcode `http://localhost:8000`, chưa hỗ trợ cấu hình qua `VITE_API_BASE_URL`.
+- Quota hiển thị `14/15` là mock, chưa có bộ đếm local theo ngày và chưa disable khi hết quota.
+- Quiz loading/error dùng trạng thái mơ hồ `questions.length === 0`, chưa phân biệt loading, lỗi HTTP, response rỗng.
+- Chưa hiển thị đầy đủ `kc_id`, `kc_title`, citation và `guardrail_warnings` từ backend.
+- Chat trigger dựa vào chuỗi phản hồi chứa chữ `quiz`, chưa liên kết với KC/slide hiện hành.
+- Chưa có test frontend cho API contract, quota local và chấm điểm local.
+- CSS thiếu responsive cho màn hình tablet/mobile và option quiz dùng clickable `div` thay vì control có keyboard support.
+
+### Plan build hoàn thiện frontend
+- Tách module thuần: `api.js`, `quota.js`, `quizUtils.js`, `courseContent.js`.
+- Refactor UI để sidebar chọn lesson/KC, document viewer render slide hiện hành, quiz generate gửi `{ slide_page, kc_id, user_prompt? }`.
+- Chấm điểm local bằng React state, không gọi API sau khi quiz đã load.
+- Ghi quota browser-local trong `localStorage` theo ngày với limit mặc định 15 lượt.
+- Hiển thị loading/error/retry rõ ràng, citation từng câu và warning guardrail ở quiz panel.
+- Thêm `npm run test` dùng `node --test` cho các module không phụ thuộc browser.
+- Sau mỗi turn build code, append log ngắn vào mục Build Turn Log.
+
+### Build Turn Log
+
+| Turn | Date/Time | Scope | Files changed | Commands run | Result | Next |
+|---|---|---|---|---|---|---|
+| 1 | 2026-07-30 | Hoàn thiện frontend micro-quiz working prototype, quota local, API helper, tests, responsive CSS | `codebase/src/App.jsx`, `codebase/src/styles.css`, `codebase/src/api.js`, `codebase/src/quota.js`, `codebase/src/quizUtils.js`, `codebase/src/courseContent.js`, `codebase/src/*.test.js`, `codebase/package.json` | `node --test src\\*.test.js` RED rồi GREEN; `npm.cmd install`; `npm.cmd run test`; `npm.cmd run build` | Test pass 7/7; Vite build pass; frontend đã bỏ hardcode slide/quota/backend URL default và dùng selected KC | Review UI thực tế với backend đang chạy, kiểm tra Docker rebuild nếu deploy qua compose/image |
