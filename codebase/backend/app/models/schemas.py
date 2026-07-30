@@ -15,6 +15,7 @@ class ChatResponse(BaseModel):
 class QuizGenerateRequest(BaseModel):
     slide_page: Optional[int] = None
     kc_id: Optional[str] = None
+    user_prompt: Optional[str] = None
 
 class QuizQuestion(BaseModel):
     id: int

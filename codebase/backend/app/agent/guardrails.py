@@ -40,7 +40,11 @@ def check_option_length_ratio(questions: List[dict], threshold: float = 2.2) -> 
 def validate_quiz_schema(quiz_data: dict) -> Tuple[bool, List[str]]:
     """
     Kiểm tra quiz JSON có đúng schema không.
+    Nếu JSON trả về là một thông báo từ chối (có trường "error"), coi như PASS.
     """
+    if "error" in quiz_data and len(quiz_data) == 1:
+        return True, []
+
     warnings = []
 
     if "kc_id" not in quiz_data:

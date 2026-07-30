@@ -9,6 +9,7 @@ GOLDEN_SET_PATH = os.path.join(os.path.dirname(__file__), "golden_set.json")
 RESULTS_PATH = os.path.join(os.path.dirname(__file__), "eval_results.json")
 QUIZ_API_URL = "http://localhost:8000/api/quiz/generate"
 CHAT_API_URL = "http://localhost:8000/api/chat"
+SLEEP_SECONDS = 4  # Tăng thời gian chờ để tránh bị dính Rate Limit (RPM) từ LLM API
 
 def check_option_length_ratio(quiz_data: dict, max_ratio: float) -> bool:
     questions = quiz_data.get("questions", [])
@@ -71,8 +72,13 @@ def run_evaluation():
 
         # A. Schema Check (Quiz)
         if expected.get("must_pass_schema"):
-            if "quiz" not in quiz_resp or "error" in quiz_resp:
-                eval_result["failures"].append("Schema validation failed (Missing quiz payload or API error)")
+            if "quiz" not in quiz_resp:
+                # Nếu không có "quiz", có thể là Refusal hợp lệ hoặc Lỗi thật
+                if "error" in quiz_resp and "Từ chối" in expected.get("expected_behavior_summary", ""):
+                    # Hợp lệ (Expected refusal)
+                    pass
+                else:
+                    eval_result["failures"].append("Schema validation failed (Missing quiz payload or API error)")
         
         # B. Option Length Ratio (Quiz)
         if "option_length_ratio_max" in expected and "quiz" in quiz_resp:
@@ -121,7 +127,7 @@ def run_evaluation():
             print(f"✅ {test_id} PASSED")
 
         results.append(eval_result)
-        time.sleep(1) # Rate limit
+        time.sleep(SLEEP_SECONDS) # Tránh Rate Limit (RPM)
 
     # Tổng kết
     print("\n==============================")

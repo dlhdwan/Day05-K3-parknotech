@@ -40,7 +40,31 @@
     "text": "Để khắc phục, RAG ra đời. Thay vì để LLM tự nhớ, chúng ta đi tìm (retrieval) tài liệu liên quan từ một database bên ngoài, sau đó kẹp cái tài liệu đó vào prompt, bắt LLM đọc tài liệu đó rồi mới được trả lời (generation)."
   },
   {
-    "transcript_id": "T04-042",
-    "text": "Chính việc 'có sách mách có chứng' này giúp RAG trở thành tiêu chuẩn vàng hiện nay để xây dựng chatbot nội bộ doanh nghiệp. Lưu ý RAG không phải là fine-tuning, dữ liệu không được nhét vào tham số của mô hình mà chỉ nằm ngoài database thôi."
+    "transcript_id": "T01-042",
+    "text": "Chính việc 'có sách mách có chứng' này giúp RAG trở thành tiêu chuẩn vàng hiện nay để xây dựng chatbot nội bộ doanh nghiệp. RAG cấp thêm dữ liệu bên ngoài tại thời điểm truy vấn mà không thay đổi trọng số mô hình. Khác với Fine-tuning là việc cập nhật trực tiếp trọng số (weights) của mô hình dựa trên tập dữ liệu huấn luyện."
+  },
+  {
+    "transcript_id": "T06-015",
+    "text": "Cơ chế Attention ra đời để giải quyết vấn đề của RNN khi xử lý chuỗi dài. Nó cho phép mô hình nhìn lại toàn bộ chuỗi đầu vào và tính toán mức độ quan tâm (attention weights) cho từng từ, thay vì phải nén tất cả vào một hidden state duy nhất."
+  },
+  {
+    "transcript_id": "T06-040",
+    "text": "Trong kiến trúc Transformer, chúng ta có khối Encoder và Decoder. Khối Encoder có nhiệm vụ đọc toàn bộ chuỗi đầu vào cùng lúc (song song) và trích xuất đặc trưng ngữ cảnh thông qua Self-Attention. Trong khi đó, khối Decoder sẽ sinh ra kết quả từng bước một."
+  },
+  {
+    "transcript_id": "T04-055",
+    "text": "Temperature là một siêu tham số rất quan trọng khi gọi API của LLM. Nếu bạn set Temperature cao (gần 1), mô hình sẽ trả về các từ có xác suất thấp hơn, tạo ra câu trả lời ngẫu nhiên và sáng tạo. Ngược lại, Temperature thấp (gần 0) làm mô hình trở nên bảo thủ, luôn chọn từ có xác suất cao nhất, phù hợp cho các tác vụ cần độ chính xác cao như sinh code."
+  },
+  {
+    "transcript_id": "T04-010",
+    "text": "Để viết một prompt chuẩn chỉ, các bạn cần nhớ 4 thành phần cấu trúc cơ bản: Role (Đóng vai), Context (Ngữ cảnh), Task (Nhiệm vụ), và Format (Định dạng đầu ra). Nếu thiếu một trong 4 thành phần này, câu trả lời của AI có thể sẽ rất chung chung hoặc sai lệch."
+  },
+  {
+    "transcript_id": "T02-015",
+    "text": "Ảo giác (Hallucination) xảy ra khi LLM tự tin đưa ra thông tin hoàn toàn sai lệch hoặc không có thật. Điều này là do mô hình bản chất chỉ là cỗ máy dự đoán từ tiếp theo có xác suất cao nhất, chứ không có căn cứ tri thức thực tế. Để giảm thiểu ảo giác, các kỹ thuật như RAG và Grounding ra đời."
+  },
+  {
+    "transcript_id": "T05-030",
+    "text": "Khi đánh giá kết quả của LLM, chúng ta có nhiều metric. Exact Match yêu cầu câu trả lời phải giống hệt từng ký tự với đáp án chuẩn. Semantic Similarity lại đánh giá dựa trên ý nghĩa, cho phép câu trả lời dùng từ đồng nghĩa nhưng vẫn được tính là đúng. Tùy vào bài toán mà ta chọn metric phù hợp."
   }
 ]
