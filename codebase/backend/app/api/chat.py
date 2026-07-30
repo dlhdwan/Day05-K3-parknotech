@@ -6,7 +6,12 @@ router = APIRouter()
 
 @router.post("/chat", response_model=ChatResponse)
 def chat_endpoint(request: ChatRequest):
-    result = process_chat_workflow(request.query)
+    result = process_chat_workflow(
+        request.query,
+        history=[message.model_dump() for message in request.history],
+        file_id=request.file_id,
+        slide_page=request.slide_page,
+    )
     return ChatResponse(
         answer=result["answer"],
         context_retrieved=result["context_retrieved"]
