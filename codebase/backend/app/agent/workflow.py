@@ -74,7 +74,7 @@ def _extract_json(raw: str) -> Optional[dict]:
     return None
 
 
-def _build_user_prompt(kc: dict, transcripts_text: str, user_prompt: Optional[str] = None) -> str:
+def _build_user_prompt(kc: dict, transcripts_text: str, user_prompt: Optional[str] = None, num_questions: int = 3) -> str:
     """Xây dựng user prompt từ KC metadata."""
     forbidden = kc.get('forbidden_keywords', [])
     all_forbidden = list(set(forbidden + GLOBAL_FORBIDDEN_WORDS))
@@ -84,10 +84,10 @@ def _build_user_prompt(kc: dict, transcripts_text: str, user_prompt: Optional[st
     if user_prompt:
         out_of_scope_str = f"""User's specific request: {user_prompt}
 If this request is completely out of scope of the KC (e.g., asking about completely unrelated topics like CNN, stock prices, changing grades), you MUST reject it by returning EXACTLY this JSON and nothing else: {{"error": "Từ chối trả lời vì thông tin yêu cầu không nằm trong bài học hiện tại."}}
-Otherwise, if it's related or a generic quiz request, generate a 3-question micro-quiz for this Knowledge Component based ONLY on the Lecture Transcripts.
+Otherwise, if it's related or a generic quiz request, generate a micro-quiz for this Knowledge Component based ONLY on the Lecture Transcripts. You can decide the appropriate number of questions (e.g., {num_questions} questions) based on the user's specific request or the complexity of the topic.
 """
 
-    return f"""Generate a 3-question micro-quiz for this Knowledge Component:
+    return f"""Generate a micro-quiz for this Knowledge Component. You should generate around {num_questions} questions, but you can adjust the number based on the topic complexity or user requests:
 
 KC ID: {kc['kc_id']}
 KC Title: {kc['kc_title']}
@@ -109,6 +109,7 @@ def process_quiz_workflow(
     slide_page: Optional[int] = None,
     kc_id: Optional[str] = None,
     user_prompt: Optional[str] = None,
+    num_questions: int = 3,
     max_retries: int = 1
 ) -> dict:
     """
@@ -155,7 +156,7 @@ def process_quiz_workflow(
         transcripts_text = "\n\n".join(transcripts_list) if transcripts_list else "No transcript available."
 
     # 3. Build prompt
-    user_prompt_str = _build_user_prompt(kc, transcripts_text, user_prompt)
+    user_prompt_str = _build_user_prompt(kc, transcripts_text, user_prompt, num_questions)
     full_prompt = QUIZ_SYSTEM_PROMPT + "\n\n" + user_prompt_str
 
     all_warnings = []
@@ -176,7 +177,7 @@ def process_quiz_workflow(
             continue
 
         # 5. Guardrails
-        schema_ok, schema_warnings = validate_quiz_schema(quiz_data)
+        schema_ok, schema_warnings = validate_quiz_schema(quiz_data, num_questions=num_questions)
         ratio_ok, ratio_warnings = check_option_length_ratio(quiz_data.get("questions", []))
         citation_ok, citation_warnings = check_citation_format(quiz_data)
 

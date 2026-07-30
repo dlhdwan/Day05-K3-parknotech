@@ -37,7 +37,7 @@ def check_option_length_ratio(questions: List[dict], threshold: float = 2.2) -> 
     return passed, warnings
 
 
-def validate_quiz_schema(quiz_data: dict) -> Tuple[bool, List[str]]:
+def validate_quiz_schema(quiz_data: dict, num_questions: int = 3) -> Tuple[bool, List[str]]:
     """
     Kiểm tra quiz JSON có đúng schema không.
     Nếu JSON trả về là một thông báo từ chối (có trường "error"), coi như PASS.
@@ -53,8 +53,8 @@ def validate_quiz_schema(quiz_data: dict) -> Tuple[bool, List[str]]:
         warnings.append("Missing 'kc_title'")
 
     questions = quiz_data.get("questions", [])
-    if len(questions) != 3:
-        warnings.append(f"Expected 3 questions, got {len(questions)}")
+    if not questions or len(questions) == 0:
+        warnings.append("Expected at least 1 question, got 0")
 
     for q in questions:
         required_fields = ["id", "prompt", "options", "correct_index", "explanation", "citation"]

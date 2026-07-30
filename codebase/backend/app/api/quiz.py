@@ -22,7 +22,8 @@ def quiz_generate_endpoint(request: QuizGenerateRequest):
     result = process_quiz_workflow(
         slide_page=request.slide_page,
         kc_id=request.kc_id,
-        user_prompt=request.user_prompt
+        user_prompt=request.user_prompt,
+        num_questions=request.num_questions
     )
 
     if "error" in result:
