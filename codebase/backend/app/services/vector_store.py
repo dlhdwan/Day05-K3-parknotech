@@ -24,64 +24,162 @@ class VectorStoreService:
             }
         )
 
-    def upsert_chunks(self, chunks: List[str], source_meta: str):
+    def upsert_chunks(self, chunks: List[str], source_meta: str, batch_size: int = 64):
         if not chunks:
             return
             
-        dense_vecs, sparse_vecs = embedding_service.embed_texts(chunks)
-        
-        points = []
-        for chunk, dense_emb, sparse_emb in zip(chunks, dense_vecs, sparse_vecs):
-            points.append({
-                "id": str(uuid.uuid4()),
-                "vector": {
-                    "dense": dense_emb.tolist(),
-                    "sparse": {
-                        "indices": sparse_emb.indices.tolist(),
-                        "values": sparse_emb.values.tolist()
-                    }
-                },
-                "payload": {
-                    "text": chunk,
-                    "source": source_meta,
-                    "type": "chunk"
-                }
-            })
+        total = len(chunks)
+        print(f"  Upserting {total} chunks in batches of {batch_size}...")
+        for i in range(0, total, batch_size):
+            batch = chunks[i : i + batch_size]
+            dense_vecs, sparse_vecs = embedding_service.embed_texts(batch)
             
-        self.client.upsert(
-            collection_name=self.collection_name,
-            points=points
-        )
+            points = []
+            for chunk, dense_emb, sparse_emb in zip(batch, dense_vecs, sparse_vecs):
+                points.append({
+                    "id": str(uuid.uuid4()),
+                    "vector": {
+                        "dense": dense_emb.tolist(),
+                        "sparse": {
+                            "indices": sparse_emb.indices.tolist(),
+                            "values": sparse_emb.values.tolist()
+                        }
+                    },
+                    "payload": {
+                        "text": chunk,
+                        "source": source_meta,
+                        "type": "chunk"
+                    }
+                })
+                
+            self.client.upsert(
+                collection_name=self.collection_name,
+                points=points
+            )
+            batch_num = i // batch_size + 1
+            total_batches = (total + batch_size - 1) // batch_size
+            print(f"    Batch {batch_num}/{total_batches} ({len(batch)} chunks) upserted.")
 
-    def upsert_transcripts(self, transcripts: List[dict]):
+    def upsert_transcripts(self, transcripts: List[dict], batch_size: int = 64):
         if not transcripts:
             return
             
-        texts = [t["text"] for t in transcripts]
-        dense_vecs, sparse_vecs = embedding_service.embed_texts(texts)
-        
-        points = []
-        for t, dense_emb, sparse_emb in zip(transcripts, dense_vecs, sparse_vecs):
-            points.append({
-                "id": str(uuid.uuid4()),
-                "vector": {
-                    "dense": dense_emb.tolist(),
-                    "sparse": {
-                        "indices": sparse_emb.indices.tolist(),
-                        "values": sparse_emb.values.tolist()
-                    }
-                },
-                "payload": {
-                    "type": "transcript",
-                    "transcript_id": t["transcript_id"],
-                    "text": t["text"]
-                }
-            })
+        total = len(transcripts)
+        print(f"  Upserting {total} transcripts in batches of {batch_size}...")
+        for i in range(0, total, batch_size):
+            batch = transcripts[i : i + batch_size]
+            texts = [t["text"] for t in batch]
+            dense_vecs, sparse_vecs = embedding_service.embed_texts(texts)
             
-        self.client.upsert(
-            collection_name=self.collection_name,
-            points=points
-        )
+            points = []
+            for t, dense_emb, sparse_emb in zip(batch, dense_vecs, sparse_vecs):
+                points.append({
+                    "id": str(uuid.uuid4()),
+                    "vector": {
+                        "dense": dense_emb.tolist(),
+                        "sparse": {
+                            "indices": sparse_emb.indices.tolist(),
+                            "values": sparse_emb.values.tolist()
+                        }
+                    },
+                    "payload": {
+                        "type": "transcript",
+                        "transcript_id": t["transcript_id"],
+                        "text": t["text"]
+                    }
+                })
+                
+            self.client.upsert(
+                collection_name=self.collection_name,
+                points=points
+            )
+            batch_num = i // batch_size + 1
+            total_batches = (total + batch_size - 1) // batch_size
+            print(f"    Batch {batch_num}/{total_batches} ({len(batch)} transcripts) upserted.")
+
+    def upsert_slides(self, slides: List[dict], batch_size: int = 64):
+        if not slides:
+            return
+            
+        total = len(slides)
+        print(f"  Upserting {total} slides in batches of {batch_size}...")
+        for i in range(0, total, batch_size):
+            batch = slides[i : i + batch_size]
+            texts = [s["text"] for s in batch]
+            dense_vecs, sparse_vecs = embedding_service.embed_texts(texts)
+            
+            points = []
+            for s, dense_emb, sparse_emb in zip(batch, dense_vecs, sparse_vecs):
+                points.append({
+                    "id": str(uuid.uuid4()),
+                    "vector": {
+                        "dense": dense_emb.tolist(),
+                        "sparse": {
+                            "indices": sparse_emb.indices.tolist(),
+                            "values": sparse_emb.values.tolist()
+                        }
+                    },
+                    "payload": {
+                        "type": "slide",
+                        "source": s.get("source", "slide.pdf"),
+                        "slide_page": s.get("page_number", 0),
+                        "text": s["text"]
+                    }
+                })
+                
+            self.client.upsert(
+                collection_name=self.collection_name,
+                points=points
+            )
+            batch_num = i // batch_size + 1
+            total_batches = (total + batch_size - 1) // batch_size
+            print(f"    Batch {batch_num}/{total_batches} ({len(batch)} slides) upserted.")
+
+    def search_structured_context(self, query: str, slide_limit: int = 2, transcript_limit: int = 4) -> Dict[str, List[dict]]:
+        if not self.client.collection_exists(self.collection_name):
+            return {"slides": [], "transcripts": []}
+
+        dense_queries, sparse_queries = embedding_service.embed_texts([query])
+        dense_query = dense_queries[0]
+        sparse_query = sparse_queries[0]
+
+        def query_by_type(doc_type: str, limit: int):
+            type_filter = models.Filter(
+                must=[models.FieldCondition(key="type", match=models.MatchValue(value=doc_type))]
+            )
+            prefetch_dense = models.Prefetch(
+                query=dense_query.tolist(),
+                using="dense",
+                filter=type_filter,
+                limit=10
+            )
+            prefetch_sparse = models.Prefetch(
+                query=models.SparseVector(
+                    indices=sparse_query.indices.tolist(),
+                    values=sparse_query.values.tolist()
+                ),
+                using="sparse",
+                filter=type_filter,
+                limit=10
+            )
+            res = self.client.query_points(
+                collection_name=self.collection_name,
+                prefetch=[prefetch_dense, prefetch_sparse],
+                query=models.FusionQuery(fusion=models.Fusion.RRF),
+                limit=limit
+            )
+            return [p.payload for p in res.points]
+
+        slides = query_by_type("slide", slide_limit)
+        if not slides:
+            slides = query_by_type("chunk", slide_limit)
+
+        transcripts = query_by_type("transcript", transcript_limit)
+
+        return {
+            "slides": slides,
+            "transcripts": transcripts
+        }
 
     def search_hybrid(self, query: str, limit: int = 3) -> List[str]:
         if not self.client.collection_exists(self.collection_name):

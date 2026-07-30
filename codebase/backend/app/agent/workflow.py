@@ -123,9 +123,8 @@ def process_quiz_workflow(
                 "error": f"Không tìm thấy Knowledge Component (kc_id={kc_id}, slide_page={slide_page}) và không có yêu cầu cụ thể để tìm kiếm tự do."
             }
         
-        # Fallback Semantic Search: Gom RAG để tạo KC động
-        retrieved_chunks = vector_store.search_hybrid(user_prompt, limit=3)
-        transcripts_text = "\n\n".join(retrieved_chunks) if retrieved_chunks else "No content retrieved."
+        # Fallback Semantic Search: Gom RAG phân loại để tạo KC động
+        transcripts_text = retrieve_context_tool(user_prompt)
         
         # Tạo KC "ảo" (Ad-hoc)
         kc = {

@@ -33,3 +33,11 @@ class QuizPayload(BaseModel):
 class QuizGenerateResponse(BaseModel):
     quiz: QuizPayload
     guardrail_warnings: Optional[List[str]] = []
+
+
+# === Ingestion ===
+class IngestResponse(BaseModel):
+    status: str
+    filename: str
+    count: int
+    message: str
