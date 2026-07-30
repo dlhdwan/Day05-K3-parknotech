@@ -17,7 +17,7 @@ class VectorStoreService:
         self.client.create_collection(
             collection_name=self.collection_name,
             vectors_config={
-                "dense": models.VectorParams(size=384, distance=models.Distance.COSINE)
+                "dense": models.VectorParams(size=1024, distance=models.Distance.COSINE)
             },
             sparse_vectors_config={
                 "sparse": models.SparseVectorParams()
@@ -143,7 +143,7 @@ class VectorStoreService:
         dense_query = dense_queries[0]
         sparse_query = sparse_queries[0]
 
-        def query_by_type(doc_type: str, limit: int):
+        def query_candidates_by_type(doc_type: str, fetch_limit: int = 15):
             type_filter = models.Filter(
                 must=[models.FieldCondition(key="type", match=models.MatchValue(value=doc_type))]
             )
@@ -151,7 +151,7 @@ class VectorStoreService:
                 query=dense_query.tolist(),
                 using="dense",
                 filter=type_filter,
-                limit=10
+                limit=fetch_limit
             )
             prefetch_sparse = models.Prefetch(
                 query=models.SparseVector(
@@ -160,21 +160,23 @@ class VectorStoreService:
                 ),
                 using="sparse",
                 filter=type_filter,
-                limit=10
+                limit=fetch_limit
             )
             res = self.client.query_points(
                 collection_name=self.collection_name,
                 prefetch=[prefetch_dense, prefetch_sparse],
                 query=models.FusionQuery(fusion=models.Fusion.RRF),
-                limit=limit
+                limit=fetch_limit
             )
             return [p.payload for p in res.points]
 
-        slides = query_by_type("slide", slide_limit)
-        if not slides:
-            slides = query_by_type("chunk", slide_limit)
+        slide_candidates = query_candidates_by_type("slide", fetch_limit=10)
+        if not slide_candidates:
+            slide_candidates = query_candidates_by_type("chunk", fetch_limit=10)
+        slides = embedding_service.rerank(query, slide_candidates, text_key="text", top_k=slide_limit)
 
-        transcripts = query_by_type("transcript", transcript_limit)
+        transcript_candidates = query_candidates_by_type("transcript", fetch_limit=15)
+        transcripts = embedding_service.rerank(query, transcript_candidates, text_key="text", top_k=transcript_limit)
 
         return {
             "slides": slides,

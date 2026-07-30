@@ -3,20 +3,27 @@ import re
 from typing import Optional
 
 from app.agent.tools import retrieve_context_tool
-from app.agent.prompts import QUIZ_SYSTEM_PROMPT, QUIZ_RETRY_PROMPT
-from app.agent.guardrails import check_option_length_ratio, validate_quiz_schema
+from app.agent.prompts import QUIZ_SYSTEM_PROMPT, CHAT_SYSTEM_PROMPT, QUIZ_RETRY_PROMPT
+from app.agent.guardrails import (
+    check_option_length_ratio,
+    validate_quiz_schema,
+    check_citation_format,
+    check_forbidden_keywords
+)
 from app.services.llm import llm_service
 from app.services.kc_catalog import get_kc_by_id, get_kc_by_slide_page
 from app.services.vector_store import vector_store
 
+# List các từ khóa cấm toàn cục để lọc post-processing
+GLOBAL_FORBIDDEN_WORDS = ["Kernel 3x3", "cổ phiếu"]
+
 # ============================
-# Chat Workflow (giữ nguyên)
+# Chat Workflow
 # ============================
 def process_chat_workflow(query: str):
     context_str = retrieve_context_tool(query)
 
-    prompt = f"""Dựa vào các đoạn tài liệu sau đây, hãy đóng vai là VLearn Tutor để trả lời câu hỏi của người dùng hoặc tạo bài kiểm tra nhanh theo yêu cầu.
-Nếu thông tin không có trong tài liệu, hãy nói rõ là bạn không biết.
+    prompt = f"""{CHAT_SYSTEM_PROMPT}
 
 Tài liệu:
 {context_str}
@@ -24,6 +31,12 @@ Tài liệu:
 Yêu cầu/Câu hỏi của người dùng: {query}
 """
     answer = llm_service.generate(prompt)
+
+    # Post-processing Guardrail check & Retry cho Chat if forbidden words are found
+    passed_forbidden, warnings = check_forbidden_keywords(answer, GLOBAL_FORBIDDEN_WORDS)
+    if not passed_forbidden:
+        retry_prompt = prompt + f"\n\nLƯU Ý CẤP BÁCH: Câu trả lời trước bị từ chối vì chứa từ khóa cấm ({', '.join(GLOBAL_FORBIDDEN_WORDS)}). Hãy tạo lại câu trả lời TUYỆT ĐỐI KHÔNG DÙNG CÁC TỪ CẤM NÀY."
+        answer = llm_service.generate(retry_prompt)
 
     return {
         "answer": answer,
@@ -61,12 +74,11 @@ def _extract_json(raw: str) -> Optional[dict]:
     return None
 
 
-from app.services.vector_store import vector_store
-
 def _build_user_prompt(kc: dict, transcripts_text: str, user_prompt: Optional[str] = None) -> str:
     """Xây dựng user prompt từ KC metadata."""
     forbidden = kc.get('forbidden_keywords', [])
-    forbidden_str = f"Tuyệt đối KHÔNG sử dụng các từ khóa sau trong câu hỏi, đáp án hay giải thích: {', '.join(forbidden)}\n" if forbidden else ""
+    all_forbidden = list(set(forbidden + GLOBAL_FORBIDDEN_WORDS))
+    forbidden_str = f"Tuyệt đối KHÔNG sử dụng các từ khóa sau trong câu hỏi, đáp án hay giải thích: {', '.join(all_forbidden)}\n" if all_forbidden else ""
 
     out_of_scope_str = ""
     if user_prompt:
@@ -104,7 +116,7 @@ def process_quiz_workflow(
     1. Lookup KC từ catalog (theo kc_id hoặc slide_page)
     2. Build prompt với System Prompt + KC context
     3. Gọi LLM sinh JSON
-    4. Chạy Guardrails (Schema + Option Length Ratio)
+    4. Chạy Guardrails (Schema + Option Length Ratio + Citation Format + Forbidden Words)
     5. Nếu fail → Retry với stricter prompt (tối đa 1 lần)
     6. Trả về quiz payload + warnings
     """
@@ -147,6 +159,7 @@ def process_quiz_workflow(
     full_prompt = QUIZ_SYSTEM_PROMPT + "\n\n" + user_prompt_str
 
     all_warnings = []
+    quiz_data = None
 
     for attempt in range(1 + max_retries):
         # 3. Gọi LLM
@@ -165,10 +178,11 @@ def process_quiz_workflow(
         # 5. Guardrails
         schema_ok, schema_warnings = validate_quiz_schema(quiz_data)
         ratio_ok, ratio_warnings = check_option_length_ratio(quiz_data.get("questions", []))
+        citation_ok, citation_warnings = check_citation_format(quiz_data)
 
-        current_warnings = schema_warnings + ratio_warnings
+        current_warnings = schema_warnings + ratio_warnings + citation_warnings
 
-        if schema_ok and ratio_ok:
+        if schema_ok and ratio_ok and citation_ok:
             # Pass! Trả về kết quả
             return {
                 "quiz": quiz_data,
@@ -194,3 +208,4 @@ def process_quiz_workflow(
             "error": "Agent không thể sinh quiz hợp lệ sau tất cả các lần thử.",
             "guardrail_warnings": all_warnings
         }
+
