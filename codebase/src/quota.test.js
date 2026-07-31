@@ -12,25 +12,25 @@ test('getQuotaState initializes daily quiz quota with defaults', () => {
   assert.deepEqual(getQuotaState(storage, '2026-07-30'), {
     date: '2026-07-30',
     used: 0,
-    limit: 15,
-    remaining: 15,
+    limit: 999999,
+    remaining: 999999,
     exhausted: false,
   });
 });
 
-test('recordQuizGeneration increments used quota and reports exhausted', () => {
+test('recordQuizGeneration increments used quota without exhausting', () => {
   const storage = createMemoryStorage({
     'vlearn.quizQuota.date': '2026-07-30',
     'vlearn.quizQuota.used': '14',
-    'vlearn.quizQuota.limit': '15',
+    'vlearn.quizQuota.limit': '999999',
   });
 
   assert.deepEqual(recordQuizGeneration(storage, '2026-07-30'), {
     date: '2026-07-30',
     used: 15,
-    limit: 15,
-    remaining: 0,
-    exhausted: true,
+    limit: 999999,
+    remaining: 999999,
+    exhausted: false,
   });
 });
 

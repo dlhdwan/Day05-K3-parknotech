@@ -4,7 +4,7 @@ const QUOTA_KEYS = {
   limit: 'vlearn.quizQuota.limit',
 };
 
-const DEFAULT_LIMIT = 15;
+const DEFAULT_LIMIT = 999999;
 
 export function todayKey(date = new Date()) {
   return date.toISOString().slice(0, 10);
@@ -32,7 +32,7 @@ export function getQuotaState(storage, currentDate = todayKey()) {
   const storedDate = storage.getItem(QUOTA_KEYS.date);
   const limit = readPositiveInt(storage.getItem(QUOTA_KEYS.limit), DEFAULT_LIMIT);
   const used = storedDate === currentDate
-    ? Math.min(readPositiveInt(storage.getItem(QUOTA_KEYS.used), 0), limit)
+    ? readPositiveInt(storage.getItem(QUOTA_KEYS.used), 0)
     : 0;
 
   if (storedDate !== currentDate) {
@@ -45,14 +45,14 @@ export function getQuotaState(storage, currentDate = todayKey()) {
     date: currentDate,
     used,
     limit,
-    remaining: Math.max(limit - used, 0),
-    exhausted: used >= limit,
+    remaining: 999999,
+    exhausted: false,
   };
 }
 
 export function recordQuizGeneration(storage, currentDate = todayKey()) {
   const current = getQuotaState(storage, currentDate);
-  const used = Math.min(current.used + 1, current.limit);
+  const used = current.used + 1;
 
   storage.setItem(QUOTA_KEYS.date, currentDate);
   storage.setItem(QUOTA_KEYS.used, String(used));
@@ -61,7 +61,7 @@ export function recordQuizGeneration(storage, currentDate = todayKey()) {
   return {
     ...current,
     used,
-    remaining: Math.max(current.limit - used, 0),
-    exhausted: used >= current.limit,
+    remaining: 999999,
+    exhausted: false,
   };
 }
