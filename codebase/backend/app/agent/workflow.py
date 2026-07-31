@@ -390,13 +390,13 @@ def process_quiz_workflow(
         current_warnings = schema_warnings + ratio_warnings + citation_warnings
 
         if schema_ok and ratio_ok and citation_ok:
-            # Pass! Trả về kết quả
+            # Pass! Tất cả guardrail đều đã đạt chuẩn ở lần sinh này -> Không còn cảnh báo nào
             return {
                 "quiz": quiz_data,
-                "guardrail_warnings": all_warnings + current_warnings
+                "guardrail_warnings": []
             }
 
-        # Fail → Retry
+        # Fail → Tích lũy vào audit log và dùng current_warnings để bắt AI sinh lại
         all_warnings.extend(current_warnings)
 
         if attempt < max_retries:
@@ -404,11 +404,11 @@ def process_quiz_workflow(
                 warnings="; ".join(current_warnings)
             )
 
-    # Hết retry, trả về kết quả cuối cùng kèm warnings
+    # Hết retry, trả về kết quả cuối cùng kèm warnings còn sót lại
     if quiz_data:
         return {
             "quiz": quiz_data,
-            "guardrail_warnings": all_warnings
+            "guardrail_warnings": current_warnings
         }
     else:
         return {
