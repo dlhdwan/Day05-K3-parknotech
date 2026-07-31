@@ -1,6 +1,6 @@
 import { normalizeQuizPackage } from './quizUtils.js';
 
-const DEFAULT_API_BASE_URL = 'http://localhost:8000';
+const DEFAULT_API_BASE_URL = '';
 
 function trimTrailingSlash(value) {
   return value.replace(/\/+$/, '');
@@ -66,6 +66,12 @@ export function createApiClient({
       }
 
       return normalizeQuizPackage(await postJson('/api/quiz/generate', body));
+    },
+
+    async getTranscript(transcriptId) {
+      const cleanId = encodeURIComponent(String(transcriptId).replace(/[\[\]]/g, ''));
+      const response = await fetchImpl(`${apiBaseUrl}/api/transcript/${cleanId}`);
+      return await readJson(response);
     },
   };
 }

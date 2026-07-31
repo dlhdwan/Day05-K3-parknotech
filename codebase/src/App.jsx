@@ -7,9 +7,11 @@ import {
   ChevronRight,
   HelpCircle,
   MessageSquare,
+  RotateCcw,
   Send,
   Sparkles,
   FileText,
+  X,
 } from 'lucide-react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import ReactMarkdown from 'react-markdown';
@@ -84,6 +86,98 @@ function buildQuizConversationContext(messages) {
     .slice(-6)
     .map((message) => `${message.role === 'user' ? 'Học viên' : 'VLearn Tutor'}: ${message.content}`)
     .join('\n');
+}
+
+function CitationModal({ activeCitation, onClose }) {
+  const [loading, setLoading] = useState(false);
+  const [detailText, setDetailText] = useState('');
+
+  useEffect(() => {
+    if (!activeCitation) return;
+    const cid = typeof activeCitation === 'string' ? activeCitation : activeCitation.id;
+    const initialText = typeof activeCitation === 'object' ? activeCitation.text : '';
+
+    if (initialText && initialText !== 'Nội dung thuộc bài giảng gốc') {
+      setDetailText(initialText);
+      setLoading(false);
+      return;
+    }
+
+    const cleanId = cid.replace(/[\[\]]/g, '');
+    setLoading(true);
+    apiClient.getTranscript(cleanId)
+      .then((res) => {
+        if (res?.text) setDetailText(res.text);
+        else setDetailText('Không tìm thấy dữ liệu đoạn trích này trong kho bài giảng.');
+      })
+      .catch(() => {
+        setDetailText('Không thể lấy được dữ liệu trích dẫn.');
+      })
+      .finally(() => setLoading(false));
+  }, [activeCitation]);
+
+  if (!activeCitation) return null;
+  const citationId = typeof activeCitation === 'string' ? activeCitation : activeCitation.id;
+
+  return (
+    <div className="modal-backdrop" onClick={onClose}>
+      <div className="modal-content citation-modal" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-header">
+          <div className="modal-title">
+            <FileText size={18} className="modal-icon" />
+            <span>Trích dẫn nguyên văn bài giảng gốc: <strong>{citationId}</strong></span>
+          </div>
+          <button className="icon-btn" onClick={onClose} type="button" title="Đóng">
+            <X size={18} />
+          </button>
+        </div>
+        <div className="modal-body">
+          {loading ? (
+            <div className="modal-loading">Đang tải trích đoạn bài giảng...</div>
+          ) : (
+            <div className="citation-quote-box">
+              <span className="quote-badge">{citationId}</span>
+              <p className="quote-text">"{detailText}"</p>
+            </div>
+          )}
+        </div>
+        <div className="modal-footer">
+          <button className="btn-primary" onClick={onClose} type="button">Đóng cửa sổ</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function processChildrenForCitations(children, onOpenCitation) {
+  if (!children) return children;
+  if (typeof children === 'string') {
+    const regex = /(\[T\d{2}-\d{3}\]|\[[\w\.-]+\.pdf\s*-\s*(?:Page\s*)?\d+\])/gi;
+    const parts = children.split(regex);
+    if (parts.length === 1) return children;
+    return parts.map((part, idx) => {
+      if (/^\[(T\d{2}-\d{3}|[\w\.-]+\.pdf\s*-\s*(?:Page\s*)?\d+)\]$/i.test(part)) {
+        return (
+          <button
+            key={idx}
+            className="citation-badge-link"
+            onClick={() => onOpenCitation(part)}
+            type="button"
+            title={`Bấm để xem trích dẫn nguyên văn ${part}`}
+          >
+            🏷️ {part}
+          </button>
+        );
+      }
+      return part;
+    });
+  }
+  if (Array.isArray(children)) {
+    return children.map((child, i) => (
+      <span key={i}>{processChildrenForCitations(child, onOpenCitation)}</span>
+    ));
+  }
+  return children;
 }
 
 function CourseSidebar({ selectedFileId, onSelectFile }) {
@@ -295,6 +389,7 @@ function QuizSlide({
   loading,
   error,
   guardrailWarnings,
+  onOpenCitation,
 }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState({});
@@ -430,9 +525,31 @@ function QuizSlide({
         </div>
         {isSubmitted && (
           <div className={`quiz-slide-explanation ${isCorrect ? 'correct' : 'incorrect'}`}>
-            <strong>{isCorrect ? 'Chính xác.' : 'Chưa chính xác.'}</strong> {question.explanation}
-            {shouldAppendCitation(question.explanation, question.citation) && (
-              <span className="citation">{question.citation}</span>
+            <div style={{ marginBottom: '8px' }}>
+              <strong>{isCorrect ? 'Chính xác.' : 'Chưa chính xác.'}</strong> {question.explanation}
+            </div>
+            {question.citation && (
+              <div className="citation-evidence-card">
+                <div className="citation-header">
+                  <FileText size={14} /> <span>Minh chứng bài giảng gốc:</span>
+                </div>
+                <div className="citation-text">
+                  {(() => {
+                    const match = String(question.citation).match(/(\[T\d{2}-\d{3}\]|\[[\w\.-]+\.pdf\s*-\s*(?:Page\s*)?\d+\])/i);
+                    const tag = match ? match[1] : String(question.citation).trim();
+                    return (
+                      <button
+                        className="citation-badge-link"
+                        onClick={() => onOpenCitation?.(tag)}
+                        type="button"
+                        title={`Bấm để xem trích dẫn nguyên văn ${tag}`}
+                      >
+                        🏷️ Xem trích dẫn nguyên văn {tag}
+                      </button>
+                    );
+                  })()}
+                </div>
+              </div>
             )}
           </div>
         )}
@@ -472,16 +589,16 @@ function QuizSlide({
   );
 }
 
-function QuotaMeter({ quota }) {
+function QuotaMeter() {
   return (
     <div className="quota-bar">
       <span>Quota tạo quiz hôm nay</span>
-      <span><strong>{quota.remaining}/{quota.limit}</strong> lượt <span className="byok">LOCAL</span></span>
+      <span><strong>Không giới hạn (∞)</strong> <span className="byok">LOCAL</span></span>
     </div>
   );
 }
 
-function TutorSidebar({ messages, input, onInputChange, onSend, loading, canGenerateQuiz, onGenerateQuiz }) {
+function TutorSidebar({ messages, input, onInputChange, onSend, loading, canGenerateQuiz, onGenerateQuiz, onResetChat, onOpenCitation }) {
   return (
     <aside className="tutor-sidebar">
       <div className="tutor-header">
@@ -494,6 +611,15 @@ function TutorSidebar({ messages, input, onInputChange, onSend, loading, canGene
             <span>Trợ lý học theo ngữ cảnh</span>
           </div>
         </div>
+        <button
+          className="icon-btn"
+          onClick={onResetChat}
+          title="Xóa lịch sử & Đặt lại khung chat"
+          type="button"
+          style={{ marginLeft: 'auto' }}
+        >
+          <RotateCcw size={16} />
+        </button>
       </div>
 
       <div className="chat-history">
@@ -503,7 +629,19 @@ function TutorSidebar({ messages, input, onInputChange, onSend, loading, canGene
             <div className="message-stack">
               <div className="msg-bubble">
                 <div className="msg-content">
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{message.text}</ReactMarkdown>
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                      p({ children }) {
+                        return <p>{processChildrenForCitations(children, onOpenCitation)}</p>;
+                      },
+                      li({ children }) {
+                        return <li>{processChildrenForCitations(children, onOpenCitation)}</li>;
+                      }
+                    }}
+                  >
+                    {message.text}
+                  </ReactMarkdown>
                 </div>
                 {message.isQuizTrigger && (
                   <button
@@ -567,6 +705,7 @@ export function App() {
   const [messages, setMessages] = useState(loadStoredMessages);
   const [input, setInput] = useState('');
   const [chatLoading, setChatLoading] = useState(false);
+  const [activeCitation, setActiveCitation] = useState(null);
   const messagesEndRef = useRef(null);
 
   const canGenerateQuiz = useMemo(
@@ -723,6 +862,7 @@ export function App() {
               guardrailWarnings={guardrailWarnings}
               loading={quizLoading}
               onBack={() => setCenterView('pdf')}
+              onOpenCitation={(tag) => setActiveCitation(tag)}
               onRetry={() => generateQuizForSelectedFile()}
               quiz={quizPackage}
             />
@@ -738,11 +878,22 @@ export function App() {
             messages={messages}
             onGenerateQuiz={(prompt) => generateQuizForSelectedFile(prompt)}
             onInputChange={setInput}
+            onOpenCitation={(tag) => setActiveCitation(tag)}
+            onResetChat={() => {
+              setMessages([WELCOME_MESSAGE]);
+              const storage = getBrowserStorage();
+              if (storage) storage.removeItem(CHAT_STORAGE_KEY);
+            }}
             onSend={handleSend}
           />
           <div ref={messagesEndRef} />
         </div>
       </main>
+
+      <CitationModal
+        activeCitation={activeCitation}
+        onClose={() => setActiveCitation(null)}
+      />
     </div>
   );
 }
