@@ -52,9 +52,10 @@ export function createApiClient({
       });
     },
 
-    async generateQuiz({ slidePage, kcId, userPrompt, numQuestions, conversationContext } = {}) {
+    async generateQuiz({ slidePage, fileId, kcId, userPrompt, numQuestions, conversationContext } = {}) {
       const body = {};
       if (slidePage) body.slide_page = slidePage;
+      if (fileId) body.file_id = fileId;
       if (kcId) body.kc_id = kcId;
       if (userPrompt) body.user_prompt = userPrompt;
       if (numQuestions) body.num_questions = numQuestions;

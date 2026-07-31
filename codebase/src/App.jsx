@@ -608,6 +608,7 @@ export function App() {
     try {
       const result = await apiClient.generateQuiz({
         slidePage: currentPage,
+        fileId: selectedFile?.title || selectedFile?.id,
         userPrompt,
         numQuestions: extractRequestedQuestionCount(userPrompt),
         conversationContext: buildQuizConversationContext(messages),
