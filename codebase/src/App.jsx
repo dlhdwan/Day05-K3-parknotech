@@ -384,15 +384,6 @@ function DocumentViewer({
           >
             <ZoomIn size={17} />
           </button>
-          <span className="divider" />
-          <button
-            className="btn-primary toolbar-quiz-btn"
-            disabled={quota.exhausted || isGenerating}
-            onClick={() => onGenerateQuiz()}
-            type="button"
-          >
-            <Sparkles size={15} /> Tạo quiz
-          </button>
         </div>
       </div>
       <div className="pdf-content" ref={containerRef}>
@@ -443,11 +434,8 @@ function DocumentViewer({
             style={{ top: `${selection.top}px`, left: `${selection.left}px` }}
             role="toolbar"
             aria-label="Công cụ thao tác với đoạn text đã chọn"
-            onClickCapture={(event) => {
-              event.preventDefault();
-              event.stopPropagation();
-            }}
-            onMouseDownCapture={(event) => event.preventDefault()}
+            onMouseDown={(event) => event.stopPropagation()}
+            onClick={(event) => event.stopPropagation()}
           >
             <button
               type="button"
