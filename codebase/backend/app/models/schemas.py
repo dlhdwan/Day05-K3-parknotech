@@ -21,6 +21,7 @@ class ChatResponse(BaseModel):
 
 # === Quiz Generation ===
 class QuizGenerateRequest(BaseModel):
+    file_id: Optional[str] = None
     slide_page: Optional[int] = None
     kc_id: Optional[str] = None
     user_prompt: Optional[str] = None

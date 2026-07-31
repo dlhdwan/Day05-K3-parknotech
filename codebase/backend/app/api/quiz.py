@@ -20,6 +20,7 @@ def quiz_generate_endpoint(request: QuizGenerateRequest):
         raise HTTPException(status_code=400, detail="Cần cung cấp slide_page hoặc kc_id")
 
     result = process_quiz_workflow(
+        file_id=request.file_id,
         slide_page=request.slide_page,
         kc_id=request.kc_id,
         user_prompt=request.user_prompt,
