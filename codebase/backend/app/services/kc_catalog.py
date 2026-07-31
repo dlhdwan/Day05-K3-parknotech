@@ -14,8 +14,17 @@ def get_kc_by_id(kc_id: str) -> Optional[dict]:
             return kc
     return None
 
-def get_kc_by_slide_page(slide_page: int) -> Optional[dict]:
-    for kc in _load_catalog():
+def get_kc_by_slide_page(slide_page: int, file_id: Optional[str] = None) -> Optional[dict]:
+    catalog = _load_catalog()
+    if file_id:
+        file_id_clean = file_id.lower().replace(".pdf", "")
+        for kc in catalog:
+            kc_file = str(kc.get("file_id", "")).lower().replace(".pdf", "")
+            if kc_file and (file_id_clean in kc_file or kc_file in file_id_clean):
+                if slide_page in kc.get("slide_pages", []):
+                    return kc
+
+    for kc in catalog:
         if slide_page in kc.get("slide_pages", []):
             return kc
     return None
