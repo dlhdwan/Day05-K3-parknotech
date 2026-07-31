@@ -11,6 +11,7 @@ def chat_endpoint(request: ChatRequest):
         history=[message.model_dump() for message in request.history],
         file_id=request.file_id,
         slide_page=request.slide_page,
+        selected_text=request.selected_text,
     )
     return ChatResponse(
         answer=result["answer"],

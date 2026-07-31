@@ -10,6 +10,8 @@ import {
   Send,
   Sparkles,
   FileText,
+  ZoomIn,
+  ZoomOut,
 } from 'lucide-react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import ReactMarkdown from 'react-markdown';
@@ -22,10 +24,16 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   import.meta.url,
 ).toString();
 
-import { apiClient } from './api.js';
-import { courseModules, defaultFile } from './courseContent.js';
+import { apiClient, getSlideUrl } from './api.js';
+import { courseModules, defaultFile, getKnowledgeComponentForPage } from './courseContent.js';
+import {
+  buildSelectionAskPrompt,
+  buildSelectionQuizPrompt,
+  createSelectionToolbarState,
+} from './selectionToolbar.js';
 import {
   calculateQuizResult,
+  describeQuizError,
   extractRequestedQuestionCount,
   shouldAppendCitation,
 } from './quizUtils.js';
@@ -86,6 +94,26 @@ function buildQuizConversationContext(messages) {
     .join('\n');
 }
 
+function buildQuizLearningContext(messages, file, currentPage, knowledgeComponent) {
+  const learningContext = [
+    `Current file_id: ${file?.id || 'unknown'}`,
+    `Current file_title: ${file?.title || 'unknown'}`,
+    `Current slide_page: ${currentPage || 'unknown'}`,
+  ];
+
+  if (knowledgeComponent) {
+    learningContext.push(`Current KC ID: ${knowledgeComponent.kcId}`);
+    learningContext.push(`Current KC Title: ${knowledgeComponent.title}`);
+  }
+
+  const conversationContext = buildQuizConversationContext(messages);
+  if (conversationContext) {
+    learningContext.push(`Recent conversation:\n${conversationContext}`);
+  }
+
+  return learningContext.join('\n');
+}
+
 function CourseSidebar({ selectedFileId, onSelectFile }) {
   return (
     <aside className="left-sidebar">
@@ -118,12 +146,24 @@ function CourseSidebar({ selectedFileId, onSelectFile }) {
   );
 }
 
-function DocumentViewer({ file, currentPage, setCurrentPage, quota, onGenerateQuiz, isGenerating, onAskAI }) {
+function DocumentViewer({
+  file,
+  currentPage,
+  setCurrentPage,
+  quota,
+  onGenerateQuiz,
+  isGenerating,
+  onAskAI,
+  currentKnowledgeComponent,
+}) {
   const [selection, setSelection] = useState(null);
   const [numPages, setNumPages] = useState(null);
   const [pageWidth, setPageWidth] = useState(900);
+  const [zoom, setZoom] = useState(1);
   const containerRef = useRef(null);
   const pageRefs = useRef([]);
+  const renderedPageWidth = Math.round(pageWidth * zoom);
+  const zoomPercent = Math.round(zoom * 100);
 
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
@@ -132,6 +172,7 @@ function DocumentViewer({ file, currentPage, setCurrentPage, quota, onGenerateQu
 
   useEffect(() => {
     setNumPages(null);
+    setZoom(1);
     pageRefs.current = [];
     containerRef.current?.scrollTo({ top: 0 });
   }, [file.id]);
@@ -180,6 +221,10 @@ function DocumentViewer({ file, currentPage, setCurrentPage, quota, onGenerateQu
     pageRefs.current[nextPage - 1]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
 
+  const zoomOut = () => setZoom((value) => Math.max(0.6, Number((value - 0.1).toFixed(2))));
+  const zoomIn = () => setZoom((value) => Math.min(1.8, Number((value + 0.1).toFixed(2))));
+  const resetZoom = () => setZoom(1);
+
   useEffect(() => {
     const handleSelection = () => {
       const activeSelection = window.getSelection();
@@ -198,11 +243,11 @@ function DocumentViewer({ file, currentPage, setCurrentPage, quota, onGenerateQu
         const range = activeSelection.getRangeAt(0);
         const rect = range.getBoundingClientRect();
 
-        setSelection({
+        setSelection(createSelectionToolbarState({
           text,
-          top: rect.top - 45,
-          left: rect.left + (rect.width / 2)
-        });
+          rect,
+          isInsideViewer: true,
+        }));
       }
     };
 
@@ -212,10 +257,54 @@ function DocumentViewer({ file, currentPage, setCurrentPage, quota, onGenerateQu
 
   return (
     <>
+      <div className="pdf-toolbar" aria-label="Công cụ xem PDF">
+        <div className="pdf-toolbar-main">
+          <div className="pdf-toolbar-title" title={file.title}>
+            <FileText size={16} />
+            <span>{file.title}</span>
+          </div>
+          <span className="toolbar-text">Slide {currentPage}{numPages ? ` / ${numPages}` : ''}</span>
+          <span className={`kc-chip ${currentKnowledgeComponent ? 'mapped' : ''}`}>
+            {currentKnowledgeComponent?.title || 'Chưa map KC'}
+          </span>
+        </div>
+        <div className="pdf-toolbar-actions">
+          <button
+            className="icon-btn"
+            disabled={zoom <= 0.6}
+            onClick={zoomOut}
+            title="Thu nhỏ"
+            type="button"
+          >
+            <ZoomOut size={17} />
+          </button>
+          <button className="tb-btn zoom-reset" onClick={resetZoom} type="button">
+            {zoomPercent}%
+          </button>
+          <button
+            className="icon-btn"
+            disabled={zoom >= 1.8}
+            onClick={zoomIn}
+            title="Phóng to"
+            type="button"
+          >
+            <ZoomIn size={17} />
+          </button>
+          <span className="divider" />
+          <button
+            className="btn-primary toolbar-quiz-btn"
+            disabled={quota.exhausted || isGenerating}
+            onClick={() => onGenerateQuiz()}
+            type="button"
+          >
+            <Sparkles size={15} /> Tạo quiz
+          </button>
+        </div>
+      </div>
       <div className="pdf-content" ref={containerRef}>
         <Document
           key={file.id}
-          file={`/slides/${file.title}`}
+          file={getSlideUrl(file.title)}
           onLoadSuccess={onDocumentLoadSuccess}
           loading={<div className="pdf-loading"><div className="loading-dots"><span /><span /><span /></div><span>Đang tải slide...</span></div>}
           className="react-pdf-document"
@@ -232,7 +321,7 @@ function DocumentViewer({ file, currentPage, setCurrentPage, quota, onGenerateQu
                 <span className="slide-page-label">Slide {pageNumber}</span>
                 <Page
                   pageNumber={pageNumber}
-                  width={pageWidth}
+                  width={renderedPageWidth}
                   renderTextLayer={true}
                   renderAnnotationLayer={true}
                   className="react-pdf-page"
@@ -256,25 +345,35 @@ function DocumentViewer({ file, currentPage, setCurrentPage, quota, onGenerateQu
 
         {selection && (
           <div
-            className="selection-popup"
+            className="selection-popup selection-toolbar"
             style={{ top: `${selection.top}px`, left: `${selection.left}px` }}
+            role="toolbar"
+            aria-label="Công cụ thao tác với đoạn text đã chọn"
+            onClickCapture={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+            }}
+            onMouseDownCapture={(event) => event.preventDefault()}
           >
             <button
               type="button"
               className="popup-btn primary"
               onClick={() => {
-                onGenerateQuiz(`Tạo câu hỏi về: "${selection.text}"`);
+                onGenerateQuiz({
+                  selectedText: selection.text,
+                  userPrompt: buildSelectionQuizPrompt(selection.text),
+                });
                 window.getSelection().removeAllRanges();
                 setSelection(null);
               }}
             >
-              <Sparkles size={14} /> Tạo câu hỏi
+              <Sparkles size={14} /> Tạo quiz
             </button>
             <button
               type="button"
               className="popup-btn outline"
               onClick={() => {
-                onAskAI(`Giải thích cho tôi đoạn này: "${selection.text}"`);
+                onAskAI(selection.text);
                 window.getSelection().removeAllRanges();
                 setSelection(null);
               }}
@@ -324,6 +423,8 @@ function QuizSlide({
   }
 
   if (error) {
+    const errorDetails = describeQuizError(error);
+
     return (
       <div className="quiz-slide-container">
         <div className="quiz-slide-header">
@@ -331,7 +432,9 @@ function QuizSlide({
           <span className="quiz-slide-title"><Sparkles size={16} /> Không tạo được quiz</span>
         </div>
         <div className="state-panel error">
-          <strong>{error}</strong>
+          <strong>{errorDetails.title}</strong>
+          <p>{error}</p>
+          <span className="state-hint">{errorDetails.action}</span>
           <div className="state-actions">
             <button className="btn-secondary" onClick={onBack} type="button">Quay lại</button>
             <button className="btn-primary" onClick={onRetry} type="button">Thử lại</button>
@@ -357,6 +460,19 @@ function QuizSlide({
   const hasAnsweredCurrent = answers[currentQuestion] !== undefined;
   const isCorrect = answers[currentQuestion] === question.correct_index;
   const isSubmitted = submittedQuestions[currentQuestion];
+
+  const retryCurrentQuestion = () => {
+    setAnswers((prev) => {
+      const next = { ...prev };
+      delete next[currentQuestion];
+      return next;
+    });
+    setSubmittedQuestions((prev) => {
+      const next = { ...prev };
+      delete next[currentQuestion];
+      return next;
+    });
+  };
 
   const resetQuiz = () => {
     setAnswers({});
@@ -399,7 +515,12 @@ function QuizSlide({
       </div>
       {guardrailWarnings.length > 0 && (
         <div className="guardrail-banner">
-          Guardrail: {guardrailWarnings.join('; ')}
+          <strong>
+            {guardrailWarnings.some((warning) => /transcript|context|low/i.test(warning))
+              ? 'Quiz được tạo với ngữ cảnh bổ sung'
+              : 'Guardrail diagnostics'}
+          </strong>
+          <span>{guardrailWarnings.join('; ')}</span>
         </div>
       )}
       <div className="quiz-slide-body">
@@ -431,8 +552,18 @@ function QuizSlide({
         {isSubmitted && (
           <div className={`quiz-slide-explanation ${isCorrect ? 'correct' : 'incorrect'}`}>
             <strong>{isCorrect ? 'Chính xác.' : 'Chưa chính xác.'}</strong> {question.explanation}
-            {shouldAppendCitation(question.explanation, question.citation) && (
-              <span className="citation">{question.citation}</span>
+            {question.citation && (
+              <div className="citation-note">
+                {shouldAppendCitation(question.explanation, question.citation) && (
+                  <span className="citation">{question.citation}</span>
+                )}
+                <span>Vị trí bài giảng để đối chiếu lại.</span>
+              </div>
+            )}
+            {!isCorrect && (
+              <button className="btn-secondary inline-action" onClick={retryCurrentQuestion} type="button">
+                Thử lại câu này
+              </button>
             )}
           </div>
         )}
@@ -509,7 +640,7 @@ function TutorSidebar({ messages, input, onInputChange, onSend, loading, canGene
                   <button
                     className="btn-primary full-width"
                     disabled={!canGenerateQuiz}
-                    onClick={() => onGenerateQuiz(message.quizPrompt)}
+                    onClick={() => onGenerateQuiz(message.quizPrompt || message.userPrompt)}
                     type="button"
                   >
                     Bắt đầu làm Quiz <ChevronRight size={16} />
@@ -550,14 +681,14 @@ function TutorSidebar({ messages, input, onInputChange, onSend, loading, canGene
 }
 
 export function App() {
-  const initialFile = courseModules[0].files[0];
-  const [selectedFile, setSelectedFile] = useState(initialFile);
+  const [selectedFile, setSelectedFile] = useState(defaultFile);
   const [currentPage, setCurrentPage] = useState(1);
   const [centerView, setCenterView] = useState('pdf');
   const [quizPackage, setQuizPackage] = useState(null);
   const [guardrailWarnings, setGuardrailWarnings] = useState([]);
   const [quizLoading, setQuizLoading] = useState(false);
   const [quizError, setQuizError] = useState('');
+  const [lastQuizPrompt, setLastQuizPrompt] = useState({});
   const [quota, setQuota] = useState(() => {
     const storage = getBrowserStorage();
     return storage
@@ -572,6 +703,10 @@ export function App() {
   const canGenerateQuiz = useMemo(
     () => !quota.exhausted && !quizLoading,
     [quota.exhausted, quizLoading],
+  );
+  const currentKnowledgeComponent = useMemo(
+    () => getKnowledgeComponentForPage(selectedFile.id, currentPage),
+    [selectedFile.id, currentPage],
   );
 
   useEffect(() => {
@@ -592,7 +727,13 @@ export function App() {
     setGuardrailWarnings([]);
   };
 
-  const generateQuizForSelectedFile = async (userPrompt) => {
+  const generateQuizForSelectedFile = async (request = {}) => {
+    const quizRequest = typeof request === 'string' ? { userPrompt: request } : (request || {});
+    const promptForRequest = quizRequest.userPrompt?.trim() || '';
+    const selectedText = quizRequest.selectedText?.trim() || '';
+    const effectiveUserPrompt = promptForRequest || (selectedText ? buildSelectionQuizPrompt(selectedText) : '');
+    setLastQuizPrompt({ userPrompt: promptForRequest, selectedText });
+
     if (!canGenerateQuiz) {
       setQuizError('Quota tạo quiz hôm nay đã hết hoặc request đang chạy.');
       setCenterView('quiz');
@@ -607,11 +748,18 @@ export function App() {
 
     try {
       const result = await apiClient.generateQuiz({
+        fileId: selectedFile.id,
         slidePage: currentPage,
-        fileId: selectedFile?.title || selectedFile?.id,
-        userPrompt,
-        numQuestions: extractRequestedQuestionCount(userPrompt),
-        conversationContext: buildQuizConversationContext(messages),
+        kcId: currentKnowledgeComponent?.kcId,
+        userPrompt: effectiveUserPrompt || undefined,
+        selectedText: selectedText || undefined,
+        numQuestions: extractRequestedQuestionCount(promptForRequest),
+        conversationContext: buildQuizLearningContext(
+          messages,
+          selectedFile,
+          currentPage,
+          currentKnowledgeComponent,
+        ),
       });
       setQuizPackage(result.quiz);
       setGuardrailWarnings(result.guardrailWarnings);
@@ -629,12 +777,12 @@ export function App() {
     }
   };
 
-  const handleSend = async (event) => {
-    event.preventDefault();
-    if (!input.trim()) return;
+  const sendChatMessage = async (rawText, { selectedText, forceChat = false } = {}) => {
+    const userText = rawText?.trim() || '';
+    if (!userText) return;
 
-    const userText = input.trim();
-    const asksForQuiz = /quiz|kiểm tra|kiem tra|micro-quiz|câu hỏi|cau hoi|ôn tập/i.test(userText);
+    const scopedSelectedText = selectedText?.trim() || '';
+    const asksForQuiz = !forceChat && /quiz|kiểm tra|kiem tra|micro-quiz|câu hỏi|cau hoi|ôn tập/i.test(userText);
     const history = toChatHistory(messages);
     setInput('');
     setMessages((prev) => [...prev, createMessage('user', userText)]);
@@ -656,6 +804,7 @@ export function App() {
         history,
         fileId: selectedFile.id,
         slidePage: currentPage,
+        selectedText: scopedSelectedText || undefined,
       });
       const answer = data.answer || 'Backend không trả về nội dung phản hồi.';
       setMessages((prev) => [
@@ -673,6 +822,18 @@ export function App() {
     } finally {
       setChatLoading(false);
     }
+  };
+
+  const handleSend = async (event) => {
+    event.preventDefault();
+    await sendChatMessage(input);
+  };
+
+  const handleAskAIAboutSelection = async (selectedText) => {
+    await sendChatMessage(buildSelectionAskPrompt(selectedText), {
+      selectedText,
+      forceChat: true,
+    });
   };
 
   return (
@@ -711,10 +872,11 @@ export function App() {
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
               isGenerating={quizLoading}
-              onGenerateQuiz={(text) => generateQuizForSelectedFile(text)}
+              onGenerateQuiz={(request) => generateQuizForSelectedFile(request)}
               onAskAI={(text) => {
-                setInput(text);
+                handleAskAIAboutSelection(text);
               }}
+              currentKnowledgeComponent={currentKnowledgeComponent}
               quota={quota}
             />
           ) : (
@@ -723,7 +885,7 @@ export function App() {
               guardrailWarnings={guardrailWarnings}
               loading={quizLoading}
               onBack={() => setCenterView('pdf')}
-              onRetry={() => generateQuizForSelectedFile()}
+              onRetry={() => generateQuizForSelectedFile(lastQuizPrompt)}
               quiz={quizPackage}
             />
           )}

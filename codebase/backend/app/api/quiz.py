@@ -24,14 +24,29 @@ def quiz_generate_endpoint(request: QuizGenerateRequest):
         slide_page=request.slide_page,
         kc_id=request.kc_id,
         user_prompt=request.user_prompt,
+        selected_text=request.selected_text,
         num_questions=max(1, min(request.num_questions or 3, 15)),
         conversation_context=request.conversation_context,
     )
 
     if "error" in result:
-        raise HTTPException(status_code=422, detail=result["error"])
+        raise HTTPException(
+            status_code=422,
+            detail={
+                "message": result["error"],
+                "guardrail_warnings": result.get("guardrail_warnings", []),
+            },
+        )
 
     quiz_raw = result["quiz"]
+    if "error" in quiz_raw:
+        raise HTTPException(
+            status_code=422,
+            detail={
+                "message": quiz_raw["error"],
+                "guardrail_warnings": result.get("guardrail_warnings", []),
+            },
+        )
 
     # Parse vào Pydantic models
     questions = [

@@ -13,6 +13,7 @@ class ChatRequest(BaseModel):
     history: List[ChatHistoryMessage] = Field(default_factory=list)
     file_id: Optional[str] = None
     slide_page: Optional[int] = None
+    selected_text: Optional[str] = None
 
 class ChatResponse(BaseModel):
     answer: str
@@ -25,6 +26,7 @@ class QuizGenerateRequest(BaseModel):
     slide_page: Optional[int] = None
     kc_id: Optional[str] = None
     user_prompt: Optional[str] = None
+    selected_text: Optional[str] = None
     num_questions: Optional[int] = 3
     conversation_context: Optional[str] = None
 

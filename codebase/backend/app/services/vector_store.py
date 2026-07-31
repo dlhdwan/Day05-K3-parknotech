@@ -2,7 +2,8 @@ import uuid
 from qdrant_client import QdrantClient
 from qdrant_client.http import models
 from app.core.config import settings
-from app.services.embedding import embedding_service
+from app.services.embedding import get_embedding_service
+from app.services.local_content import get_local_transcripts_by_ids
 from typing import List, Dict
 
 class VectorStoreService:
@@ -32,6 +33,7 @@ class VectorStoreService:
         print(f"  Upserting {total} chunks in batches of {batch_size}...")
         for i in range(0, total, batch_size):
             batch = chunks[i : i + batch_size]
+            embedding_service = get_embedding_service()
             dense_vecs, sparse_vecs = embedding_service.embed_texts(batch)
             
             points = []
@@ -69,6 +71,7 @@ class VectorStoreService:
         for i in range(0, total, batch_size):
             batch = transcripts[i : i + batch_size]
             texts = [t["text"] for t in batch]
+            embedding_service = get_embedding_service()
             dense_vecs, sparse_vecs = embedding_service.embed_texts(texts)
             
             points = []
@@ -106,6 +109,7 @@ class VectorStoreService:
         for i in range(0, total, batch_size):
             batch = slides[i : i + batch_size]
             texts = [s["text"] for s in batch]
+            embedding_service = get_embedding_service()
             dense_vecs, sparse_vecs = embedding_service.embed_texts(texts)
             
             points = []
@@ -139,6 +143,7 @@ class VectorStoreService:
         if not self.client.collection_exists(self.collection_name):
             return {"slides": [], "transcripts": []}
 
+        embedding_service = get_embedding_service()
         dense_queries, sparse_queries = embedding_service.embed_texts([query])
         dense_query = dense_queries[0]
         sparse_query = sparse_queries[0]
@@ -187,6 +192,7 @@ class VectorStoreService:
         if not self.client.collection_exists(self.collection_name):
             return []
 
+        embedding_service = get_embedding_service()
         dense_queries, sparse_queries = embedding_service.embed_texts([query])
         dense_query = dense_queries[0]
         sparse_query = sparse_queries[0]
@@ -217,7 +223,7 @@ class VectorStoreService:
 
     def get_transcripts_by_ids(self, transcript_ids: List[str]) -> List[str]:
         if not self.client.collection_exists(self.collection_name):
-            return []
+            return get_local_transcripts_by_ids(transcript_ids)
             
         results = self.client.scroll(
             collection_name=self.collection_name,
@@ -244,6 +250,6 @@ class VectorStoreService:
             if tid in text_map:
                 ordered_texts.append(f"[{tid}] {text_map[tid]}")
                 
-        return ordered_texts
+        return ordered_texts or get_local_transcripts_by_ids(transcript_ids)
 
 vector_store = VectorStoreService()

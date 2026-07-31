@@ -1,6 +1,7 @@
 import { normalizeQuizPackage } from './quizUtils.js';
 
 const DEFAULT_API_BASE_URL = 'http://localhost:8000';
+const DEFAULT_SLIDES_BASE_URL = 'http://localhost:8000/slides';
 
 function trimTrailingSlash(value) {
   return value.replace(/\/+$/, '');
@@ -16,6 +17,18 @@ async function readJson(response) {
 
 function toErrorMessage(data, fallback) {
   if (typeof data?.detail === 'string') return data.detail;
+  if (data?.detail && typeof data.detail === 'object') {
+    const messages = [];
+    if (typeof data.detail.message === 'string') messages.push(data.detail.message);
+    if (typeof data.detail.error === 'string') messages.push(data.detail.error);
+
+    const warnings = data.detail.guardrail_warnings || data.detail.warnings;
+    if (Array.isArray(warnings) && warnings.length > 0) {
+      messages.push(`Diagnostics: ${warnings.join('; ')}`);
+    }
+
+    if (messages.length > 0) return messages.join('\n');
+  }
   if (typeof data?.message === 'string') return data.message;
   if (typeof data?.error === 'string') return data.error;
   return fallback;
@@ -43,21 +56,23 @@ export function createApiClient({
   }
 
   return {
-    async postChat(query, { history = [], fileId, slidePage } = {}) {
+    async postChat(query, { history = [], fileId, slidePage, selectedText } = {}) {
       return postJson('/api/chat', {
         query,
         history,
         file_id: fileId,
         slide_page: slidePage,
+        selected_text: selectedText,
       });
     },
 
-    async generateQuiz({ slidePage, fileId, kcId, userPrompt, numQuestions, conversationContext } = {}) {
+    async generateQuiz({ fileId, slidePage, kcId, userPrompt, selectedText, numQuestions, conversationContext } = {}) {
       const body = {};
-      if (slidePage) body.slide_page = slidePage;
       if (fileId) body.file_id = fileId;
+      if (slidePage) body.slide_page = slidePage;
       if (kcId) body.kc_id = kcId;
       if (userPrompt) body.user_prompt = userPrompt;
+      if (selectedText) body.selected_text = selectedText;
       if (numQuestions) body.num_questions = numQuestions;
       if (conversationContext) body.conversation_context = conversationContext;
 
@@ -68,6 +83,10 @@ export function createApiClient({
       return normalizeQuizPackage(await postJson('/api/quiz/generate', body));
     },
   };
+}
+
+export function getSlideUrl(fileTitle, slidesBaseUrl = import.meta.env?.VITE_SLIDES_BASE_URL || DEFAULT_SLIDES_BASE_URL) {
+  return `${trimTrailingSlash(slidesBaseUrl)}/${encodeURIComponent(fileTitle)}`;
 }
 
 export const apiClient = createApiClient({
