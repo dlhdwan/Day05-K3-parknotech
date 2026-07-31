@@ -299,12 +299,41 @@ button:disabled {
 .pdf-toolbar {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 12px;
   padding: 8px 20px;
   background: #fff;
   border-bottom: 1px solid var(--border);
   flex-wrap: wrap;
+}
+
+.pdf-toolbar-main,
+.pdf-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.pdf-toolbar-main {
+  flex: 1;
+}
+
+.pdf-toolbar-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  max-width: min(420px, 42vw);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.pdf-toolbar-title span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .tb-btn {
@@ -320,6 +349,31 @@ button:disabled {
 .tb-btn.active {
   background: var(--blue-tint);
   color: #1e5ba3;
+}
+
+.tb-btn.zoom-reset {
+  min-width: 54px;
+  color: var(--text-main);
+  background: var(--bg-main);
+  font-variant-numeric: tabular-nums;
+}
+
+.kc-chip {
+  max-width: min(260px, 30vw);
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: #f3f4f6;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 800;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kc-chip.mapped {
+  background: #e7f7ef;
+  color: #166534;
 }
 
 .divider {
@@ -349,6 +403,19 @@ button:disabled {
   background: var(--bg-main);
 }
 
+.icon-btn:disabled,
+.pdf-pager button:disabled,
+.toolbar-quiz-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.toolbar-quiz-btn {
+  min-height: 34px;
+  padding: 0 12px;
+  white-space: nowrap;
+}
+
 .pdf-content {
   flex: 1;
   overflow: auto;
@@ -363,7 +430,8 @@ button:disabled {
 }
 
 .react-pdf-document {
-  width: 100%;
+  width: max-content;
+  min-width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -372,7 +440,7 @@ button:disabled {
 
 .pdf-page {
   width: fit-content;
-  max-width: 100%;
+  max-width: none;
   background: #fff;
   box-shadow: var(--shadow-lg);
   border-radius: 14px;
@@ -397,7 +465,7 @@ button:disabled {
 .react-pdf-page,
 .react-pdf-page canvas {
   display: block;
-  max-width: 100%;
+  max-width: none;
   height: auto !important;
 }
 
@@ -837,8 +905,14 @@ button:disabled {
   border-bottom: 1px solid #ead783;
   background: var(--warning-tint);
   color: #6b5512;
-  font-weight: 700;
   font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.guardrail-banner strong {
+  font-weight: 800;
 }
 
 .quiz-slide-body {
@@ -879,7 +953,6 @@ button:disabled {
   color: inherit;
   width: 100%;
 }
-
 .quiz-slide-option:hover:not(:disabled) {
   border-color: #b0bcc6;
   background: #fafbfc;
@@ -972,9 +1045,21 @@ button:disabled {
 
 .citation {
   display: inline-block;
-  margin-left: 8px;
   font-weight: 800;
-  opacity: 0.75;
+  opacity: 0.85;
+}
+
+.citation-note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 13px;
+}
+
+.inline-action {
+  margin-top: 14px;
 }
 
 .citation-evidence-card {
@@ -1221,6 +1306,20 @@ button:disabled {
   color: var(--danger);
 }
 
+.state-panel.error p {
+  max-width: 720px;
+  margin: 0;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+  color: #6b2f2b;
+}
+
+.state-hint {
+  max-width: 680px;
+  color: #5d6872;
+  font-size: 14px;
+}
+
 .loading-dots {
   display: flex;
   gap: 4px;
@@ -1380,6 +1479,19 @@ button:disabled {
   background: rgba(255, 255, 255, 0.9);
   border-right: 1px solid rgba(255, 255, 255, 0.6);
   border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.selection-toolbar {
+  align-items: center;
+  min-width: max-content;
+}
+
+.selection-toolbar .popup-btn.ui-only {
+  white-space: nowrap;
+}
+
+.selection-toolbar .popup-btn.ui-only:hover {
+  transform: none;
 }
 
 .popup-btn {

@@ -80,4 +80,11 @@ class EmbeddingService:
         return documents[:top_k]
 
 
-embedding_service = EmbeddingService()
+_embedding_service = None
+
+
+def get_embedding_service():
+    global _embedding_service
+    if _embedding_service is None:
+        _embedding_service = EmbeddingService()
+    return _embedding_service
